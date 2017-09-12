@@ -1,4 +1,4 @@
-<%@include file = "header.jsp" %>
+<%@include file = "./partials/header.jsp" %>
 
 <main>
     <div class="container">
@@ -11,4 +11,4 @@
     </div><!-- /.container -->
 </main>
 
-<%@include file = "footer.jsp" %>
+<%@include file = "./partials/footer.jsp" %>
