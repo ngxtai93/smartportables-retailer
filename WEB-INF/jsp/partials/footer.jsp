@@ -1,7 +1,8 @@
-<footer>
-    <div class="container">
-        <p>Tai Nguyen - CSP584</p>
-    </div>
-</footer>
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; Tai Nguyen 2017.</p>
+        </div>
+    </footer>
+</div>
 </body>
 </html>
