@@ -12,6 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <% String rootPath = request.getContextPath(); %>
 <header>
     <nav class="navbar navbar-inverse navbar-fixed-top" id="header-bar">
         <div class="container">
@@ -23,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/csj/">SmartPortables</a>
+                <a class="navbar-brand" href="<%=rootPath%>">SmartPortables</a>
             </div>
             <div class="collapse navbar-collapse">
             <!--
@@ -34,10 +35,10 @@
                 </ul>
             -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/csj/login">Login</a></li>
-                    <li><a href="/csj/register">Register</a></li>
+                    <li><a href="<%=rootPath%>/login">Login</a></li>
+                    <li><a href="<%=rootPath%>/register">Register</a></li>
                     <li>
-                        <a href="/csj/cart">
+                        <a href="<%=rootPath%>/cart">
                             <i class="glyphicon glyphicon-shopping-cart"></i>
                         </a>
                     </li>
