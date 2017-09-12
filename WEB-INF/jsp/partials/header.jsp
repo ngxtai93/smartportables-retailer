@@ -35,8 +35,18 @@
                 </ul>
             -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<%=rootPath%>/login">Login</a></li>
-                    <li><a href="<%=rootPath%>/register">Register</a></li>
+                    <li>
+                        <a href="<%=rootPath%>/login">
+                            <i class="glyphicon glyphicon-log-in"></i>
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<%=rootPath%>/register">
+                            <span class="glyphicon glyphicon-user"></span>
+                            Register
+                        </a>
+                    </li>
                     <li>
                         <a href="<%=rootPath%>/cart">
                             <i class="glyphicon glyphicon-shopping-cart"></i>
