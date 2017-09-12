@@ -23,4 +23,4 @@
         </ul>
     </nav>
 
-	<img class="header-image" src="resources/images/image.jpg" alt="Buildings" />
+	<img class="header-image" src="resources/images/consumer_electronics_accessories.jpg" alt="Devices" />
