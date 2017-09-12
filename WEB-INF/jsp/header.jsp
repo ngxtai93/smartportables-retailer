@@ -26,11 +26,13 @@
                 <a class="navbar-brand" href="/">SmartPortables</a>
             </div>
             <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
+            <!--
+                <ul class="nav navbar-nav">                    
                     <li class="active"><a href="/csj/">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
+            -->
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/csj/login">Login</a></li>
                     <li><a href="/csj/register">Register</a></li>
