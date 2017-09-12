@@ -23,7 +23,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">SmartPortables</a>
+                <a class="navbar-brand" href="/csj/">SmartPortables</a>
             </div>
             <div class="collapse navbar-collapse">
             <!--
