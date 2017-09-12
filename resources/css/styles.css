@@ -1,0 +1,17 @@
+body {
+    background: #E8E8E8;
+    padding-top: 50px;
+}
+
+main {
+    height: 100%;
+    min-height: 62em;
+}
+starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.navbar-fixed-top {
+     background-color: #E8DCDC;
+}
