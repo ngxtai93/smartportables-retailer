@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>spigot - Free CSS Template by ZyPOP</title>
+    <title>SmartPortables</title>
     <link rel="stylesheet" href="resources/css/styles.css" type="text/css" />
 </head>
 <body>
