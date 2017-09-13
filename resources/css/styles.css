@@ -468,7 +468,7 @@ footer .footer-bottom p, footer .footer-bottom p a {
 	color: #eee;
 }
 
-#login-button {
+#login-button, #register-button {
 	border: none;
 	color: black;
 	padding: 5px 16px;
