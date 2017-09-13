@@ -30,11 +30,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Register</servlet-name>
-        <jsp-file>/WEB-INF/jsp/register.jsp</jsp-file>
+        <servlet-name>ServletRegister</servlet-name>
+        <servlet-class>ServletRegister</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Register</servlet-name>
+        <servlet-name>ServletRegister</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
