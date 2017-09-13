@@ -15,7 +15,7 @@
                         <td><input type="password" placeholder="Enter Password" name="password" required></th>
                     </tr>
                     <tr>
-                        <td><button class="login-button" type="submit">Login</button></td>
+                        <td><button id="login-button" type="submit">Login</button></td>
                     </tr>
                 </table>
             </div>
