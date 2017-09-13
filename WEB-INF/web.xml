@@ -22,7 +22,7 @@
 >
     <servlet>
         <servlet-name>ServletLogin</servlet-name>
-        <servlet-class>ServletLogin</servlet-class>
+        <servlet-class>tai.ServletLogin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
@@ -31,7 +31,7 @@
     
     <servlet>
         <servlet-name>ServletRegister</servlet-name>
-        <servlet-class>ServletRegister</servlet-class>
+        <servlet-class>tai.ServletRegister</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegister</servlet-name>
