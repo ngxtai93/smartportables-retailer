@@ -17,8 +17,8 @@
     	<ul>
         	<li class="start selected"><a href="<%=rootPath%>">Home</a></li>
             <li class=""><a href="examples.html">Examples</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Solutions</a></li>
+            <li><a href="login">Login</a></li>
+            <li><a href="register">Register</a></li>
             <li class="end"><a href="#">Contact</a></li>
         </ul>
     </nav>

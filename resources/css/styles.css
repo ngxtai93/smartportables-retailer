@@ -20,17 +20,9 @@ table {
 	text-align: left;
 }
 
-th, td {
-	padding: 10px 10px;
-}
-
-th {
+.login-header {
 	color: #fff;
 	background: #799AC0 none repeat-x scroll left top;
-}
-
-td {
-	border-bottom: 1px solid #ccc;
 }
 
 code, blockquote {
@@ -475,3 +467,15 @@ footer .footer-bottom p {
 footer .footer-bottom p, footer .footer-bottom p a {
 	color: #eee;
 }
+
+.login-button {
+	border: none;
+	color: black;
+	padding: 5px 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	background-color: #69B16C;
+	margin: 7px auto;
+}	
