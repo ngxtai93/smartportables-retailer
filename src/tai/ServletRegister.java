@@ -22,9 +22,12 @@ public class ServletRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-            
-            if(auth.doRegister(req, res) == Constants.OK) {
+            Constants status = auth.doRegister(req, res);
+            if(status == Constants.OK) {
                 req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
+            }
+            else if(status == Constants.REG_USERNAME_EXIST) {
+                
             }
     }
 }

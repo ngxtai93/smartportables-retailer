@@ -108,7 +108,7 @@ public class Authenticator {
         String toAppend = username + "\t" + password;
         File file = new File(sc.getRealPath(USER_INFO_PATH + CUSTOMER_FILE_NAME));
         try(
-            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));  // append = true
         ) {
             out.println(toAppend);
         }
