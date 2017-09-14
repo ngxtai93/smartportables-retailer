@@ -15,7 +15,7 @@ public class Authenticator {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         ServletContext sc = req.getServletContext();
-        if(!isUserExists(sc, username)) {
+        if(getUser(sc, username) == null) {
             registerCustomer(sc, username, password);
             return Status.OK;
         }
@@ -24,18 +24,33 @@ public class Authenticator {
         }
     }
 
-    private boolean isUserExists(ServletContext sc, String username) {
+    public Status doLogin(HttpServletRequest req, HttpServletResponse res) {
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        ServletContext sc = req.getServletContext();
+        User userInFile = getUser(sc, username);
+        if(userInFile == null) {
+            return Status.LOGIN_WRONG_USERNAME;
+        }
+
+        if(!userInFile.getPassword().equals(password)) {
+            return Status.LOGIN_WRONG_PASSWORD;
+        }
+
+        return Status.OK;
+    }
+
+
+    private User getUser(ServletContext sc, String username) {
         User user = null;
-        if((user = findCustomerById(sc, username)) != null) {
-            return true;
+        user = findCustomerById(sc, username);
+        if(user == null) {
+            user = findSalesmanById(sc, username);
         }
-        if((user = findSalesmanById(sc, username)) != null) {
-            return true;
+        if(user == null) {
+            user = findStoreManagerById(sc, username);
         }
-        if((user = findStoreManagerById(sc, username)) != null) {
-            return true;
-        }
-        return false;
+        return user;
     }
 
     private User findCustomerById(ServletContext sc, String username) {
