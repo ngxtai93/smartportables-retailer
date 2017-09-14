@@ -1,6 +1,6 @@
 package tai;
 
-public enum Constants {
+public enum Status {
         OK
     ,   REG_USERNAME_EXIST
 }

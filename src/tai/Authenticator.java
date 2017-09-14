@@ -3,7 +3,7 @@ package tai;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import tai.Constants;
+import tai.Status;
 import tai.User;
 public class Authenticator {
 
@@ -11,16 +11,16 @@ public class Authenticator {
     private final String CUSTOMER_FILE_NAME = "customer.txt";
     private final String SALE_FILE_NAME = "salesman.txt";
     private final String SM_FILE_NAME = "storemanager.txt";
-    public Constants doRegister(HttpServletRequest req, HttpServletResponse res) {
+    public Status doRegister(HttpServletRequest req, HttpServletResponse res) {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         ServletContext sc = req.getServletContext();
         if(!isUserExists(sc, username)) {
             registerCustomer(sc, username, password);
-            return Constants.OK;
+            return Status.OK;
         }
         else {
-            return Constants.REG_USERNAME_EXIST;
+            return Status.REG_USERNAME_EXIST;
         }
     }
 

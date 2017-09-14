@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
 import tai.Authenticator;
-import tai.Constants;
+import tai.Status;
 public class ServletRegister extends HttpServlet {
 
     private Authenticator auth;
@@ -22,11 +22,11 @@ public class ServletRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-            Constants status = auth.doRegister(req, res);
-            if(status == Constants.OK) {
+            Status status = auth.doRegister(req, res);
+            if(status == Status.OK) {
                 req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
             }
-            else if(status == Constants.REG_USERNAME_EXIST) {
+            else if(status == Status.REG_USERNAME_EXIST) {
                 
             }
     }
