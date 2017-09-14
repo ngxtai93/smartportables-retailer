@@ -23,11 +23,22 @@ public class ServletRegister extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-            PrintWriter out = res.getWriter();
-            String userName = req.getParameter("username");
-            String password = req.getParameter("password");
-            if(auth.doRegister(userName, password) == Constants.OK) {
-                out.println("Register success");
+            
+            if(auth.doRegister(req, res) == Constants.OK) {
+                BufferedReader br = null;
+                PrintWriter out = res.getWriter();
+                try {
+                    File file = new File(this.getServletContext().getRealPath("resources/data/abc.txt"));
+                    br = new BufferedReader(new FileReader(file));
+
+                    String line;
+                    while((line = br.readLine()) != null) {
+                        out.println(line);
+                    }
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
             }
     }
 }

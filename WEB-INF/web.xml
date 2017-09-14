@@ -10,7 +10,7 @@
     <welcome-file-list>
         Startup
     </welcome-file-list>
-
+    
     <servlet>
         <servlet-name>Startup</servlet-name>
         <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
