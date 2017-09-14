@@ -8,7 +8,6 @@ import tai.Constants;
 public class ServletRegister extends HttpServlet {
 
     private Authenticator auth;
-
     public ServletRegister() {
         auth = new Authenticator();
     }
@@ -25,20 +24,7 @@ public class ServletRegister extends HttpServlet {
         throws ServletException, IOException {
             
             if(auth.doRegister(req, res) == Constants.OK) {
-                BufferedReader br = null;
-                PrintWriter out = res.getWriter();
-                try {
-                    File file = new File(this.getServletContext().getRealPath("resources/data/abc.txt"));
-                    br = new BufferedReader(new FileReader(file));
-
-                    String line;
-                    while((line = br.readLine()) != null) {
-                        out.println(line);
-                    }
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
+                req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
             }
     }
 }
