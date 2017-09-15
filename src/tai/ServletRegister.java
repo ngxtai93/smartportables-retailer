@@ -27,7 +27,8 @@ public class ServletRegister extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
             }
             else if(status == Status.REG_USERNAME_EXIST) {
-                
+                req.setAttribute("isUsernameExist", "true");
+                req.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(req, res);
             }
     }
 }

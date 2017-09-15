@@ -20,6 +20,14 @@
                 </table>
             </div>
         </form>
+        <%
+            String loginFailed = (String)request.getAttribute("loginFailed");
+            if(loginFailed != null) {
+                if(loginFailed.equals("username") || loginFailed.equals("password")) {
+                    out.println("<p><span class=\"required\">Username or password is not correct</span</p>");
+                }    
+            }
+        %>
     </section>
 <%@include file = "./partials/sidebar.jsp" %>
 </div>

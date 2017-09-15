@@ -23,10 +23,16 @@ public class ServletLogin extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
             Status status = auth.doLogin(req, res);
-            if(status == Status.LOGIN_WRONG_PASSWORD || status == Status.LOGIN_WRONG_USERNAME) {
-                // wrong
+            if(status == Status.LOGIN_WRONG_PASSWORD) {
+                req.setAttribute("loginFailed", "password");
+                req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, res);
+            }
+            else if(status == Status.LOGIN_WRONG_USERNAME) {
+                req.setAttribute("loginFailed", "username");
+                req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, res);
             }
             else if(status == Status.OK) {
+                req.setAttribute("username", req.getParameter("username"));
                 req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
             }
             

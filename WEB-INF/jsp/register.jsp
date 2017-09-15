@@ -20,6 +20,12 @@
                 </table>
             </div>
         </form>
+        <%
+            String isUsernameExist = (String)request.getAttribute("isUsernameExist");
+            if(isUsernameExist != null && isUsernameExist.equals("true")) {
+                out.println("<p><span class=\"required\">Username already existed.</span</p>");
+            }
+        %>
     </section>
 
 <%@include file = "./partials/sidebar.jsp" %>

@@ -17,7 +17,7 @@
     	<ul>
         	<li class="start selected"><a href="<%=rootPath%>">Home</a></li>
             <%-- <li class=""><a href="examples.html">Examples</a></li> --%>
-            <%  String user = request.getParameter("username");
+            <%  String user = (String) request.getAttribute("username");
                 if(user == null || user.length() == 0) {
                     out.println("<li><a href=\"login\">Login</a></li>");
                     out.println("<li><a href=\"register\">Register</a></li>");
