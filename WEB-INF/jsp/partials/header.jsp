@@ -16,10 +16,18 @@
     <nav>
     	<ul>
         	<li class="start selected"><a href="<%=rootPath%>">Home</a></li>
-            <li class=""><a href="examples.html">Examples</a></li>
-            <li><a href="login">Login</a></li>
-            <li><a href="register">Register</a></li>
-            <li class="end"><a href="#">Contact</a></li>
+            <%-- <li class=""><a href="examples.html">Examples</a></li> --%>
+            <%  String user = request.getParameter("username");
+                if(user == null || user.length() == 0) {
+                    out.println("<li><a href=\"login\">Login</a></li>");
+                    out.println("<li><a href=\"register\">Register</a></li>");
+                }
+                else {
+                    out.println("<li><a href=\"account\">My Account</a></li>");
+                    out.println("<li><a href=\"logout\">Sign Out</a></li>");
+                }
+            %>
+            <%-- <li class="end"><a href="#">Contact</a></li> --%>
         </ul>
     </nav>
 
