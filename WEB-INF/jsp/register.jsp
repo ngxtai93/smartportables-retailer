@@ -24,8 +24,9 @@
             String isUsernameExist = (String)request.getAttribute("isUsernameExist");
             if(isUsernameExist != null) {
                 if(isUsernameExist.equals("true")) {
-                    out.println("<p><span class=\"required\">Username already existed.</span</p>");
-                }
+        %>
+                    <p><span class="required">Username already existed.</span></p>
+        <%      }
             } 
         %>
     </section>
