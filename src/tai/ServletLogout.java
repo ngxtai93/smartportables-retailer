@@ -9,8 +9,8 @@ public class ServletLogout extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-            req.removeAttribute("username");
-            req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
+            req.getSession().removeAttribute("currentUser");
+            res.sendRedirect(req.getContextPath());
     }
 
     @Override

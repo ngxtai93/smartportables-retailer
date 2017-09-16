@@ -32,7 +32,6 @@ public class ServletLogin extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, res);
             }
             else if(status == Status.OK) {
-                req.setAttribute("username", req.getParameter("username"));
                 req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
             }
             

@@ -1,3 +1,5 @@
+<%@ page import = "tai.User, tai.Role" %>
+
 <!doctype html>
 <html>
 <head>
@@ -9,6 +11,7 @@
 
 <% String rootPath = request.getContextPath(); %>
 
+
 <div id="container">
     <header>
     	<h1><a href="<%=rootPath%>">Smart<span>Portables</span></a></h1>
@@ -17,8 +20,8 @@
     	<ul>
         	<li class="start selected"><a href="<%=rootPath%>">Home</a></li>
             <%-- <li class=""><a href="examples.html">Examples</a></li> --%>
-            <%  String user = (String) request.getAttribute("username");
-                if(user == null || user.length() == 0) {
+            <%  User currentUser = (User) session.getAttribute("currentUser");
+                if(currentUser == null) {
                     out.println("<li><a href=\"login\">Login</a></li>");
                     out.println("<li><a href=\"register\">Register</a></li>");
                 }

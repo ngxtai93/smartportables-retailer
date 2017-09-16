@@ -18,7 +18,7 @@
             <li>Firefox</li>
             <li>Opera</li>
             <li>IE</li>
-    <li>Safari</li>
+            <li>Safari</li>
             <li>Chrome</li>
         </ul>
 

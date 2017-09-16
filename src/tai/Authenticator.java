@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import tai.Status;
 import tai.User;
+import tai.Role;
 public class Authenticator {
 
     private final String USER_INFO_PATH = "resources/data/user/";
@@ -17,6 +18,9 @@ public class Authenticator {
         ServletContext sc = req.getServletContext();
         if(getUser(sc, username) == null) {
             registerCustomer(sc, username, password);
+
+            User registeredUser = new User(username, password, Role.CUSTOMER);
+            req.getSession().setAttribute("currentUser", registeredUser);
             return Status.OK;
         }
         else {
@@ -37,6 +41,7 @@ public class Authenticator {
             return Status.LOGIN_WRONG_PASSWORD;
         }
 
+        req.getSession().setAttribute("currentUser", userInFile);
         return Status.OK;
     }
 
