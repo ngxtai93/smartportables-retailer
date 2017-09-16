@@ -10,9 +10,9 @@ import tai.Role;
 public class ServletManageAccount extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("currentUser");
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+        throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("currentUser");
         if(user == null) {
             res.sendRedirect("login");
         }
