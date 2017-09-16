@@ -48,16 +48,31 @@ public class Authenticator {
 
     private User getUser(ServletContext sc, String username) {
         User user = null;
-        user = findCustomerById(sc, username);
-        if(user == null) {
-            user = findSalesmanById(sc, username);
-        }
-        if(user == null) {
-            user = findStoreManagerById(sc, username);
+        for(Role r: Role.values()) {
+            user = findUserByRole(sc, username, r);
+            if(user != null) {
+                break;
+            }
         }
         return user;
     }
 
+    private User findUserByRole(ServletContext sc, String username, Role r) {
+        User user = null;
+        switch(r) {
+            case CUSTOMER:
+                user = findCustomerById(sc, username);
+                break;
+            case SALESMAN:
+                user = findSalesmanById(sc, username);
+                break;
+            case STORE_MANAGER:
+                user = findStoreManagerById(sc, username);
+                break;
+        }
+        return user;
+    }
+    
     private User findCustomerById(ServletContext sc, String username) {
         File file = new File(sc.getRealPath(USER_INFO_PATH + CUSTOMER_FILE_NAME));
         User result = null;
