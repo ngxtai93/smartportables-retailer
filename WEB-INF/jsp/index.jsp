@@ -9,7 +9,7 @@
         
         <div class="overview-all-items">
             <div class="overview-item">
-                <a href="/">
+                <a href="product/laptop">
                     <div class="overview-item-image">
                         <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
                     </div>
@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="overview-item">
-                <a href="/">
+                <a href="product/phone">
                     <div class="overview-item-image">
                         <img src="resources/images/product/phone/overview.jpg" height="250" width="250">
                     </div>
@@ -29,7 +29,7 @@
                 </a>
             </div>
             <div class="overview-item">
-                <a href="/">
+                <a href="product/smartwatch">
                     <div class="overview-item-image">
                         <img src="resources/images/product/smartwatch/overview.jpg" height="250" width="250">
                     </div>
@@ -39,7 +39,7 @@
                 </a>
             </div>
             <div class="overview-item">
-                <a href="/">
+                <a href="product/speaker">
                     <div class="overview-item-image">
                         <img src="resources/images/product/speaker/overview.jpg" height="250" width="250">
                     </div>
@@ -49,7 +49,7 @@
                 </a>
             </div>
             <div class="overview-item">
-                <a href="/">
+                <a href="product/headphone">
                     <div class="overview-item-image">
                         <img src="resources/images/product/headphone/overview.jpg" height="250" width="250">
                     </div>
@@ -59,7 +59,7 @@
                 </a>
             </div>
             <div class="overview-item">
-                <a href="/">
+                <a href="product/storage">
                     <div class="overview-item-image">
                         <img src="resources/images/product/storage/overview.jpg" height="250" width="250">
                     </div>
