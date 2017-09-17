@@ -12,6 +12,7 @@ public class Authenticator {
     private final String CUSTOMER_FILE_NAME = "customer.txt";
     private final String SALE_FILE_NAME = "salesman.txt";
     private final String SM_FILE_NAME = "storemanager.txt";
+    
     public Status doRegister(HttpServletRequest req, HttpServletResponse res) {
         String username = req.getParameter("username");
         String password = req.getParameter("password");

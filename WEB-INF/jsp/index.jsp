@@ -1,13 +1,102 @@
 <%@include file = "./partials/header.jsp" %>
 
 <div id="body">
-    <section id="content">
+    <section class="content">
 
     <article>
-            
+        <h2 id="product-caption">Available Products</h2>
+        <hr style="background:#000000; border:0; height:1px; width:35%">
         
-        <h2>Introduction to spigot</h2>
-        <div class="article-info">Posted on <time datetime="2013-05-14">14 May</time> by <a href="#" rel="author">Joe Bloggs</a></div>
+        <div class="overview-all-items">
+            <div class="overview-item">
+                <a href="/">
+                    <div class="overview-item-image">
+                        <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
+                    </div>
+                    <div class="overview-item-caption">
+                        Laptops
+                    </div>
+                </a>
+            </div>
+            <div class="overview-item">
+                <a href="/">
+                    <div class="overview-item-image">
+                        <img src="resources/images/product/phone/overview.jpg" height="250" width="250">
+                    </div>
+                    <div class="overview-item-caption">
+                        Cellphone
+                    </div>
+                </a>
+            </div>
+            <div class="overview-item">
+                <a href="/">
+                    <div class="overview-item-image">
+                        <img src="resources/images/product/smartwatch/overview.jpg" height="250" width="250">
+                    </div>
+                    <div class="overview-item-caption">
+                        Smart Watches
+                    </div>
+                </a>
+            </div>
+            <div class="overview-item">
+                <a href="/">
+                    <div class="overview-item-image">
+                        <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
+                    </div>
+                    <div class="overview-item-caption">
+                        Laptops
+                    </div>
+                </a>
+            </div>
+            <div class="overview-item">
+                <a href="/">
+                    <div class="overview-item-image">
+                        <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
+                    </div>
+                    <div class="overview-item-caption">
+                        Laptops
+                    </div>
+                </a>
+            </div>
+            <div class="overview-item">
+                <a href="/">
+                    <div class="overview-item-image">
+                        <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
+                    </div>
+                    <div class="overview-item-caption">
+                        Laptops
+                    </div>
+                </a>
+            </div>
+        </div>
+        <%-- <h2>Available Products</h2>
+        <div class="row">
+            <figure>
+                
+            </figure>
+            <figcaption>
+                <span><a href="/">Laptops</a></span>
+            </figcaption>
+            <figure>
+                <img src="resources/images/product/phone/overview.jpg" height="250" width="250">
+            </figure>
+            <figcaption>
+                <span><a href="/">Cellphone</a></span>
+            </figcaption>
+        </div>
+        <div class="row">
+           <figure>
+                <img src="resources/images/product/smartwatch/overview.jpg" height="250" width="250">
+                <span class="image-desc"><a href="/">Smart Watches</a></span>
+            </figure>
+            <div class="col-2">
+                <img src="resources/images/product/phone/overview.jpg" height="250" width="250">
+                <span class="image-desc"><a href="/">Cellphone</a></span>
+            </div>
+        </div> --%>
+
+
+        <%-- <div class="article-info">Posted on <time datetime="2013-05-14">14 May</time> by <a href="#" rel="author">Joe Bloggs</a></div>
 
         <p>Welcome to spigot, a free premium valid CSS3 &amp; HTML5 web template from <a href="http://zypopwebtemplates.com/" title="ZyPOP">ZyPOP</a>. This template is completely <strong>free</strong> to use permitting a link remains back to  <a href="http://zypopwebtemplates.com/" title="ZyPOP">http://zypopwebtemplates.com/</a>. Should you wish to use this template unbranded you can buy a template license from our website for 8.00 GBP, this will allow you remove all branding related to our site, for more information about this see below.</p>	
         
@@ -20,30 +109,9 @@
             <li>IE</li>
             <li>Safari</li>
             <li>Chrome</li>
-        </ul>
+        </ul> --%>
 
-    <a href="#" class="button">Read more</a>
-    <a href="#" class="button">Comments</a>
-
-
-    
-    </article>
-
-    <article class="expanded">
-
-                <h2>Buy unbranded</h2>
-        <div class="article-info">Posted on <time datetime="2013-05-14">14 May</time> by <a href="#" rel="author">Joe Bloggs</a></div>
-
-        
-        <p>Purchasing a template license for 8.00 GBP (at time of writing around 12 USD) gives you the right to remove any branding including links, logos and source tags relating to ZyPOP. As well as waiving the attribution requirement, your payment will also help us provide continued support for users as well as creating new web templates. Find out more about how to buy at the licensing page on our website which can be accessed at <a href="http://zypopwebtemplates.com/licensing" title="template license">http://zypopwebtemplates.com/licensing</a></p>
-
-<h3>Lorem lipsum</h3>
-
-<p>Morbi fermentum condimentum felis, commodo vestibulum sem mattis sed. Aliquam magna ante, mollis vitae tincidunt in, malesuada vitae turpis. Sed aliquam libero ut velit bibendum consectetur. Quisque sagittis, est in laoreet semper, enim dui consequat felis, faucibus ornare urna velit nec leo. Maecenas condimentum velit vitae est lobortis fermentum. In tristique sem vitae metus ornare luctus tempus nisl volutpat. Integer et est id nisi tempus pharetra sagittis et libero.</p>
-
-
-    <a href="#" class="button">Read more</a>
-    <a href="#" class="button">Comments</a>
+        <%-- <a href="#" class="button">Read more</a> --%>
     </article>
     </section>
     

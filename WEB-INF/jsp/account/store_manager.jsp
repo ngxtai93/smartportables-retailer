@@ -1,7 +1,7 @@
 <%@include file = "../partials/header.jsp" %>
 
 <div id="body">
-    <section id="content">
+    <section class="content">
         <br>
 
         <p><a href="/">Manage product</a></p>

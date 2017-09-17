@@ -27,7 +27,7 @@
                     <li class="text">
                         <form method="get" class="searchform" action="#" >
                             <p>
-                                <input type="text" size="32" value="" name="s" class="s" />
+                                <input type="text" size="30" value="" name="s" class="s" />
                                 
                             </p>
                         </form>	
