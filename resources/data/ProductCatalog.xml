@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProductCatalog>
+    <category id="laptop" name="Laptops" image-overview="overview.jpg">
+    </category>
+    <category id="phone" name="Cellphones" image-overview="overview.jpg">
+    </category>
+    <category id="smartwatch" name="Smart Watches" image-overview="overview.jpg">
+    </category>
+    <category id="speaker" name="Speakers" image-overview="overview.jpg">
+    </category>
+    <category id="headphone" name="Headphones" image-overview="overview.jpg">
+    </category>
+    <category id="storage" name="External Storages" image-overview="overview.jpg">
+    </category>
+</ProductCatalog>
