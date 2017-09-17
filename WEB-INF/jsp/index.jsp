@@ -24,7 +24,7 @@
                         <img src="resources/images/product/phone/overview.jpg" height="250" width="250">
                     </div>
                     <div class="overview-item-caption">
-                        Cellphone
+                        Cellphones
                     </div>
                 </a>
             </div>
@@ -41,30 +41,30 @@
             <div class="overview-item">
                 <a href="/">
                     <div class="overview-item-image">
-                        <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
+                        <img src="resources/images/product/speaker/overview.jpg" height="250" width="250">
                     </div>
                     <div class="overview-item-caption">
-                        Laptops
+                        Speakers
                     </div>
                 </a>
             </div>
             <div class="overview-item">
                 <a href="/">
                     <div class="overview-item-image">
-                        <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
+                        <img src="resources/images/product/headphone/overview.jpg" height="250" width="250">
                     </div>
                     <div class="overview-item-caption">
-                        Laptops
+                        Headphones
                     </div>
                 </a>
             </div>
             <div class="overview-item">
                 <a href="/">
                     <div class="overview-item-image">
-                        <img src="resources/images/product/laptop/overview.jpg" height="250" width="250">
+                        <img src="resources/images/product/storage/overview.jpg" height="250" width="250">
                     </div>
                     <div class="overview-item-caption">
-                        Laptops
+                        External Storages
                     </div>
                 </a>
             </div>
