@@ -13,7 +13,7 @@
     
     <servlet>
         <servlet-name>Startup</servlet-name>
-        <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
+        <servlet-class>tai.Startup</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Startup</servlet-name>
