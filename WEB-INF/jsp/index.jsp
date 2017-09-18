@@ -7,17 +7,19 @@
         <hr style="background:#000000; border:0; height:1px; width:35%">
         
         <div class="overview-all-items">
-            <% for(Category cat: listCategory) { %>
-                    <div class="overview-item">
-                        <a href="product/<%=cat.getId()%>">
-                            <div class="overview-item-image">
-                                <img src="resources/images/product/<%=cat.getId()%>/<%=cat.getImageName()%>" height="250" width="250">
-                            </div>
-                            <div class="overview-item-caption">
-                                <%=cat.getName()%>
-                            </div>
-                        </a>
-                    </div>
+            <% if(listCategory != null) { %>
+                <% for(Category cat: listCategory) { %>
+                        <div class="overview-item">
+                            <a href="product/<%=cat.getId()%>">
+                                <div class="overview-item-image">
+                                    <img src="resources/images/product/<%=cat.getId()%>/<%=cat.getImageName()%>" height="250" width="250">
+                                </div>
+                                <div class="overview-item-caption">
+                                    <%=cat.getName()%>
+                                </div>
+                            </a>
+                        </div>
+                <% } %>
             <% } %>
         </div>
         <%-- <h2>Available Products</h2>

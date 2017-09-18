@@ -4,10 +4,12 @@
             <li>
                 <h4>Browse</h4>
                 <ul>
-                    <% for(Category cat: listCategory) { %>
-                        <li>
-                            <a href="product/<%=cat.getId()%>"><%=cat.getName()%></a>
-                        </li>
+                    <% if(listCategory != null) { %>
+                        <% for(Category cat: listCategory) { %>
+                            <li>
+                                <a href="product/<%=cat.getId()%>"><%=cat.getName()%></a>
+                            </li>
+                        <% } %>
                     <% } %>
                 </ul>
             </li>
