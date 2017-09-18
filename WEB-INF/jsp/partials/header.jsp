@@ -1,4 +1,6 @@
 <%@ page import = "tai.User, tai.Role" %>
+<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "tai.Category" %>
 
 <!doctype html>
 <html>
@@ -10,7 +12,9 @@
 <body>
 
 <% String rootPath = request.getContextPath(); %>
-
+<%-- Get list of category  --%>
+<% request.getRequestDispatcher("getListCategory").include(request, response); %>
+<% ArrayList<Category> listCategory = (ArrayList<Category>) request.getAttribute("listCategory"); %>
 
 <div id="container">
     <header>

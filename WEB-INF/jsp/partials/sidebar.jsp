@@ -4,12 +4,11 @@
             <li>
                 <h4>Browse</h4>
                 <ul>
-                    <li><a href="product/laptop">Laptops</a></li>
-                    <li><a href="product/phone">Cellphones</a></li>
-                    <li><a href="product/smartwatch">Smart Watches</a></li>
-                    <li><a href="product/speaker">Speakers</a></li>
-                    <li><a href="product/headphone">Headphones</a></li>
-                    <li><a href="product/storage">External Storages</a></li>
+                    <% for(Category cat: listCategory) { %>
+                        <li>
+                            <a href="product/<%=cat.getId()%>"><%=cat.getName()%></a>
+                        </li>
+                    <% } %>
                 </ul>
             </li>
             

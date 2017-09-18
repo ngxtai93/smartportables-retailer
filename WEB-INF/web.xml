@@ -13,7 +13,7 @@
     
     <servlet>
         <servlet-name>Startup</servlet-name>
-        <servlet-class>tai.Startup</servlet-class>
+        <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>Startup</servlet-name>
@@ -54,6 +54,15 @@
     <servlet-mapping>
         <servlet-name>ServletManageAccount</servlet-name>
         <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletGetListCategory</servlet-name>
+        <servlet-class>tai.ServletGetListCategory</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletGetListCategory</servlet-name>
+        <url-pattern>/getListCategory</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
