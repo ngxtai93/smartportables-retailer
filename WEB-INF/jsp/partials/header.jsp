@@ -13,7 +13,6 @@
 
 <% String rootPath = request.getContextPath(); %>
 <%-- Get list of category  --%>
-<% request.getRequestDispatcher("getListCategory").include(request, response); %>
 <% ArrayList<Category> listCategory = (ArrayList<Category>) request.getAttribute("listCategory"); %>
 
 <div id="container">

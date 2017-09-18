@@ -56,14 +56,10 @@
         <url-pattern>/account</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>ServletGetListCategory</servlet-name>
-        <servlet-class>tai.ServletGetListCategory</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ServletGetListCategory</servlet-name>
-        <url-pattern>/getListCategory</url-pattern>
-    </servlet-mapping>
+    <filter>
+        <filter-name>FilterGetListCategory</filter-name>
+        <filter-class>tai.FilterGetListCategory</filter-class>
+    </filter>
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
@@ -71,5 +67,10 @@
         <url-pattern>*.jpg</url-pattern>
         <url-pattern>*.js</url-pattern>
     </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>FilterGetListCategory</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 </web-app>
