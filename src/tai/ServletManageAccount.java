@@ -58,10 +58,6 @@ public class ServletManageAccount extends HttpServlet {
                     // ProductManager pm = new ProductManager();
                     Product product = new Product();
                     BeanUtilities.populateBean(product, req);
-                    System.out.println("Category = " + product.getCategory());
-                    System.out.println("Name = " + product.getName());
-                    System.out.println("Price = " + product.getPrice());
-                    System.out.println("Discount = " + product.getDiscount());
                 break;
             }
             res.sendRedirect(req.getContextPath());
