@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ProductCatalog>
     <category id="laptop" name="Laptops" image-overview="overview.jpg">
+        <product id="1">
+            <image>61Yeir0uhIL._SL1322_.jpg</image>
+            <name>Acer Aspire E 15 E5-575-33BM 15.6-Inch FHD Notebook</name>
+            <price>349.99</price>
+            <discount>9.99</discount>
+            <accessories>
+                <product id="1"></product>
+                <product id="2"></product>
+            </accessories>
+        </product>
     </category>
     <category id="phone" name="Cellphones" image-overview="overview.jpg">
     </category>
@@ -11,5 +21,7 @@
     <category id="headphone" name="Headphones" image-overview="overview.jpg">
     </category>
     <category id="storage" name="External Storages" image-overview="overview.jpg">
+    </category>
+    <category id="accessory">
     </category>
 </ProductCatalog>
