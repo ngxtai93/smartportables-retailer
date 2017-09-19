@@ -3,6 +3,7 @@ package tai;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
+import java.util.Enumeration;
 
 import tai.User;
 import tai.Role;
@@ -39,6 +40,37 @@ public class ServletManageAccount extends HttpServlet {
             else {
                 rd.forward(req, res);
             }
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+        throws ServletException, IOException {
+        System.out.println("POST ServletManageAccount");
+        User user = (User) req.getSession().getAttribute("currentUser");
+        if(user == null) {
+            res.sendRedirect(req.getContextPath() + "/login");
+        }
+        else {
+            Enumeration<String> listParam = req.getParameterNames();
+            while(listParam.hasMoreElements()) {
+                System.out.println(listParam.nextElement());
+            }
+            System.out.println("End listParam");
+            RequestDispatcher rd = null;
+            String command = (String) req.getParameter("command");
+            switch(command) {
+                case "add":
+                    // ProductManager pm = new ProductManager();
+                    Product product = new Product();
+                    BeanUtilities.populateBean(product, req);
+                    System.out.println("Category = " + product.getCategory());
+                    System.out.println("Name = " + product.getName());
+                    System.out.println("Price = " + product.getPrice());
+                    System.out.println("Discount = " + product.getDiscount());
+                break;
+            }
+            res.sendRedirect(req.getContextPath());
         }
     }
 
