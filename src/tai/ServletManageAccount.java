@@ -32,7 +32,7 @@ public class ServletManageAccount extends HttpServlet {
                     break;
                 }
             }
-            
+
             if(rd == null) {
                 res.sendRedirect(req.getContextPath());
             }
@@ -64,12 +64,13 @@ public class ServletManageAccount extends HttpServlet {
         }
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_add.jsp");
 
-        if(req.getQueryString() != null) {
-            System.out.println("Query string: " + req.getQueryString());
+        // Process category option query string
+        String queryString = req.getQueryString();
+        System.out.println(queryString);
+        if(queryString != null) {
+            String[] queryStringSplit = queryString.split("=");
         }
-        else {
-            System.out.println("Query string = null");
-        }
+
         return rd;
     }
 }
