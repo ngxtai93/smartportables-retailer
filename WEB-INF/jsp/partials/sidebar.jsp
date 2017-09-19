@@ -6,9 +6,12 @@
                 <ul>
                     <% if(listCategory != null) { %>
                         <% for(Category cat: listCategory) { %>
-                            <li>
-                                <a href="product/<%=cat.getId()%>"><%=cat.getName()%></a>
-                            </li>
+                            <%-- not show accessory --%>
+                            <%if(!cat.getId().equals("accessory")) { %>
+                                <li>
+                                    <a href="<%=rootPath%>/product/<%=cat.getId()%>"><%=cat.getName()%></a>
+                                </li>
+                            <% } %>
                         <% } %>
                     <% } %>
                 </ul>

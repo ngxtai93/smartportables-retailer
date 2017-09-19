@@ -9,6 +9,8 @@
         <div class="overview-all-items">
             <% if(listCategory != null) { %>
                 <% for(Category cat: listCategory) { %>
+                    <%-- not show accessory --%>
+                    <% if(!cat.getId().equals("accessory")) { %>
                         <div class="overview-item">
                             <a href="product/<%=cat.getId()%>">
                                 <div class="overview-item-image">
@@ -19,6 +21,7 @@
                                 </div>
                             </a>
                         </div>
+                    <% } %>
                 <% } %>
             <% } %>
         </div>

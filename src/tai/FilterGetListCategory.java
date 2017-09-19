@@ -27,10 +27,6 @@ public class FilterGetListCategory implements Filter {
                 .getRealPath("resources/data/ProductCatalog.xml");
             File productCatalogFile = new File(productCatalogFilePath);
             ArrayList<Category> listCategory = getAvailableCategory(productCatalogFile);
-            // for(Category category: listCategory) {
-            //     out.println(category.getId() + "\t" + category.getName() + "\t" + category.getImageName());
-            // }
-            // out.println();
             request.setAttribute("listCategory", listCategory);
             chain.doFilter(request, response);
     }

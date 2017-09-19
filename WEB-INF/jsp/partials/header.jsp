@@ -2,16 +2,18 @@
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "tai.Category" %>
 
+<% String rootPath = request.getContextPath(); %>
+
 <!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SmartPortables</title>
-    <link rel="stylesheet" href="resources/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="<%=rootPath%>/resources/css/styles.css" type="text/css" />
 </head>
 <body>
 
-<% String rootPath = request.getContextPath(); %>
+
 <%-- Get list of category  --%>
 <% ArrayList<Category> listCategory = (ArrayList<Category>) request.getAttribute("listCategory"); %>
 
@@ -37,4 +39,4 @@
         </ul>
     </nav>
 
-	<img class="header-image" src="resources/images/consumer_electronics_accessories.jpg" alt="Devices" />
+	<img class="header-image" src="<%=rootPath%>/resources/images/consumer_electronics_accessories.jpg" alt="Devices" />

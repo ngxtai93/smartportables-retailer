@@ -14,20 +14,42 @@ public class ServletManageAccount extends HttpServlet {
         throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("currentUser");
         if(user == null) {
-            res.sendRedirect("login");
+            res.sendRedirect(req.getContextPath() + "/login");
         }
         else {
-            switch(user.getRole()) {
-                case CUSTOMER:
-                    req.getRequestDispatcher("/WEB-INF/jsp/account/customer.jsp").forward(req, res);
+            RequestDispatcher rd = null;
+            String uri = req.getRequestURI();
+            System.out.println(uri);
+            String[] uriSplit = uri.split("/");
+            // 0: blank, 1: csj, 2: account
+            if(uriSplit.length == 3) {
+                switch(user.getRole()) {
+                    case CUSTOMER:
+                        rd = req.getRequestDispatcher("/WEB-INF/jsp/account/customer.jsp");
+                        break;
+                    case STORE_MANAGER:
+                        rd = req.getRequestDispatcher("/WEB-INF/jsp/account/store_manager.jsp");
+                        break;
+                    case SALESMAN:
+                        rd = req.getRequestDispatcher("/WEB-INF/jsp/account/salesman.jsp");
+                        break;
+                }
+            }
+            else if(uriSplit[3].equals("product")) {
+                switch(uriSplit[4]) {
+                    case "add":
+                        rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_add.jsp");
                     break;
-                case STORE_MANAGER:
-                    req.getRequestDispatcher("/WEB-INF/jsp/account/store_manager.jsp").forward(req, res);
-                    break;
-                case SALESMAN:
-                    req.getRequestDispatcher("/WEB-INF/jsp/account/salesman.jsp").forward(req, res);
-                    break;
+                }
+            }
+            if(rd != null) {
+                rd.forward(req, res);
+            }
+            else {
+                res.sendRedirect(req.getContextPath());
             }
         }
+
+        
     }
 }
