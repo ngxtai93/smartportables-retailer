@@ -27,12 +27,12 @@
             <%-- <li class=""><a href="examples.html">Examples</a></li> --%>
             <%  User currentUser = (User) session.getAttribute("currentUser"); %>
             <%  if(currentUser == null) { %>
-                    <li><a href="login">Login</a></li>
-                    <li><a href="register">Register</a></li>"
+                    <li><a href="<%=rootPath%>/login">Login</a></li>
+                    <li><a href="<%=rootPath%>/register">Register</a></li>"
             <%  }
                 else { %>
-                    <li><a href="account">My Account</a></li>
-                    <li><a href="logout">Sign Out</a></li>
+                    <li><a href="<%=rootPath%>/account">My Account</a></li>
+                    <li><a href="<%=rootPath%>/logout">Sign Out</a></li>
             <%  } %>
                             
             <%-- <li class="end"><a href="#">Contact</a></li> --%>
