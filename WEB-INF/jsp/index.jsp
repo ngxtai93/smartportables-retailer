@@ -12,9 +12,9 @@
                     <%-- not show accessory --%>
                     <% if(!cat.getId().equals("accessory")) { %>
                         <div class="overview-item">
-                            <a href="product/<%=cat.getId()%>">
+                            <a href="<%=rootPath%>/product/<%=cat.getId()%>">
                                 <div class="overview-item-image">
-                                    <img src="resources/images/product/<%=cat.getId()%>/<%=cat.getImageName()%>" height="250" width="250">
+                                    <img src="<%=rootPath%>/resources/images/product/<%=cat.getId()%>/<%=cat.getImageName()%>" height="250" width="250">
                                 </div>
                                 <div class="overview-item-caption">
                                     <%=cat.getName()%>

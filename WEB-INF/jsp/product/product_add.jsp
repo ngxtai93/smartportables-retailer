@@ -3,14 +3,14 @@
 <div id="body">
     <section class="content">
         <br>
-         <form method="get">
+         <form method="get" name="category-form">
             <div class="container">
                 <br>
                 <table>
                     <tr>
                         <th><b>Category: </b></th>
                         <td>
-                            <select>
+                            <select name="category-option">
                                 <option value="none">--------</option>
                                 <% for(Category cat: listCategory) { %>
                                     <option value="<%=cat.getId()%>"><%=cat.getName()%></option>

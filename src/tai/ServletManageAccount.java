@@ -23,24 +23,26 @@ public class ServletManageAccount extends HttpServlet {
             String[] uriSplit = uri.split("/");
             // 0: blank, 1: csj, 2: account
             if(uriSplit.length == 3) {
-                loadAccountInfo(req, res, user);
+                rd = loadAccountInfo(req, user);
             }
             else if(uriSplit[3].equals("product")) {
                 switch(uriSplit[4]) {
                     case "add":
-                        rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_add.jsp");
+                        rd = processProductAdd(req, user);
                     break;
                 }
-                rd.forward(req, res);
+            }
+            
+            if(rd == null) {
+                res.sendRedirect(req.getContextPath());
             }
             else {
-                res.sendRedirect(req.getContextPath());
+                rd.forward(req, res);
             }
         }
     }
 
-    private void loadAccountInfo(HttpServletRequest req, HttpServletResponse res, User loggedUser)
-        throws ServletException, IOException {
+    private RequestDispatcher loadAccountInfo(HttpServletRequest req, User loggedUser) {
         RequestDispatcher rd = null;
         switch(loggedUser.getRole()) {
             case CUSTOMER:
@@ -53,6 +55,21 @@ public class ServletManageAccount extends HttpServlet {
                 rd = req.getRequestDispatcher("/WEB-INF/jsp/account/salesman.jsp");
                 break;
         }
-        rd.forward(req, res);
+        return rd;
+    }
+
+    private RequestDispatcher processProductAdd(HttpServletRequest req, User loggedUser) {
+        if(loggedUser.getRole() != Role.STORE_MANAGER) {
+            return null;
+        }
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_add.jsp");
+
+        if(req.getQueryString() != null) {
+            System.out.println("Query string: " + req.getQueryString());
+        }
+        else {
+            System.out.println("Query string = null");
+        }
+        return rd;
     }
 }
