@@ -9,7 +9,7 @@ public class ServletLogout extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-            req.getSession().removeAttribute("currentUser");
+            req.getSession().invalidate();
             res.sendRedirect(req.getContextPath());
     }
 
