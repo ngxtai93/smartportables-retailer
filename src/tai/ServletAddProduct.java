@@ -34,7 +34,6 @@ public class ServletAddProduct extends HttpServlet {
             File repository = (File) req.getServletContext().getAttribute("javax.servlet.context.tempdir");
             factory.setRepository(repository);
             factory.setSizeThreshold(1024 * 1024 * 5);  // 5MB
-            // System.out.println(factory.getSizeThreshold());
 
             ServletFileUpload upload = new ServletFileUpload(factory);
             upload.setSizeMax(1024 * 1024 * 2);         // 2MB
@@ -42,7 +41,7 @@ public class ServletAddProduct extends HttpServlet {
                 List<FileItem> listItem = upload.parseRequest(req);
                 Map<String, String> productParam = new HashMap<>();
                 for(FileItem fi: listItem) {
-                    if(fi.isFormField()) {
+                    if(fi.isFormField()) {  // param from form input
                         productParam.put(fi.getFieldName(), fi.getString());
                     }
                     else {
@@ -79,7 +78,6 @@ public class ServletAddProduct extends HttpServlet {
 
         File file = getFilePath(req, productParam, extension);
         productParam.put("image", file.getName());
-        System.out.println("File name: " + file.getName());
         // do upload file
         try {
             fi.write(file);
