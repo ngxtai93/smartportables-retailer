@@ -24,23 +24,28 @@
                 </table>
             </div>
         </form>
-        <%if(request.getParameter("category") != null) { %>
-            <form method="post">
+        <% String categoryParameter = (String) request.getParameter("category");
+            if(categoryParameter != null && !categoryParameter.equals("none")) { %>
+            <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="command" value="add">
                 <div class="container">
                     <br>
                     <table>
                         <tr>
                             <th><b>Product name:</b></th>
-                            <td><input required name="name"type="text" size="40"></td>
+                            <td><input required name="name" type="text" size="40"></td>
                         </tr>
                         <tr>
                             <th><b>Original price: </b></th>
-                            <td><input required name="price"type="text" size="10"></td>
+                            <td><input required name="price" type="text" size="10"></td>
                         </tr>
                         <tr>
                             <th><b>Discount: </b></th>
-                            <td><input name="discount"type="text" size="10"></td>
+                            <td><input name="discount" type="text" size="10"></td>
+                        </tr>
+                        <tr>
+                            <th><b>Image: </b></th>
+                            <td><input required name="image" type="file" size="30"></td>
                         </tr>
                         <tr>
                             <td><button id="login-button" type="submit">Submit</button></td>
