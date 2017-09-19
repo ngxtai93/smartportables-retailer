@@ -23,17 +23,7 @@ public class ServletManageAccount extends HttpServlet {
             String[] uriSplit = uri.split("/");
             // 0: blank, 1: csj, 2: account
             if(uriSplit.length == 3) {
-                switch(user.getRole()) {
-                    case CUSTOMER:
-                        rd = req.getRequestDispatcher("/WEB-INF/jsp/account/customer.jsp");
-                        break;
-                    case STORE_MANAGER:
-                        rd = req.getRequestDispatcher("/WEB-INF/jsp/account/store_manager.jsp");
-                        break;
-                    case SALESMAN:
-                        rd = req.getRequestDispatcher("/WEB-INF/jsp/account/salesman.jsp");
-                        break;
-                }
+                loadAccountInfo(req, res, user);
             }
             else if(uriSplit[3].equals("product")) {
                 switch(uriSplit[4]) {
@@ -41,15 +31,28 @@ public class ServletManageAccount extends HttpServlet {
                         rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_add.jsp");
                     break;
                 }
-            }
-            if(rd != null) {
                 rd.forward(req, res);
             }
             else {
                 res.sendRedirect(req.getContextPath());
             }
         }
+    }
 
-        
+    private void loadAccountInfo(HttpServletRequest req, HttpServletResponse res, User loggedUser)
+        throws ServletException, IOException {
+        RequestDispatcher rd = null;
+        switch(loggedUser.getRole()) {
+            case CUSTOMER:
+                rd = req.getRequestDispatcher("/WEB-INF/jsp/account/customer.jsp");
+                break;
+            case STORE_MANAGER:
+                rd = req.getRequestDispatcher("/WEB-INF/jsp/account/store_manager.jsp");
+                break;
+            case SALESMAN:
+                rd = req.getRequestDispatcher("/WEB-INF/jsp/account/salesman.jsp");
+                break;
+        }
+        rd.forward(req, res);
     }
 }
