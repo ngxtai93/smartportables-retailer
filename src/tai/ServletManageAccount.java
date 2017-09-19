@@ -46,17 +46,11 @@ public class ServletManageAccount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-        System.out.println("POST ServletManageAccount");
         User user = (User) req.getSession().getAttribute("currentUser");
         if(user == null) {
             res.sendRedirect(req.getContextPath() + "/login");
         }
         else {
-            Enumeration<String> listParam = req.getParameterNames();
-            while(listParam.hasMoreElements()) {
-                System.out.println(listParam.nextElement());
-            }
-            System.out.println("End listParam");
             RequestDispatcher rd = null;
             String command = (String) req.getParameter("command");
             switch(command) {
