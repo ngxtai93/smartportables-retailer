@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.Double;
 import java.lang.StringBuilder;
 
 import org.apache.commons.fileupload.*;
@@ -45,12 +46,15 @@ public class ServletAddProduct extends HttpServlet {
                         productParam.put(fi.getFieldName(), fi.getString());
                     }
                     else {
-                        // System.out.println("fieldName: " + fi.getFieldName());
-                        // System.out.println("fileName: " + fi.getName());
-                        // System.out.println("contentType: " + fi.getContentType());
                         uploadFile(req, productParam, fi);
                     }
                 }
+                Product product = buildProductObject(productParam);
+                System.out.println("Category: " + product.getCategory());
+                System.out.println("Name: " + product.getName());
+                System.out.println("Image: " + product.getImage());
+                System.out.println("Price: " + product.getPrice());
+                System.out.println("Discount: " + product.getDiscount());
             }
             catch(FileUploadException e) {
                 e.printStackTrace();
@@ -74,6 +78,7 @@ public class ServletAddProduct extends HttpServlet {
         }
 
         File file = getFilePath(req, productParam, extension);
+        productParam.put("image", file.getName());
         System.out.println("File name: " + file.getName());
         // do upload file
         try {
@@ -82,6 +87,17 @@ public class ServletAddProduct extends HttpServlet {
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Product buildProductObject(Map<String, String> productParam) {
+        Product product = new Product();
+        product.setCategory (productParam.get("category"));
+        product.setDiscount (Double.parseDouble(productParam.get("discount")));
+        product.setName     (productParam.get("name"));
+        product.setPrice    (Double.parseDouble(productParam.get("price")));
+        product.setImage    (productParam.get("image"));
+
+        return product;
     }
 
     private File getFilePath(HttpServletRequest req, Map<String, String> productParam, String extension) {
