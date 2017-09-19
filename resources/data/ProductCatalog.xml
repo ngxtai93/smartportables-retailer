@@ -22,6 +22,6 @@
     </category>
     <category id="storage" name="External Storages" image-overview="overview.jpg">
     </category>
-    <category id="accessory">
+    <category id="accessory" name="Accessories">
     </category>
 </ProductCatalog>
