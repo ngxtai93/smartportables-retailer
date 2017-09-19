@@ -73,21 +73,8 @@ public class ServletAddProduct extends HttpServlet {
                 break;
         }
 
-        // build filePath
-        String category = productParam.get("category");
-        String uploadFilePath = req.getServletContext().getRealPath("resources/images/product/")
-                                + "\\"
-                                + category
-                                + "\\"
-        ;
-        // System.out.println(uploadFilePath.toString());
-        String fileName = StringUtilities.generateRandomString(10) + extension;
-        File file = new File(uploadFilePath + fileName);
-        while(file.exists()) {
-            fileName = StringUtilities.generateRandomString(10) + extension;
-            file = new File(uploadFilePath + fileName);
-        }
-        System.out.println("file name: " + fileName);
+        File file = getFilePath(req, productParam, extension);
+        System.out.println("File name: " + file.getName());
         // do upload file
         try {
             fi.write(file);
@@ -95,6 +82,21 @@ public class ServletAddProduct extends HttpServlet {
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private File getFilePath(HttpServletRequest req, Map<String, String> productParam, String extension) {
+        String category = productParam.get("category");
+        String uploadFilePath = req.getServletContext().getRealPath("resources/images/product/")
+                                + "\\"
+                                + category
+                                + "\\"
+        ;
+        String fileName = StringUtilities.generateRandomString(10) + extension;
+        File file = new File(uploadFilePath + fileName);
+        while(file.exists()) {
+            fileName = StringUtilities.generateRandomString(10) + extension;
+            file = new File(uploadFilePath + fileName);
+        }
+        return file;
     }
 }
