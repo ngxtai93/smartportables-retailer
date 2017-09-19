@@ -26,7 +26,7 @@
         </form>
         <% String categoryParameter = (String) request.getParameter("category");
             if(categoryParameter != null && !categoryParameter.equals("none")) { %>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" action="<%=rootPath%>/addProduct" enctype="multipart/form-data">
                 <input type="hidden" name="command" value="add">
                 <div class="container">
                     <br>

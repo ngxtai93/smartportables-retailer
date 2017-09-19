@@ -55,6 +55,16 @@
         <servlet-name>ServletManageAccount</servlet-name>
         <url-pattern>/account/*</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletAddProduct</servlet-name>
+        <servlet-class>tai.ServletAddProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletAddProduct</servlet-name>
+        <url-pattern>/addProduct</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>FilterGetListCategory</filter-name>
         <filter-class>tai.FilterGetListCategory</filter-class>
