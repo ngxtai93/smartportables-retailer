@@ -42,27 +42,7 @@ public class ServletManageAccount extends HttpServlet {
             }
         }
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("currentUser");
-        if(user == null) {
-            res.sendRedirect(req.getContextPath() + "/login");
-        }
-        else {
-            RequestDispatcher rd = null;
-            String command = (String) req.getParameter("command");
-            switch(command) {
-                case "add":
-                    // ProductManager pm = new ProductManager();
-                    Product product = new Product();
-                    BeanUtilities.populateBean(product, req);
-                break;
-            }
-            res.sendRedirect(req.getContextPath());
-        }
-    }
+    
 
     private RequestDispatcher loadAccountInfo(HttpServletRequest req, User loggedUser) {
         RequestDispatcher rd = null;
