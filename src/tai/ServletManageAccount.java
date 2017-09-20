@@ -3,13 +3,19 @@ package tai;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
-import java.util.Enumeration;
+import java.util.Map;
 
 import tai.User;
 import tai.Role;
+import tai.ProductManager;
 
 public class ServletManageAccount extends HttpServlet {
 
+    private ProductManager pm;
+
+    public ServletManageAccount() {
+        pm = new ProductManager();
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
@@ -77,7 +83,21 @@ public class ServletManageAccount extends HttpServlet {
             return null;
         }
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_update.jsp");
-        System.out.println(req.getQueryString());
+
+        if(req.getQueryString() != null) {
+            String[] queryStringSplit = req.getQueryString().split("=");
+            for(int i = 0; i < queryStringSplit.length - 1; i = i + 2) {
+                String name = queryStringSplit[i];
+                String value = queryStringSplit[i + 1];
+
+                switch(name) {
+                    case "category":
+                        Map<Integer, Product> mapProduct = pm.getListProduct(req, value);
+                        req.setAttribute("mapProduct", mapProduct);
+                        break;
+                }
+            }
+        }
         return rd;
     }
 }
