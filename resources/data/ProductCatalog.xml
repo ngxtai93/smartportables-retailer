@@ -7,8 +7,8 @@
             <price>349.99</price>
             <discount>9.99</discount>
             <accessories>
-                <product id="1"></product>
-                <product id="2"></product>
+                <product-id id="1"></product-id>
+                <product-id id="2"></product-id>
             </accessories>
         </product>
     </category>
