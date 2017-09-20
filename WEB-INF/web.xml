@@ -81,8 +81,17 @@
     <servlet-mapping>
         <servlet-name>ServletDeleteProduct</servlet-name>
         <url-pattern>/deleteProduct</url-pattern>
-    </servlet-mapping>    
-
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletManageCustomer</servlet-name>
+        <servlet-class>tai.ServletManageCustomer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletManageCustomer</servlet-name>
+        <url-pattern>/account/customer/*</url-pattern>
+    
+    </servlet-mapping>
     <servlet>
         <servlet-name>PageSuccess</servlet-name>
         <jsp-file>/WEB-INF/jsp/success.jsp</jsp-file>
