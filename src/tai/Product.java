@@ -1,18 +1,18 @@
 package tai;
 
 public class Product {
-    private int id;
+    private Integer id;
     private String category;
     private String name;
     private String image;
-    private double price;
-    private double discount;
+    private Double price;
+    private Double discount;
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,19 +40,19 @@ public class Product {
         this.image = image;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return this.price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public double getDiscount() {
+    public Double getDiscount() {
         return this.discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 }

@@ -66,6 +66,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ServletUpdateProduct</servlet-name>
+        <servlet-class>tai.ServletUpdateProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletUpdateProduct</servlet-name>
+        <url-pattern>/updateProduct</url-pattern>
+    </servlet-mapping>    
+
+    <servlet>
         <servlet-name>PageSuccess</servlet-name>
         <jsp-file>/WEB-INF/jsp/success.jsp</jsp-file>
     </servlet>
