@@ -30,7 +30,7 @@ import tai.Role;
 public class ServletAddProduct extends HttpServlet {
 
     private final String MIME_PNG = "image/png";
-    private final String MIME_JPG = "image/jpg";
+    private final String MIME_JPG = "image/jpeg";
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
@@ -84,15 +84,16 @@ public class ServletAddProduct extends HttpServlet {
                 extension = ".png";
                 break;
         }
-
-        File file = getFilePath(req, productParam, extension);
-        productParam.put("image", file.getName());
-        // do upload file
-        try {
-            fi.write(file);
-        }
-        catch(Exception e) {
-            e.printStackTrace();
+        if(extension != null) {
+            File file = getFilePath(req, productParam, extension);
+            productParam.put("image", file.getName());
+            // do upload file
+            try {
+                fi.write(file);
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
