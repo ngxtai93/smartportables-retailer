@@ -52,7 +52,7 @@ public class ServletAddProduct extends HttpServlet {
             res.sendRedirect(req.getContextPath());
         }
         else {
-            System.out.println("is multipart");
+            // process request
             DiskFileItemFactory factory = new DiskFileItemFactory();
             File repository = (File) req.getServletContext().getAttribute("javax.servlet.context.tempdir");
             factory.setRepository(repository);
@@ -74,11 +74,6 @@ public class ServletAddProduct extends HttpServlet {
                     }
                 }
                 product = buildProductObject(productParam);
-                System.out.println("Category: " + product.getCategory());
-                System.out.println("Name: " + product.getName());
-                System.out.println("Image: " + product.getImage());
-                System.out.println("Price: " + product.getPrice());
-                System.out.println("Discount: " + product.getDiscount());
             }
             catch(FileUploadException e) {
                 e.printStackTrace();
@@ -87,7 +82,8 @@ public class ServletAddProduct extends HttpServlet {
             // process uploaded items
             addProductToCatalog(req, product);
 
-            res.sendRedirect(req.getContextPath());
+            req.getSession().setAttribute("command-executed", "product-add");
+            res.sendRedirect(req.getContextPath() + "/success");
         }
     }
 

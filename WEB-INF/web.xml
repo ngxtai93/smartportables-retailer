@@ -65,6 +65,14 @@
         <url-pattern>/addProduct</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>PageSuccess</servlet-name>
+        <jsp-file>/WEB-INF/jsp/success.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PageSuccess</servlet-name>
+        <url-pattern>/success</url-pattern>
+    </servlet-mapping>
     <filter>
         <filter-name>FilterGetListCategory</filter-name>
         <filter-class>tai.FilterGetListCategory</filter-class>
