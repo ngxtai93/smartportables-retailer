@@ -186,7 +186,7 @@ public class ServletAddProduct extends HttpServlet {
             Transformer transformer =   tf.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             OutputStream out = new FileOutputStream(new File(xmlFilePath));
             Writer writer = new OutputStreamWriter(out, "UTF-8");
             Result output = new StreamResult(writer);
