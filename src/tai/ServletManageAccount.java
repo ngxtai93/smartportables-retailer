@@ -30,7 +30,10 @@ public class ServletManageAccount extends HttpServlet {
                 switch(uriSplit[4]) {
                     case "add":
                         rd = processProductAdd(req, user);
-                    break;
+                        break;
+                    case "update":
+                        rd = processProductUpdate(req, user);
+                        break;
                 }
             }
 
@@ -65,14 +68,16 @@ public class ServletManageAccount extends HttpServlet {
             return null;
         }
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_add.jsp");
+        return rd;
+    }
 
-        // Process category option query string
-        String queryString = req.getQueryString();
-        System.out.println(queryString);
-        if(queryString != null) {
-            String[] queryStringSplit = queryString.split("=");
+    
+    private RequestDispatcher processProductUpdate(HttpServletRequest req, User loggedUser) {
+        if(loggedUser.getRole() != Role.STORE_MANAGER) {
+            return null;
         }
-
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_update.jsp");
+        System.out.println(req.getQueryString());
         return rd;
     }
 }
