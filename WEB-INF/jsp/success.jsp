@@ -2,11 +2,15 @@
 
 <div id="body">
     <section class="content">
-        <%if(session.getAttribute("command-executed").equals("product-add")) { %>
-            <p>Add product successful.</p>
-            <% session.removeAttribute("command-executed"); %>
+        <% String commandExecuted = (String) session.getAttribute("command-executed"); %>
+        <% if(commandExecuted.equals("product-add")) { %>
+                <p>Add product successful.</p>
         <% } %>
-        
+        <% if(commandExecuted.equals("product-update")) { %>
+                <p>Update product successful.</p>
+        <% } %>
+
+        <%session.removeAttribute("command-executed");%>
         <p>
             <a href="<%=rootPath%>/account">Back to account management</a>
         </p>
