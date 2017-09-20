@@ -2,6 +2,24 @@ package tai;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +30,11 @@ import java.lang.StringBuilder;
 import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import tai.StringUtilities;
 import tai.User;
@@ -37,6 +60,8 @@ public class ServletAddProduct extends HttpServlet {
 
             ServletFileUpload upload = new ServletFileUpload(factory);
             upload.setSizeMax(1024 * 1024 * 2);         // 2MB
+
+            Product product = null;
             try {
                 List<FileItem> listItem = upload.parseRequest(req);
                 Map<String, String> productParam = new HashMap<>();
@@ -48,7 +73,7 @@ public class ServletAddProduct extends HttpServlet {
                         uploadFile(req, productParam, fi);
                     }
                 }
-                Product product = buildProductObject(productParam);
+                product = buildProductObject(productParam);
                 System.out.println("Category: " + product.getCategory());
                 System.out.println("Name: " + product.getName());
                 System.out.println("Image: " + product.getImage());
@@ -60,6 +85,7 @@ public class ServletAddProduct extends HttpServlet {
             }
 
             // process uploaded items
+            addProductToCatalog(req, product);
 
             res.sendRedirect(req.getContextPath());
         }
@@ -96,6 +122,99 @@ public class ServletAddProduct extends HttpServlet {
         product.setImage    (productParam.get("image"));
 
         return product;
+    }
+
+    private void addProductToCatalog(HttpServletRequest req, Product product) {
+        String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
+        Document doc = getXmlDocument(xmlFilePath);
+        Element categoryElement = findCategoryElement(doc, product);
+        
+        int productCount = categoryElement.getElementsByTagName("product").getLength();
+        System.out.println(productCount + " product");
+
+        // create element
+        Element newProductElement = createNewProductElement(doc, product, productCount);
+        categoryElement.appendChild(newProductElement);
+
+        writeToXml(doc, xmlFilePath);
+        // write back to file
+        
+    }
+
+    
+    private Document getXmlDocument(String filePath) {
+        Document doc = null;
+        try {
+            doc =   DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder()
+                    .parse(filePath);
+        }
+        catch(ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+        return doc;
+    }
+
+    private Element findCategoryElement(Document doc, Product product) {
+        XPath xpath =   XPathFactory.newInstance()
+                        .newXPath();
+        String exprStr = "/ProductCatalog/category[@id=\'" + product.getCategory() + "\']";
+        NodeList nl = null;
+        try {
+            XPathExpression expr = xpath.compile(exprStr);
+            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+        }
+        catch(XPathExpressionException e) {
+            e.printStackTrace();
+        }
+        
+        return (Element) nl.item(0);
+    }
+
+    private Element createNewProductElement(Document doc, Product product, int productCount) {
+        int nextProductId = productCount + 1;
+
+        Element newProductElement = doc.createElement("product");
+        newProductElement.setAttribute("id", String.valueOf(nextProductId));
+
+        // create subelement of product
+        Element imageElement = doc.createElement("image");
+        imageElement.setTextContent(product.getImage());
+        Element nameElement = doc.createElement("name");
+        nameElement.setTextContent(product.getName());
+        Element priceElement = doc.createElement("price");
+        priceElement.setTextContent(String.valueOf(product.getPrice()));
+        Element discountElement = doc.createElement("discount");
+        discountElement.setTextContent(String.valueOf(product.getDiscount()));
+
+        // append to new element
+        newProductElement.appendChild(imageElement);
+        newProductElement.appendChild(nameElement);
+        newProductElement.appendChild(priceElement);
+        newProductElement.appendChild(discountElement);
+
+        return newProductElement;
+    }
+
+    private void writeToXml(Document doc, String xmlFilePath) {
+        try {
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer =   tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            OutputStream out = new FileOutputStream(new File(xmlFilePath));
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            Result output = new StreamResult(writer);
+            Source input = new DOMSource(doc);
+
+            transformer.transform(input, output);
+
+            writer.close();
+        }
+        catch(TransformerException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private File getFilePath(HttpServletRequest req, Map<String, String> productParam, String extension) {
