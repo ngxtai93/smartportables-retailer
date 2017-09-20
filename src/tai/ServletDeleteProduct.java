@@ -20,10 +20,6 @@ import java.lang.StringBuilder;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-import tai.ProductManager;
-import tai.User;
-import tai.Role;
-
 public class ServletDeleteProduct extends HttpServlet {
 
     @Override

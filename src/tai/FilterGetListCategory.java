@@ -9,8 +9,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import org.xml.sax.SAXException;
 
-import tai.Category;
-import tai.SaxCategoryHandler;
 
 public class FilterGetListCategory implements Filter {
 

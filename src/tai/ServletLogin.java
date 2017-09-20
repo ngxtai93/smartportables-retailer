@@ -3,8 +3,7 @@ package tai;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
-import tai.Authenticator;
-import tai.Status;
+
 public class ServletLogin extends HttpServlet {
 
     private Authenticator auth;

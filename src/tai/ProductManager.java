@@ -10,9 +10,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-import tai.Product;
-import tai.SaxProductHandler;
-
 public class ProductManager {
     
     public Map<Integer, Product> getListProduct(HttpServletRequest req, String category) {

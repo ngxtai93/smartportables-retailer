@@ -5,10 +5,6 @@ import javax.servlet.http.*;
 import java.io.*;
 import java.util.Map;
 
-import tai.User;
-import tai.Role;
-import tai.ProductManager;
-
 public class ServletManageAccount extends HttpServlet {
 
     private ProductManager pm;

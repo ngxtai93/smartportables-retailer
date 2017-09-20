@@ -3,9 +3,7 @@ package tai;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import tai.Status;
-import tai.User;
-import tai.Role;
+
 public class Authenticator {
 
     private final String USER_INFO_PATH = "resources/data/user/";

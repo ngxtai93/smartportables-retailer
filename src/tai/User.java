@@ -1,7 +1,5 @@
 package tai;
 
-import tai.Role;
-
 public class User {
     private String username;
     private String password;

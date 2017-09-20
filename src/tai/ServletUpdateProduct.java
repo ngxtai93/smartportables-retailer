@@ -23,10 +23,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-import tai.StringUtilities;
-import tai.User;
-import tai.Role;
-
 public class ServletUpdateProduct extends HttpServlet {
 
     private final String MIME_PNG = "image/png";
