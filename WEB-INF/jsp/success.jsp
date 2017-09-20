@@ -9,6 +9,9 @@
         <% if(commandExecuted.equals("product-update")) { %>
                 <p>Update product successful.</p>
         <% } %>
+        <% if(commandExecuted.equals("product-delete")) { %>
+                <p>Delete product successful.</p>
+        <% } %>
 
         <%session.removeAttribute("command-executed");%>
         <p>

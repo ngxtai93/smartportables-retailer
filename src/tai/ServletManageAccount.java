@@ -40,6 +40,9 @@ public class ServletManageAccount extends HttpServlet {
                     case "update":
                         rd = processProductUpdate(req, user);
                         break;
+                    case "delete":
+                        rd = processProductDelete(req, user);
+                        break;
                 }
             }
 
@@ -83,6 +86,29 @@ public class ServletManageAccount extends HttpServlet {
             return null;
         }
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_update.jsp");
+
+        if(req.getQueryString() != null) {
+            String[] queryStringSplit = req.getQueryString().split("=");
+            for(int i = 0; i < queryStringSplit.length - 1; i = i + 2) {
+                String name = queryStringSplit[i];
+                String value = queryStringSplit[i + 1];
+
+                switch(name) {
+                    case "category":
+                        Map<Integer, Product> mapProduct = pm.getListProduct(req, value);
+                        req.setAttribute("mapProduct", mapProduct);
+                        break;
+                }
+            }
+        }
+        return rd;
+    }
+
+    private RequestDispatcher processProductDelete(HttpServletRequest req, User loggedUser) {
+        if(loggedUser.getRole() != Role.STORE_MANAGER) {
+            return null;
+        }
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_delete.jsp");
 
         if(req.getQueryString() != null) {
             String[] queryStringSplit = req.getQueryString().split("=");

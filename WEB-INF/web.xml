@@ -72,6 +72,15 @@
     <servlet-mapping>
         <servlet-name>ServletUpdateProduct</servlet-name>
         <url-pattern>/updateProduct</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletDeleteProduct</servlet-name>
+        <servlet-class>tai.ServletDeleteProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletDeleteProduct</servlet-name>
+        <url-pattern>/deleteProduct</url-pattern>
     </servlet-mapping>    
 
     <servlet>
