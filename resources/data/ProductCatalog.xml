@@ -5,11 +5,65 @@
             <image>61Yeir0uhIL._SL1322_.jpg</image>
             <name>Acer Aspire E 15 E5-575-33BM 15.6-Inch FHD Notebook</name>
             <price>349.99</price>
-            <discount>9.99</discount>
+            <discount>0.0</discount>
             <accessories>
                 <product-id id="1"/>
                 <product-id id="2"/>
             </accessories>
+        </product>
+    <product id="2">
+            <image>X69VCFF7MR3J5JXF60.jpg</image>
+            <name><![CDATA[Dell - Inspiron 15.6" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 1TB Hard Drive - Black]]></name>
+            <price>399.99</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="3">
+            <image>WDOQMYUGQHB941ZA4Y.jpg</image>
+            <name><![CDATA[HP - 15.6" Touch-Screen Laptop - Intel Core i5 - 8GB Memory - 1TB Hard Drive - HP finish in jet black]]></name>
+            <price>529.99</price>
+            <discount>80.0</discount>
+        </product>
+    <product id="4">
+            <image>FKGOR64GMFX4HLHYUS.jpg</image>
+            <name><![CDATA[Lenovo - 100S-14IBR 14" Laptop - Intel Celeron - 2GB Memory - 32GB eMMC Flash Memory - Navy blue]]></name>
+            <price>229.99</price>
+            <discount>30.0</discount>
+        </product>
+    <product id="5">
+            <image>QN8RNBL722VHNCF7RT.jpg</image>
+            <name><![CDATA[HP - 14" Chromebook - Intel Celeron - 4GB Memory - 16GB eMMC Flash Memory - Silver]]></name>
+            <price>249.0</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="6">
+            <image>I9WEMCB4M81XWMVKR9.jpg</image>
+            <name><![CDATA[HP - 17.3" Laptop - Intel Core i5 - 8GB Memory - 1TB Hard Drive - HP finish in jet black]]></name>
+            <price>529.99</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="7">
+            <image>O4EHC48UIX0RH9SZKX.jpg</image>
+            <name><![CDATA[Apple - MacBook Pro® - 13" Display - Intel Core i5 - 8 GB Memory - 128GB Flash Storage (Latest Model) - Space Gray]]></name>
+            <price>1299.99</price>
+            <discount>100.0</discount>
+        </product>
+    <product id="8">
+            <image>CD2QGJ3MP8OOMZ6GXU.jpg</image>
+            <name><![CDATA[Lenovo - Yoga 710 2-in-1 15.6" Touch-Screen Laptop - Intel Core i5 - 8GB Memory - 256GB Solid State Drive - Black]]></name>
+            <price>829.99</price>
+            <discount>130.0</discount>
+        </product>
+    <product id="9">
+            <image>VS59GPK446QU2BEPMY.jpg</image>
+            <name><![CDATA[Asus - 2-in-1 15.6" Touch-Screen Laptop - Intel Core i7 - 12GB Memory - NVIDIA GeForce 940MX - 2TB Hard Drive - Sandblasted matte black aluminum]]></name>
+            <price>999.99</price>
+            <discount>200.0</discount>
+        </product>
+    <product id="10">
+            <image>9QWTQGLF7N627XSJ5G.jpg</image>
+            <name><![CDATA[HP - 2-in-1 14" Touch-Screen Laptop - Intel Core i3 - 6GB Memory - 500GB Hard Drive - HP finish natural silver]]></name>
+            <price>499.99</price>
+            <discount>50.0</discount>
         </product>
     </category>
     <category id="phone" image-overview="overview.jpg" name="Cellphones">
