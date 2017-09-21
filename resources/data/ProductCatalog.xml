@@ -115,6 +115,12 @@
             <price>359.99</price>
             <discount>0.0</discount>
         </product>
+    <product id="10">
+            <image>N3LMHITQDC1JGK9LQQ.jpg</image>
+            <name><![CDATA[Apple - Pre-Owned iPhone 5 4G LTE with 16GB Memory Cell Phone (Unlocked) - Black & Slate]]></name>
+            <price>99.99</price>
+            <discount>0.0</discount>
+        </product>
     </category>
     <category id="smartwatch" image-overview="overview.jpg" name="Smart Watches">
     </category>
