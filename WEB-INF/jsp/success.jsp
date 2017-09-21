@@ -16,10 +16,15 @@
         <% if(commandExecuted.equals("sale-customer-register")) { %>
                 <p>Customer account successfully created.</p>
         <% } %>
-        <%session.removeAttribute("command-executed");%>
         <p>
-            <a href="<%=rootPath%>/account">Back to account management</a>
+        	<a href="<%=rootPath%>/account">Back to account management</a>
         </p>
+        <% if(commandExecuted.equals("product-add")) { %>
+        	<a href="<%=rootPath%>/account/product/add">Add more product</a>
+        <% } %>
+
+        <%session.removeAttribute("command-executed");%>
+
     </section>
 <%@include file = "./partials/sidebar.jsp" %>
 </div>
