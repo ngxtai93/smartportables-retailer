@@ -96,7 +96,12 @@ public class ServletAddProduct extends HttpServlet {
     private Product buildProductObject(Map<String, String> productParam) {
         Product product = new Product();
         product.setCategory (productParam.get("category"));
-        product.setDiscount (Double.parseDouble(productParam.get("discount")));
+        if(productParam.get("discount").equals("")) {
+            product.setDiscount(Double.valueOf(0));
+        }
+        else {
+            product.setDiscount (Double.parseDouble(productParam.get("discount")));
+        }
         product.setName     (productParam.get("name"));
         product.setPrice    (Double.parseDouble(productParam.get("price")));
         product.setImage    (productParam.get("image"));
