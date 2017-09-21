@@ -191,10 +191,203 @@
         </product>
     </category>
     <category id="speaker" image-overview="overview.jpg" name="Speakers">
+    <product id="1">
+            <image>4BF36E9TAEUSXMZOQZ.jpg</image>
+            <name><![CDATA[Insignia - 2.0 Stereo Computer Speaker System (2-Piece) - Black]]></name>
+            <price>14.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="2">
+            <image>3GXXJZE4K0BM4IVO3S.jpg</image>
+            <name><![CDATA[Logitech - Z130 2.0 Speaker System (2-Piece) - Black]]></name>
+            <price>19.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="3">
+            <image>XXU2TYRH54VPHLWLD3.jpg</image>
+            <name><![CDATA[Logitech - Z200 2.0 Multimedia Speakers (2-Piece) - Black]]></name>
+            <price>22.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="4">
+            <image>PBAAZOZ4XURK3Z4U39.jpg</image>
+            <name><![CDATA[Logitech - Speakers (2-Piece) - Black]]></name>
+            <price>11.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="5">
+            <image>A2IOT8F69U54C9U5RD.jpg</image>
+            <name><![CDATA[Logitech - Z313 2.1-Channel Speaker System (3-Piece) - Black/Silver]]></name>
+            <price>39.99</price>
+            <discount>6.0</discount>
+        </product>
+    <product id="6">
+            <image>L4DEZ0SMG5I4TU97K5.jpg</image>
+            <name><![CDATA[Bose® - Companion® 2 Series III Multimedia Speaker System (2-Piece)]]></name>
+            <price>99.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="7">
+            <image>0MVK9TS0YVYI0IAQCJ.jpg</image>
+            <name><![CDATA[Logitech - Z323 Speaker System - Black]]></name>
+            <price>49.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="8">
+            <image>9600Y9XW1EU98D71IM.jpg</image>
+            <name><![CDATA[Logitech - Z506 5.1 Surround Sound Speakers (6-Piece) - Black]]></name>
+            <price>69.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="9">
+            <image>6BIAZ9HWKWUP4Z4PJF.jpg</image>
+            <name><![CDATA[Logitech - Wireless Bluetooth Speaker Adapter - Black]]></name>
+            <price>24.99</price>
+            <discount>3.0</discount>
+        </product>
+    <product id="10">
+            <image>1VBYS8AQV9K0SENCUA.jpg</image>
+            <name><![CDATA[Insignia - Powered Computer Speakers with Subwoofer (3-Piece) - Black/Silver/Gray]]></name>
+            <price>39.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="11">
+            <image>8J3G41SQZOZ1Y5SL85.jpg</image>
+            <name><![CDATA[Klipsch - ProMedia 2.1 Bluetooth Speaker System (3-Piece) - Black]]></name>
+            <price>179.99</price>
+            <discount>0.0</discount>
+        </product>
     </category>
     <category id="headphone" image-overview="overview.jpg" name="Headphones">
+    <product id="1">
+            <image>ERML01QIXHZP58IAJF.jpg</image>
+            <name><![CDATA[Apple - AirPods - White]]></name>
+            <price>159.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="2">
+            <image>34HAPASBBQ8L0X54V7.jpg</image>
+            <name><![CDATA[Skullcandy - Ink'd 2 Earbud Headphones - Black]]></name>
+            <price>19.99</price>
+            <discount>10.0</discount>
+        </product>
+    <product id="3">
+            <image>6YMBV11XAAITQ3K11Y.jpg</image>
+            <name><![CDATA[Beats by Dr. Dre - Powerbeats³ Wireless - Black]]></name>
+            <price>199.99</price>
+            <discount>65.0</discount>
+        </product>
+    <product id="4">
+            <image>YGTHIPY7B1LD57QTX3.jpg</image>
+            <name><![CDATA[LG - TONE ULTRA+ HBS-820S Wireless In-Ear Behind-the-Neck Headphones - Black]]></name>
+            <price>199.99</price>
+            <discount>20.0</discount>
+        </product>
+    <product id="5">
+            <image>JB5UYMYIM4B0MA8VCB.jpg</image>
+            <name><![CDATA[Bose® - SoundSport® wireless headphones - Black]]></name>
+            <price>149.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="6">
+            <image>Z1BLS7U9E4DKSLTRU0.jpg</image>
+            <name><![CDATA[Bose® - QuietComfort® 35 wireless headphones - Black]]></name>
+            <price>349.99</price>
+            <discount>20.0</discount>
+        </product>
+    <product id="7">
+            <image>1VFGNNMB9KK49NT0MN.jpg</image>
+            <name><![CDATA[JLab Audio - JBuds Pro Signature Wireless In-Ear Earbud Headphones - Black]]></name>
+            <price>24.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="8">
+            <image>YV2IU2A8DAV6AKJA0H.jpg</image>
+            <name><![CDATA[Skullcandy - Ink'd 2 Earbud Headphones - Red/Black]]></name>
+            <price>19.99</price>
+            <discount>5.0</discount>
+        </product>
+    <product id="9">
+            <image>KR8MVK9SA9IF9LXKF3.jpg</image>
+            <name><![CDATA[Sony - EX Series EX14AP Earbud Headphones - Black]]></name>
+            <price>14.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="10">
+            <image>6F0231NDLOMIH0HJ3T.jpg</image>
+            <name><![CDATA[Skullcandy - Method Wireless In-Ear Headphones - Black/Swirl]]></name>
+            <price>59.99</price>
+            <discount>20.0</discount>
+        </product>
     </category>
     <category id="storage" image-overview="overview.jpg" name="External Storages">
+    
+    <product id="2">
+            <image>Y2B7ZZ7R2HZX0NYW5R.jpg</image>
+            <name><![CDATA[WD - My Passport 1TB External USB 3.0 Portable Hard Drive - Black]]></name>
+            <price>59.99</price>
+            <discount>3.0</discount>
+        </product>
+    <product id="3">
+            <image>PT1OT947F6P8IBFDIW.jpg</image>
+            <name><![CDATA[WD - easystore® 2TB External USB 3.0 Portable Hard Drive - Black]]></name>
+            <price>129.99</price>
+            <discount>60.0</discount>
+        </product>
+    <product id="4">
+            <image>60FPXRSIZWWDPLSQRC.jpg</image>
+            <name><![CDATA[WD - easystore® 4TB External USB 3.0 Hard Drive - Black]]></name>
+            <price>199.99</price>
+            <discount>110.0</discount>
+        </product>
+    <product id="5">
+            <image>9UM38SUPZSNRHBJADP.jpg</image>
+            <name><![CDATA[WD - easystore® 1TB External USB 3.0 Portable Hard Drive - Black]]></name>
+            <price>99.99</price>
+            <discount>40.0</discount>
+        </product>
+    <product id="5">
+            <image>JIR30AQVWVSRHTC09B.jpg</image>
+            <name><![CDATA[WD - Mainstream 1TB Internal Serial ATA Hard Drive for Desktops]]></name>
+            <price>54.99</price>
+            <discount>10.0</discount>
+        </product>
+    <product id="6">
+            <image>LG0G5XELQ9MQJX4JY2.jpg</image>
+            <name><![CDATA[SanDisk - Ultra 32GB Micro USB/USB 3.0 Flash Drive - Black]]></name>
+            <price>24.99</price>
+            <discount>13.0</discount>
+        </product>
+    <product id="7">
+            <image>951LRJ5P93BZM02XEG.jpg</image>
+            <name><![CDATA[SanDisk - iXpand 32GB USB 3.0/Lightning Flash Drive]]></name>
+            <price>59.99</price>
+            <discount>20.0</discount>
+        </product>
+    <product id="8">
+            <image>NZCE16071GZ0RQJI9I.jpg</image>
+            <name><![CDATA[SanDisk - 240GB Internal SATA Solid State Drive Plus for Laptops]]></name>
+            <price>84.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="9">
+            <image>HOPHIGDB7DSSGJG6UU.jpg</image>
+            <name><![CDATA[PNY - Elite Turbo 16GB USB 2.0 Flash Drives (5-Pack) - Black]]></name>
+            <price>29.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="10">
+            <image>2GX1VV47YX579T7QE4.jpg</image>
+            <name><![CDATA[WD - Mainstream 1TB Internal Serial ATA Hard Drive for Laptops]]></name>
+            <price>64.99</price>
+            <discount>10.0</discount>
+        </product>
+    <product id="11">
+            <image>UKMM0WBUSMD2SWL4CY.jpg</image>
+            <name><![CDATA[SanDisk - iXpand 64GB USB 3.0/Lightning Flash Drive]]></name>
+            <price>79.99</price>
+            <discount>20.0</discount>
+        </product>
     </category>
     <category id="accessory" name="Accessories">
     </category>
