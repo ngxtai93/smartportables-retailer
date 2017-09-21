@@ -67,8 +67,128 @@
         </product>
     </category>
     <category id="phone" image-overview="overview.jpg" name="Cellphones">
+    <product id="1">
+            <image>A4SFTUSU7SX91V6AP0.jpg</image>
+            <name><![CDATA[Samsung - Galaxy Note8 64GB (Unlocked) - Midnight Black]]></name>
+            <price>929.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="2">
+            <image>XQ714N965Z8G9TJ7ND.jpg</image>
+            <name><![CDATA[Samsung - Galaxy J7 4G LTE with 16GB Memory Cell Phone (Unlocked) - Black]]></name>
+            <price>219.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="3">
+            <image>UZVL6QFP2AW63ZWZLM.jpg</image>
+            <name><![CDATA[Samsung - Galaxy S8 64GB (Unlocked) - Midnight Black]]></name>
+            <price>724.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="4">
+            <image>41MBYGXSV95M43BDYH.jpg</image>
+            <name><![CDATA[Motorola - Moto G Plus (5th Gen) 4G LTE with 32GB Memory Cell Phone (Unlocked) - Lunar Gray]]></name>
+            <price>229.99</price>
+            <discount>5.0</discount>
+        </product>
+    <product id="5">
+            <image>C7I102RQ9I4ZV470HV.jpg</image>
+            <name><![CDATA[Samsung - Galaxy J3 4G LTE with 16GB Memory Cell Phone (Unlocked) - Black]]></name>
+            <price>149.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="6">
+            <image>PO7UPGO70LIJW9U7GR.jpg</image>
+            <name><![CDATA[BLU - Grand M with 8GB Memory Cell Phone (Unlocked) - Gray]]></name>
+            <price>79.99</price>
+            <discount>10.0</discount>
+        </product>
+    <product id="7">
+            <image>2COLBHVUF0P77HP6UG.jpg</image>
+            <name><![CDATA[Huawei - Honor 6x 4G LTE with 32GB Memory Cell Phone (Unlocked) - Gray]]></name>
+            <price>199.99</price>
+            <discount>20.0</discount>
+        </product>
+    <product id="8">
+            <image>R08S3QWW56LIIBMG05.jpg</image>
+            <name><![CDATA[Apple - Pre-Owned iPhone 5 4G LTE with 16GB Memory Cell Phone (Unlocked) - White & Silver]]></name>
+            <price>99.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="9">
+            <image>PA07AG16D8G8AU15DT.jpg</image>
+            <name><![CDATA[Apple - Pre-Owned (Excellent) iPhone 6s 4G LTE 16GB Cell Phone (Unlocked) - Rose Gold]]></name>
+            <price>359.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="10">
+            <image>AH26FK7XIZQ4UYXBY1.jpg</image>
+            <name><![CDATA[Apple - Pre-Owned (Excellent) iPhone 6 16GB Cell Phone (Unlocked) - Space Gray]]></name>
+            <price>319.99</price>
+            <discount>0.0</discount>
+        </product>
     </category>
     <category id="smartwatch" image-overview="overview.jpg" name="Smart Watches">
+    <product id="1">
+            <image>ASNIHF246BMMBI8FB7.jpg</image>
+            <name><![CDATA[Apple - Apple Watch Series 2 42mm Space Gray Aluminum Case Black Sport Band - Space Gray Aluminum]]></name>
+            <price>329.0</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="2">
+            <image>V1Y762W3IKM2W57I2K.jpg</image>
+            <name><![CDATA[Apple - Apple Watch Series 2 38mm Space Gray Aluminum Case Black Sport Band - Space Gray Aluminum]]></name>
+            <price>299.0</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="3">
+            <image>1QP1SC5BV2TF9IRTPI.jpg</image>
+            <name><![CDATA[Samsung - Gear S3 Frontier Smartwatch 46mm - Dark Grey]]></name>
+            <price>349.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="4">
+            <image>1A2RPOLR9C6ICURKBV.jpg</image>
+            <name><![CDATA[Apple - Apple Watch Series 1 38mm Rose Gold Aluminum Case Pink Sand Sport Band - Rose Gold Aluminum]]></name>
+            <price>249.0</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="5">
+            <image>1VNPGTDBSLMRK0XM48.jpg</image>
+            <name><![CDATA[Garmin - vívoactive 3 Smartwatch - Stainless steel]]></name>
+            <price>299.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="6">
+            <image>S8FTQ9CVY74DNTG3O7.jpg</image>
+            <name><![CDATA[Apple - Apple Watch Series 3 (GPS), 42mm Space Gray Aluminum Case with Black Sport Band - Space Gray Aluminum]]></name>
+            <price>359.0</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="7">
+            <image>A8KWBJ8V266F9MS7ZA.jpg</image>
+            <name><![CDATA[Apple - Apple Watch Series 1 42mm Space Gray Aluminum Case Black Sport Band - Space Gray Aluminum]]></name>
+            <price>279.0</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="8">
+            <image>KN0TZBQMYJ6EUNIMFP.jpg</image>
+            <name><![CDATA[Samsung - Gear Fit2 Pro Fitness Watch (Large) - Black]]></name>
+            <price>199.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="9">
+            <image>PAUJZQQLF575ZP3ZGT.jpg</image>
+            <name><![CDATA[Apple - Apple Watch Series 1 38mm Space Gray Aluminum Case Black Sport Band - Space Gray Aluminum]]></name>
+            <price>249.0</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="10">
+            <image>NKR1WT1DAMBNEQXCMV.jpg</image>
+            <name><![CDATA[Samsung - Gear S3 Classic Smartwatch 46mm]]></name>
+            <price>349.99</price>
+            <discount>0.0</discount>
+        </product>
     </category>
     <category id="speaker" image-overview="overview.jpg" name="Speakers">
     </category>
