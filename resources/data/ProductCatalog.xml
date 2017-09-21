@@ -67,6 +67,66 @@
         </product>
     </category>
     <category id="phone" image-overview="overview.jpg" name="Cellphones">
+    <product id="1">
+            <image>88THX3AME65Z70EH61.jpg</image>
+            <name><![CDATA[Samsung - Galaxy Note8 64GB (Unlocked) - Midnight Black]]></name>
+            <price>929.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="2">
+            <image>MNXH8PZW2OYN51NRU8.jpg</image>
+            <name><![CDATA[Samsung - Galaxy J7 4G LTE with 16GB Memory Cell Phone (Unlocked) - Black]]></name>
+            <price>219.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="3">
+            <image>13E9KTMM2PMR1S7AXI.jpg</image>
+            <name><![CDATA[Samsung - Galaxy S8 64GB (Unlocked) - Midnight Black]]></name>
+            <price>724.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="4">
+            <image>RSU5UWSIAY00QNG8G0.jpg</image>
+            <name><![CDATA[Motorola - Moto G Plus (5th Gen) 4G LTE with 32GB Memory Cell Phone (Unlocked) - Lunar Gray]]></name>
+            <price>229.99</price>
+            <discount>5.0</discount>
+        </product>
+    <product id="5">
+            <image>RIQA9HZ24C1GQBBXME.jpg</image>
+            <name><![CDATA[Samsung - Galaxy J3 4G LTE with 16GB Memory Cell Phone (Unlocked) - Black]]></name>
+            <price>149.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="6">
+            <image>BVYH1F2QS84JNS8SEJ.jpg</image>
+            <name><![CDATA[BLU - Grand M with 8GB Memory Cell Phone (Unlocked) - Gray]]></name>
+            <price>79.99</price>
+            <discount>10.0</discount>
+        </product>
+    <product id="7">
+            <image>BGBZ3IH8NNZGHUVDQ0.jpg</image>
+            <name><![CDATA[Huawei - Honor 6x 4G LTE with 32GB Memory Cell Phone (Unlocked) - Gray]]></name>
+            <price>199.99</price>
+            <discount>20.0</discount>
+        </product>
+    <product id="8">
+            <image>MXB4SXVFZ6G75PP97M.jpg</image>
+            <name><![CDATA[Apple - iPhone SE 32GB - Space Gray (Verizon)]]></name>
+            <price>399.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="9">
+            <image>FQWU389MSQNOQNRLYR.jpg</image>
+            <name><![CDATA[AT&T Prepaid - LG Phoenix 3 4G LTE with 16GB Memory Prepaid Cell Phone - Black]]></name>
+            <price>49.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="10">
+            <image>QADCFU3MMLO7B2Y5N9.jpg</image>
+            <name><![CDATA[Cricket Wireless - Samsung Galaxy Sol 4G with 8GB Memory Prepaid Cell Phone - Gold]]></name>
+            <price>69.99</price>
+            <discount>0.0</discount>
+        </product>
     </category>
     <category id="smartwatch" image-overview="overview.jpg" name="Smart Watches">
     </category>
