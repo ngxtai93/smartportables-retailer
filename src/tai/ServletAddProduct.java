@@ -161,7 +161,9 @@ public class ServletAddProduct extends HttpServlet {
         Element imageElement = doc.createElement("image");
         imageElement.setTextContent(product.getImage());
         Element nameElement = doc.createElement("name");
-        nameElement.setTextContent(product.getName());
+        // we use CDATA for formatting
+        CDATASection nameCData = doc.createCDATASection(product.getName());
+        nameElement.appendChild(nameCData);
         Element priceElement = doc.createElement("price");
         priceElement.setTextContent(String.valueOf(product.getPrice()));
         Element discountElement = doc.createElement("discount");
