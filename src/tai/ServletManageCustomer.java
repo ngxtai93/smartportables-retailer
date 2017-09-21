@@ -23,7 +23,6 @@ public class ServletManageCustomer extends HttpServlet {
         else {
             RequestDispatcher rd = null;
             String uri = req.getRequestURI();
-            System.out.println(uri);
             String[] uriSplit = uri.split("/");
             // 0: blank, 1: csj, 2: account, 3: customer
             if(uriSplit[3].equals("customer")) {
@@ -47,7 +46,6 @@ public class ServletManageCustomer extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
             String uri = req.getRequestURI();
-            System.out.println(uri);
             String[] uriSplit = uri.split("/");
             if(uriSplit[3].equals("customer")) {
                 switch(uriSplit[4]) {

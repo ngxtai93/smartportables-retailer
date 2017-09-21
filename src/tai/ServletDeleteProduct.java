@@ -84,7 +84,6 @@ public class ServletDeleteProduct extends HttpServlet {
                             + "/category[@id=\'" + category + "\']"
                             + "/product[@id=\'" + id + "\']"
         ;
-        System.out.println(exprStr);
         NodeList nl = null;
         try {
             XPathExpression expr = xpath.compile(exprStr);

@@ -22,7 +22,6 @@ public class ServletManageAccount extends HttpServlet {
         else {
             RequestDispatcher rd = null;
             String uri = req.getRequestURI();
-            System.out.println(uri);
             String[] uriSplit = uri.split("/");
             // 0: blank, 1: csj, 2: account
             if(uriSplit.length == 3) {

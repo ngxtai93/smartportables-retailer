@@ -109,7 +109,6 @@ public class ServletAddProduct extends HttpServlet {
         Element categoryElement = findCategoryElement(doc, product);
         
         int productCount = categoryElement.getElementsByTagName("product").getLength();
-        System.out.println(productCount + " product");
 
         // create element
         Element newProductElement = createNewProductElement(doc, product, productCount);

@@ -115,15 +115,6 @@ public class ServletUpdateProduct extends HttpServlet {
         if(image != null && !image.equals("")) {
             product.setImage    (image);
         }
-        System.out.println("Product to be updated:");
-        System.out.println("Category: " + product.getCategory());
-        System.out.println("Id: " + product.getId());
-        System.out.println("Name: " + product.getName());
-        System.out.println("Price: " + product.getPrice());
-        System.out.println("Discount: " + product.getDiscount());
-        System.out.println("Image: " + product.getImage());
-        
-
         return product;
     }
 
@@ -159,7 +150,6 @@ public class ServletUpdateProduct extends HttpServlet {
                             + "/category[@id=\'" + product.getCategory() + "\']"
                             + "/product[@id=\'" + product.getId() + "\']"
         ;
-        System.out.println(exprStr);
         NodeList nl = null;
         try {
             XPathExpression expr = xpath.compile(exprStr);
