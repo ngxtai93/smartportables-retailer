@@ -11,6 +11,60 @@
                 <product-id id="2"/>
             </accessories>
         </product>
+    <product id="2">
+            <image>7O3PEZ2P9ZFLU14YE0.jpg</image>
+            <name><![CDATA[Dell - Inspiron 15.6" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 1TB Hard Drive - Black]]></name>
+            <price>399.99</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="3">
+            <image>BXMZAOIX9L9LYJQQ7K.jpg</image>
+            <name><![CDATA[HP - 15.6" Touch-Screen Laptop - Intel Core i5 - 8GB Memory - 1TB Hard Drive - HP finish in jet black]]></name>
+            <price>529.99</price>
+            <discount>80.0</discount>
+        </product>
+    <product id="4">
+            <image>RHOML0Q84LFX4ABAEI.jpg</image>
+            <name><![CDATA[Lenovo - 100S-14IBR 14" Laptop - Intel Celeron - 2GB Memory - 32GB eMMC Flash Memory - Navy blue]]></name>
+            <price>229.99</price>
+            <discount>30.0</discount>
+        </product>
+    <product id="5">
+            <image>DEGZC0YRA7PQMLLJ84.jpg</image>
+            <name><![CDATA[HP - 14" Chromebook - Intel Celeron - 4GB Memory - 16GB eMMC Flash Memory - Silver]]></name>
+            <price>249.0</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="6">
+            <image>YSX5DDR6GFNJCJ9ZYG.jpg</image>
+            <name><![CDATA[Apple - MacBook Air® - 13.3" Display - Intel Core i5 - 8GB Memory - 128GB Flash Storage (Latest Model) - Silver]]></name>
+            <price>999.99</price>
+            <discount>125.0</discount>
+        </product>
+    <product id="7">
+            <image>EESS2JO1TGP8YQINP0.jpg</image>
+            <name><![CDATA[HP - 17.3" Laptop - Intel Core i5 - 8GB Memory - 1TB Hard Drive - HP finish in jet black]]></name>
+            <price>529.99</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="8">
+            <image>FTNB7SI7G05NFVUZ0V.jpg</image>
+            <name><![CDATA[Apple - MacBook Pro® - 13" Display - Intel Core i5 - 8 GB Memory - 128GB Flash Storage (Latest Model) - Space Gray]]></name>
+            <price>1299.99</price>
+            <discount>100.0</discount>
+        </product>
+    <product id="9">
+            <image>YC76E7EL9EU1X6RX7E.jpg</image>
+            <name><![CDATA[Lenovo - Yoga 720 2-in-1 13.3" Touch-Screen Laptop - Intel Core i5 - 8GB Memory - 256GB Solid State Drive - Platinum Silver]]></name>
+            <price>849.99</price>
+            <discount>70.0</discount>
+        </product>
+    <product id="10">
+            <image>O8MOB4MXQDG6RU0LKZ.jpg</image>
+            <name><![CDATA[Lenovo - 15.6" Laptop - AMD A6-Series - 4GB Memory - AMD Radeon R4 - 500GB Hard Drive - Black]]></name>
+            <price>279.99</price>
+            <discount>0.0</discount>
+        </product>
     </category>
     <category id="phone" image-overview="overview.jpg" name="Cellphones">
     </category>
