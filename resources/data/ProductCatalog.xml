@@ -1,26 +1,128 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ProductCatalog>
-    <category id="laptop" name="Laptops" image-overview="overview.jpg">
+    <category id="laptop" image-overview="overview.jpg" name="Laptops">
         <product id="1">
             <image>61Yeir0uhIL._SL1322_.jpg</image>
             <name>Acer Aspire E 15 E5-575-33BM 15.6-Inch FHD Notebook</name>
             <price>349.99</price>
             <discount>9.99</discount>
             <accessories>
-                <product-id id="1"></product-id>
-                <product-id id="2"></product-id>
+                <product-id id="1"/>
+                <product-id id="2"/>
             </accessories>
         </product>
+    <product id="2">
+            <image>QAYTTP97TKU6H20I4E.jpg</image>
+            <name>Dell - Inspiron 15.6" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 1TB Hard Drive - Black</name>
+            <price>399.99</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="3">
+            <image>FASS8DP9NZMZ69U4AQ.jpg</image>
+            <name>HP - 15.6" Touch-Screen Laptop - Intel Core i5 - 8GB Memory - 1TB Hard Drive - HP finish in jet black</name>
+            <price>529.99</price>
+            <discount>80.0</discount>
+        </product>
+    <product id="4">
+            <image>BNGUONYMMSZYR4L67K.jpg</image>
+            <name>Lenovo - 100S-14IBR 14" Laptop - Intel Celeron - 2GB Memory - 32GB eMMC Flash Memory - Navy blue</name>
+            <price>229.99</price>
+            <discount>30.0</discount>
+        </product>
+    <product id="5">
+            <image>0SUJM15WTV0F9EC3M5.jpg</image>
+            <name>HP - 14" Chromebook - Intel Celeron - 4GB Memory - 16GB eMMC Flash Memory - Silver</name>
+            <price>249.0</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="6">
+            <image>S2G0OPVJYQ0EAQDD8L.jpg</image>
+            <name>Apple - MacBook Air® - 13.3" Display - Intel Core i5 - 8GB Memory - 128GB Flash Storage (Latest Model) - Silver</name>
+            <price>999.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="7">
+            <image>7RPIXPIYHGSKFG54YB.jpg</image>
+            <name>HP - 17.3" Laptop - Intel Core i5 - 8GB Memory - 1TB Hard Drive - HP finish in jet black</name>
+            <price>529.99</price>
+            <discount>50.0</discount>
+        </product>
+    <product id="8">
+            <image>3NZ6WOL3I33MEOMBN2.jpg</image>
+            <name>Apple - MacBook Pro® - 13" Display - Intel Core i5 - 8 GB Memory - 128GB Flash Storage (Latest Model) - Space Gray</name>
+            <price>1199.99</price>
+            <discount>100.0</discount>
+        </product>
+    <product id="9">
+            <image>3HT8YYY57XLR7XKLVF.jpg</image>
+            <name>Lenovo - Yoga 720 2-in-1 13.3" Touch-Screen Laptop - Intel Core i5 - 8GB Memory - 256GB Solid State Drive - Platinum Silver</name>
+            <price>849.99</price>
+            <discount>70.0</discount>
+        </product>
     </category>
-    <category id="phone" name="Cellphones" image-overview="overview.jpg">
+    <category id="phone" image-overview="overview.jpg" name="Cellphones">
+    <product id="1">
+            <image>RK9EM2YFIDZ65DUHDE.jpg</image>
+            <name>Samsung - Galaxy Note8 64GB (Unlocked) - Midnight Black</name>
+            <price>929.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="2">
+            <image>O6YSZCL5K6KIT6PX6H.jpg</image>
+            <name>Samsung - Galaxy J7 4G LTE with 16GB Memory Cell Phone (Unlocked) - Black</name>
+            <price>219.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="3">
+            <image>SGV7W4NTP1L2WP90VJ.jpg</image>
+            <name>Samsung - Galaxy S8 64GB (Unlocked) - Midnight Black</name>
+            <price>724.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="4">
+            <image>2A8P4JXAG88MTQOE3H.jpg</image>
+            <name>Motorola - Moto G Plus (5th Gen) 4G LTE with 32GB Memory Cell Phone (Unlocked) - Lunar Gray</name>
+            <price>229.99</price>
+            <discount>5.0</discount>
+        </product>
+    <product id="5">
+            <image>03VRO5OZMCCGFNC4R6.jpg</image>
+            <name>Samsung - Galaxy J3 4G LTE with 16GB Memory Cell Phone (Unlocked) - Black</name>
+            <price>149.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="6">
+            <image>RZY3LMQWDG5MR2R2Z1.jpg</image>
+            <name>BLU - Grand M with 8GB Memory Cell Phone (Unlocked) - Gray</name>
+            <price>79.99</price>
+            <discount>10.0</discount>
+        </product>
+    <product id="7">
+            <image>K3QINI1QCL4E4BLVGL.jpg</image>
+            <name>Apple - Pre-Owned (Excellent) iPhone 6 Plus 16GB Cell Phone (Unlocked) - Space Gray</name>
+            <price>379.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="8">
+            <image>2AB0M0J2LI52AUA1BV.jpg</image>
+            <name>Apple - Pre-Owned iPhone 5 4G LTE with 16GB Memory Cell Phone (Unlocked) - White &amp; Silver</name>
+            <price>99.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="9">
+            <image>988351A5YVQJ2DGGL3.jpg</image>
+            <name>Apple - Pre-Owned (Excellent) iPhone 6s 4G LTE 16GB Cell Phone (Unlocked) - Rose Gold</name>
+            <price>359.99</price>
+            <discount>0.0</discount>
+        </product>
     </category>
-    <category id="smartwatch" name="Smart Watches" image-overview="overview.jpg">
+    <category id="smartwatch" image-overview="overview.jpg" name="Smart Watches">
     </category>
-    <category id="speaker" name="Speakers" image-overview="overview.jpg">
+    <category id="speaker" image-overview="overview.jpg" name="Speakers">
     </category>
-    <category id="headphone" name="Headphones" image-overview="overview.jpg">
+    <category id="headphone" image-overview="overview.jpg" name="Headphones">
     </category>
-    <category id="storage" name="External Storages" image-overview="overview.jpg">
+    <category id="storage" image-overview="overview.jpg" name="External Storages">
     </category>
     <category id="accessory" name="Accessories">
     </category>
