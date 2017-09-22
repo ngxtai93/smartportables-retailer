@@ -90,8 +90,17 @@
     <servlet-mapping>
         <servlet-name>ServletManageCustomer</servlet-name>
         <url-pattern>/account/customer/*</url-pattern>
-    
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletProduct</servlet-name>
+        <servlet-class>tai.ServletProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletProduct</servlet-name>
+        <url-pattern>/product/*</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>PageSuccess</servlet-name>
         <jsp-file>/WEB-INF/jsp/success.jsp</jsp-file>
