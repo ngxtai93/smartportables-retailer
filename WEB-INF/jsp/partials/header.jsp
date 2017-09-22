@@ -23,7 +23,7 @@
     </header>
     <nav>
     	<ul>
-        	<li class="start selected"><a href="<%=rootPath%>">Home</a></li>
+        	<li class="start"><a href="<%=rootPath%>">Home</a></li>
             <%-- <li class=""><a href="examples.html">Examples</a></li> --%>
             <%  User currentUser = (User) session.getAttribute("currentUser"); %>
             <%  if(currentUser == null) { %>
