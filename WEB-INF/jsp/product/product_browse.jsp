@@ -20,13 +20,17 @@
         <% if(category != null) { %>
             <h2>All <%=category.getName()%></h2>
             <hr>
-
-            <% for(Map.Entry<Integer, Product> entry: mapProduct.entrySet()) { %>
-                <% Integer productId = entry.getKey();%>
-                
-                <% request.setAttribute("current-product-id", productId); %>
-                <jsp:include page="/WEB-INF/jsp/partials/product_detail.jsp"/>
+            <% if(mapProduct.size() == 0) { %>
+                <p>No product available. Please come back later.</p>                
             <% }
+                else {
+                for(Map.Entry<Integer, Product> entry: mapProduct.entrySet()) { %>
+                    <% Integer productId = entry.getKey();%>
+                    
+                    <% request.setAttribute("current-product-id", productId); %>
+                    <jsp:include page="/WEB-INF/jsp/partials/product_detail.jsp"/>
+            <% }
+            }
         } %>
 
         
