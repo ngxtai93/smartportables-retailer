@@ -21,13 +21,15 @@
             <h2>All <%=category.getName()%></h2>
             <hr>
 
-            <% for(Map.Entry<Integer, Product> entry: mapProduct.entrySet()) { %>
+            <%-- <% for(Map.Entry<Integer, Product> entry: mapProduct.entrySet()) { %>
                 <% Integer productId = entry.getKey();%>
                 
                 <% request.setAttribute("current-product-id", productId); %>
                 <jsp:include page="/WEB-INF/jsp/partials/product_detail.jsp"/>
-            <% }
-        } %>
+            <% } --%>
+            <% request.setAttribute("current-product-id", new Integer(1)); %>
+            <jsp:include page="/WEB-INF/jsp/partials/product_detail.jsp"/>
+        <% } %>
 
         
     </section>
