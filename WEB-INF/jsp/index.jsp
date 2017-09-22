@@ -3,8 +3,8 @@
     <section class="content">
 
     <article>
-        <h2 id="product-caption">Available Products</h2>
-        <hr style="background:#000000; border:0; height:1px; width:35%">
+        <h2>Available Products</h2>
+        <hr>
         
         <div class="overview-all-items">
             <% if(listCategory != null) { %>

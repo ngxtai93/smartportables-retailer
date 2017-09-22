@@ -490,3 +490,10 @@ footer .footer-bottom p, footer .footer-bottom p a {
 	padding-top: 50px;
 	text-align: center;
 }
+
+hr {
+	background:#000000;
+	border:0;
+	height:1px;
+	width:35%;
+}

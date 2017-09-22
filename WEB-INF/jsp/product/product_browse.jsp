@@ -3,9 +3,20 @@
 <div id="body">
     <section class="content">
         <br>
-        <% String category = (String) request.getAttribute("current-category");
-        if(category != null) { %>
-            <p>Browsing category <%=category%></p>
+        <%
+            String currentCategory = (String) request.getAttribute("current-category");
+            Category category = null;
+            for(Category cat: listCategory) {
+                if(cat.getId().equals(currentCategory)) {
+                    category = cat;
+                    break;
+                }
+            }
+        %>
+
+        <% if(category != null) { %>
+            <h2>All <%=category.getName()%></h2>
+            <hr>
         <% } %>
 
         
