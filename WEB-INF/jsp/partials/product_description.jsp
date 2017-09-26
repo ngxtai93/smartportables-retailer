@@ -14,7 +14,7 @@
 
 %>
 
-<div class="product-detail">
+<div class="product-description">
   <div class="col-1">
     <img class="product-image" src="<%=request.getContextPath()%>/resources/images/product/<%=currentCategory%>/<%=product.getImage()%>">
   </div>

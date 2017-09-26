@@ -502,14 +502,14 @@ hr {
 	box-sizing:border-box;
   }
   
-  .product-detail {
+  .product-description {
 	min-height: 200px;
 	border-style: solid none;
 	border-width: 1px;
 	width: 100%;
   }
   
-  .product-detail::after {
+  .product-description::after {
 	  content: "";
 	  clear: both;
 	  display: table;
