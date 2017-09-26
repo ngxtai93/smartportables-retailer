@@ -502,33 +502,33 @@ hr {
 	box-sizing:border-box;
   }
   
-  .product-description {
+.product-description {
 	min-height: 200px;
 	border-style: solid none;
 	border-width: 1px;
 	width: 100%;
   }
   
-  .product-description::after {
+.product-description::after {
 	  content: "";
 	  clear: both;
 	  display: table;
   }
   
-  [class*="col-"] {
+[class*="col-"] {
 	  float: left;
 	  padding: 15px;
   }
-  .product-image {
+.product-image {
 	max-width:100%;
 	max-height:100%;
   }
   
-  .col-1 {
+.product-description .col-1 {
 	width:25%;
 	float:left;
   }
-  .col-2 {
+.product-description .col-2 {
 	width:50%;
 	/* border-style: solid; */
 	font-size: 15px;
@@ -536,25 +536,25 @@ hr {
 	line-height: 1.3;
 	color: #085eb9;
   }
-  .col-3 {
+.col-3 {
 	width:25%;
   }
   
-  .price {
+.price {
 	font-size: 25px;
 	line-height: 28px;
 	font-weight: 700;
 	color: #474747;
   }
   
-  .sale-message {
+.sale-message {
 		font-size: 15px;
 	  font-weight: 700;
 	  color: #474747;
 	  text-transform: uppercase;
   }
   
-  .savings {
+.savings {
 	  margin-right: 8px;
 	  padding: 3px 6px;
 	  font-weight: 700;
@@ -567,14 +567,14 @@ hr {
 	  font-size: 13px;
   }
   
-  .regular-price {
+.regular-price {
 	  display: inline-block;
 	  margin-top: 5px;
 	  font-family: arial;
 	  font-size: 13px;
   }
   
-  .add-to-cart-button {
+.add-to-cart-button {
 	  vertical-align: middle;
 	  width:100%;
 	  padding: 6px 24px 5px;
@@ -594,3 +594,57 @@ hr {
 	  display: inline-block;
 	  word-spacing: normal;
   }
+
+.product-detail .product-image {
+	max-width:100%;
+	max-height:550px;
+	margin: auto;
+	display: block;
+  }
+  
+.product-image-wrapper {
+    height: 550px;
+    display:table-cell;
+    vertical-align:middle;
+  }
+  
+.product-detail {
+	min-height: 200px;
+	margin-top: 30px;
+  }
+ 
+  
+.product-detail .product-header {
+    padding: 0 0 5px 0;
+    margin-top: 18px;
+    font-size: 20px;
+  }
+  
+.product-detail .col-1 {
+    width: 65%;
+  }
+  
+.product-detail .col-2 {
+    width: 35%;
+  }
+  
+.add-to-cart-button {
+	vertical-align: middle;
+	width:100%;
+	padding: 6px 24px 5px;
+		color: #474747;
+			background-size: 100% 300%;
+	background-position: 0 100%;
+	border-color: #f2ca00;
+	background-color: #ffd500;
+		background-image: linear-gradient(180deg,#ffd500 0,#fff200 33%,#fff200 67%,#ffd500 100%);
+			border-radius: 4px;
+	border-width: 1px 1px 2px;
+	border-style: solid;
+	font-weight: 700;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	display: inline-block;
+	word-spacing: normal;
+}

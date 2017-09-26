@@ -36,6 +36,7 @@ public class ServletProduct extends HttpServlet {
                 }
                 else {
                     req.setAttribute("current-product", product);
+                    req.setAttribute("current-category", uriSplit[3]);
                     req.getRequestDispatcher("/WEB-INF/jsp/product/product_detail.jsp").forward(req, res);
                 }
             }
