@@ -28,7 +28,7 @@
                     <% Integer productId = entry.getKey();%>
                     
                     <% request.setAttribute("current-product-id", productId); %>
-                    <jsp:include page="/WEB-INF/jsp/partials/product_detail.jsp"/>
+                    <jsp:include page="/WEB-INF/jsp/partials/product_description.jsp"/>
             <% }
             }
         } %>
