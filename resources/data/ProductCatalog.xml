@@ -390,5 +390,17 @@
         </product>
     </category>
     <category id="accessory" name="Accessories">
+    <product id="1">
+            <image>X075DUZW5QOYNZZ1MK.jpg</image>
+            <name><![CDATA[Office 365 Personal, 1-year subscription, 1 PC/Mac (Product Key Card) - Android|Mac|Windows|iOS]]></name>
+            <price>69.99</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="2">
+            <image>9VXD1GIYAAXS963WHS.jpg</image>
+            <name><![CDATA[Logitech - MX Anywhere 2S Wireless Laser Mouse - Graphite]]></name>
+            <price>79.99</price>
+            <discount>12.0</discount>
+        </product>
     </category>
 </ProductCatalog>
