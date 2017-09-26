@@ -3,6 +3,7 @@
 <%@ page import = "tai.Product" %>
 
 <% 
+    String rootPath = request.getContextPath();
     String currentCategory = (String) request.getAttribute("current-category");
     Map<Integer, Product> mapProduct = (Map<Integer, Product>) request.getAttribute("mapProduct");
     Product product =   mapProduct.get(
@@ -18,7 +19,7 @@
     <img class="product-image" src="<%=request.getContextPath()%>/resources/images/product/<%=currentCategory%>/<%=product.getImage()%>">
   </div>
   <div class="col-2">
-    <span><%=product.getName()%></span>
+    <span><a href="<%=rootPath%>/product/<%=currentCategory%>/<%=product.getId()%>"><%=product.getName()%></a></span>
   </div>
   <div class="col-3">
     <span class="price"><%=currencyFormatter.format(product.getPrice() - product.getDiscount())%></span>
