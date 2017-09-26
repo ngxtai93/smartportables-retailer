@@ -27,6 +27,7 @@ public class ServletUpdateProduct extends HttpServlet {
 
     private final String MIME_PNG = "image/png";
     private final String MIME_JPG = "image/jpeg";
+    private StringUtilities stringUtil = StringUtilities.INSTANCE;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
@@ -234,10 +235,10 @@ public class ServletUpdateProduct extends HttpServlet {
                                 + category
                                 + "\\"
         ;
-        String fileName = StringUtilities.generateRandomString(10) + extension;
+        String fileName = stringUtil.generateRandomString(10) + extension;
         File file = new File(uploadFilePath + fileName);
         while(file.exists()) {
-            fileName = StringUtilities.generateRandomString(10) + extension;
+            fileName = stringUtil.generateRandomString(10) + extension;
             file = new File(uploadFilePath + fileName);
         }
         return file;
