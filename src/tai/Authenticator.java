@@ -19,7 +19,9 @@ public class Authenticator {
             registerCustomer(sc, username, password);
 
             User registeredUser = new User(username, password, Role.CUSTOMER);
-            req.getSession().setAttribute("currentUser", registeredUser);
+            if(req.getSession().getAttribute("currentUser") == null) {
+                req.getSession().setAttribute("currentUser", registeredUser);
+            }
             return Status.OK;
         }
         else {
