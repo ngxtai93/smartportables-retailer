@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 public class ServletDeleteProduct extends HttpServlet {
 
     private StringUtilities stringUtil = StringUtilities.INSTANCE;
+    private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
@@ -53,30 +54,16 @@ public class ServletDeleteProduct extends HttpServlet {
 
     private void deleteProduct(HttpServletRequest req, String[] listProductId) {
         String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
-        Document doc = getXmlDocument(xmlFilePath);
+        Document doc = xmlUtil.getXmlDocument(xmlFilePath);
         String category = req.getParameter("category");
         for(String id: listProductId) {
             Element elementToBeDeleted = findProductElement(doc, category, id);
             elementToBeDeleted.getParentNode().removeChild(elementToBeDeleted);
             // updateElement(elementToBeUpdated, product);
         }
-        writeToXml(doc, xmlFilePath);
+        xmlUtil.writeToXml(doc, xmlFilePath);
         // write back to file
         
-    }
-
-    
-    private Document getXmlDocument(String filePath) {
-        Document doc = null;
-        try {
-            doc =   DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(filePath);
-        }
-        catch(ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
-        return doc;
     }
 
     private Element findProductElement(Document doc, String category, String id) {
@@ -140,26 +127,6 @@ public class ServletDeleteProduct extends HttpServlet {
         if(product.getDiscount() != null) {
             Element discountElement = (Element) origin.getElementsByTagName("discount").item(0);
             discountElement.setTextContent(String.valueOf(product.getDiscount()));
-        }
-    }
-    private void writeToXml(Document doc, String xmlFilePath) {
-        try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer =   tf.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            OutputStream out = new FileOutputStream(new File(xmlFilePath));
-            Writer writer = new OutputStreamWriter(out, "UTF-8");
-            Result output = new StreamResult(writer);
-            Source input = new DOMSource(doc);
-
-            transformer.transform(input, output);
-
-            writer.close();
-        }
-        catch(TransformerException | IOException e) {
-            e.printStackTrace();
         }
     }
 

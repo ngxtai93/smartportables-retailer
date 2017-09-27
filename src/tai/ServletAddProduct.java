@@ -22,6 +22,8 @@ public class ServletAddProduct extends HttpServlet {
     private final String MIME_PNG = "image/png";
     private final String MIME_JPG = "image/jpeg";
     private StringUtilities stringUtil = StringUtilities.INSTANCE;
+    private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
@@ -116,7 +118,7 @@ public class ServletAddProduct extends HttpServlet {
 
     private void addProductToCatalog(HttpServletRequest req, Product product) {
         String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
-        Document doc = getXmlDocument(xmlFilePath);
+        Document doc = xmlUtil.getXmlDocument(xmlFilePath);
         Element categoryElement = findCategoryElement(doc, product);
         
         int productCount = categoryElement.getElementsByTagName("product").getLength();
@@ -125,23 +127,9 @@ public class ServletAddProduct extends HttpServlet {
         Element newProductElement = createNewProductElement(doc, product, productCount);
         categoryElement.appendChild(newProductElement);
 
-        writeToXml(doc, xmlFilePath);
+        xmlUtil.writeToXml(doc, xmlFilePath);
         // write back to file
         
-    }
-
-    
-    private Document getXmlDocument(String filePath) {
-        Document doc = null;
-        try {
-            doc =   DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(filePath);
-        }
-        catch(ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
-        return doc;
     }
 
     private Element findCategoryElement(Document doc, Product product) {
@@ -199,27 +187,6 @@ public class ServletAddProduct extends HttpServlet {
         }
 
         return newProductElement;
-    }
-
-    private void writeToXml(Document doc, String xmlFilePath) {
-        try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer =   tf.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            OutputStream out = new FileOutputStream(new File(xmlFilePath));
-            Writer writer = new OutputStreamWriter(out, "UTF-8");
-            Result output = new StreamResult(writer);
-            Source input = new DOMSource(doc);
-
-            transformer.transform(input, output);
-
-            writer.close();
-        }
-        catch(TransformerException | IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private File getFilePath(HttpServletRequest req, Map<String, String> productParam, String extension) {
