@@ -14,8 +14,10 @@
 <body>
 
 
-<%-- Get list of category  --%>
-<% ArrayList<Category> listCategory = (ArrayList<Category>) request.getAttribute("listCategory"); %>
+
+<%  ArrayList<Category> listCategory =
+        (ArrayList<Category>) request.getAttribute("listCategory"); 
+%>
 
 <div id="container">
     <header>
@@ -30,10 +32,14 @@
                     <li><a href="<%=rootPath%>/login">Login</a></li>
                     <li><a href="<%=rootPath%>/register">Register</a></li>"
             <%  }
-                else { %>
+                else {
+                    int countItem = 0;
+                    if(currentUser.getShoppingCart() != null) {
+                        countItem = currentUser.getShoppingCart().countItem();
+                    } %>
                     <li><a href="<%=rootPath%>/account">My Account</a></li>
                     <li><a href="<%=rootPath%>/logout">Sign Out</a></li>
-                    <li><a href="<%=rootPath%>/cart">Cart(<%=currentUser.getShoppingCart().countItem()%>)</a></li>
+                    <li><a href="<%=rootPath%>/cart">Cart(<%=countItem%>)</a></li>
             <%  } %>
                             
             <%-- <li class="end"><a href="#">Contact</a></li> --%>
