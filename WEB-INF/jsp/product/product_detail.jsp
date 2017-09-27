@@ -22,9 +22,13 @@
                 </div>
                 <div class="col-2">
                     <div class="add-to-cart-button">
-                        <button class="button-cart">
-                            Add to cart
-                        </button>
+                        <form method="post" action="<%=request.getContextPath()%>/cart/add">
+                            <input type="hidden" name="category" value="<%=currentCategory%>">
+                            <input type="hidden" name="product-id" value="<%=product.getId()%>">
+                            <button class="button-cart" type="submit">
+                                Add to cart
+                            </button>
+                        </form>
                     </div>
                     <span class="price"><%=currencyFormatter.format(product.getPrice() - product.getDiscount())%></span>
                     <% if(product.getDiscount() > 0) { %> 
