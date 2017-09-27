@@ -4,14 +4,17 @@
         <product>
             <category>laptop</category>
             <product-id>8</product-id>
+            <amount>1</amount>
         </product>
         <product>
-                <category>accessory</category>
-                <product-id>4</product-id>
+            <category>accessory</category>
+            <product-id>4</product-id>
+            <amount>1</amount>
         </product>
         <product>
-                <category>accessory</category>
-                <product-id>5</product-id>
+            <category>accessory</category>
+            <product-id>5</product-id>
+            <amount>1</amount>
         </product>
     </cart>
 </CartInfo>
