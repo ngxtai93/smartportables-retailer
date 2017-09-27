@@ -39,9 +39,13 @@
                             <span class="price"><%=currencyFormatter.format(accessory.getPrice() - accessory.getDiscount())%></span>
                             <br>
                             <div class="add-to-cart-button">
-                                <button class="button-cart">
-                                    Add to cart
-                                </button>
+                                <form method="post" action="<%=request.getContextPath()%>/cart/add">
+                                    <input type="hidden" name="category" value="accessory">
+                                    <input type="hidden" name="product-id" value="<%=product.getId()%>">
+                                    <button class="button-cart" type="submit">
+                                        Add to cart
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

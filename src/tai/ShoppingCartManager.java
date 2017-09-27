@@ -5,17 +5,20 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.*;
 
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 
 public class ShoppingCartManager {
 
-    private final String cartInfoPath = "resources/data/user/CartInfo.xml";
-
+    private final String CART_INFO_PATH = "resources/data/user/CartInfo.xml";
+    private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
 
     public ShoppingCart getCart(ServletContext sc, User user) {
         ArrayList<ShoppingCart> listAllCart = getListCart(sc);
@@ -31,8 +34,70 @@ public class ShoppingCartManager {
         return result;
     }
 
+    public void addToCart(HttpServletRequest req, HttpServletResponse res, User user, String category, Integer id) {
+        String cartId = buildCartId(user);
+        String filePath = req.getServletContext().getRealPath(CART_INFO_PATH);
+        Document document = xmlUtil.getXmlDocument(filePath);
+        Element cartElement = findCartElement(document, cartId);
+        if(cartElement == null) {
+            cartElement = createNewCartElement(document, cartId);
+            Element cartInfoElement = (Element) document.getFirstChild();
+            cartInfoElement.appendChild(cartElement);
+        }
+
+        Element productElement = createNewProductElement(document, category, id);
+        cartElement.appendChild(productElement);
+        
+        xmlUtil.writeToXml(document, filePath);
+    }
+
+    private Element createNewCartElement(Document doc, String cartId) {
+
+        Element newCartElement = doc.createElement("cart");
+        newCartElement.setAttribute("id", cartId);
+
+        return newCartElement;
+    }
+
+    private Element createNewProductElement(
+        Document doc, String category, Integer productId) {
+        
+        // create product
+        Element productElement = doc.createElement("product");
+
+        // create subelement of product
+        Element categoryElement = doc.createElement("category");
+        categoryElement.setTextContent(category);
+        Element productIdElement = doc.createElement("product-id");
+        productIdElement.setTextContent(String.valueOf(productId));
+
+        // append to new element
+        productElement.appendChild(categoryElement);
+        productElement.appendChild(productIdElement);
+
+        return productElement;
+    }
+
+    private Element findCartElement(Document doc, String cartId) {
+        XPath xpath =   XPathFactory.newInstance()
+        .newXPath();
+        String exprStr =    "/CartInfo"
+                            + "/cart[@id=\'" + cartId + "\']"
+        ;
+        NodeList nl = null;
+        try {
+            XPathExpression expr = xpath.compile(exprStr);
+            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+        }
+        catch(XPathExpressionException e) {
+            e.printStackTrace();
+        }
+
+        return (nl == null ? null : (Element) nl.item(0));
+    }
+
     private ArrayList<ShoppingCart> getListCart(ServletContext sc) {
-        File productCatalogFile = new File(sc.getRealPath(cartInfoPath));
+        File productCatalogFile = new File(sc.getRealPath(CART_INFO_PATH));
         ArrayList<ShoppingCart> listCart = buildListCart(productCatalogFile);
         // populate product in cart, given category and id
         populateListCart(listCart, sc);
