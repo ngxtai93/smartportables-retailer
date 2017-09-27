@@ -10,6 +10,7 @@ public class SaxProductHandler extends DefaultHandler {
     private Product product;
     private String elementValueRead;
     private String category;
+    private StringUtilities stringUtil = StringUtilities.INSTANCE;
 
     public SaxProductHandler() {
         listProduct = new ArrayList<>();
@@ -43,19 +44,19 @@ public class SaxProductHandler extends DefaultHandler {
             return;
         }
         if (element.equalsIgnoreCase("image")) {
-            product.setImage(elementValueRead);
+            product.setImage(stringUtil.filter(elementValueRead));
             return;
         }
         if (element.equalsIgnoreCase("name")) {
-            product.setName(elementValueRead);
+            product.setName(stringUtil.filter(elementValueRead));
             return;
         }
         if (element.equalsIgnoreCase("price")) {
-            product.setPrice(Double.valueOf(elementValueRead));
+            product.setPrice(Double.valueOf(stringUtil.filter(elementValueRead)));
             return;
         }
         if (element.equalsIgnoreCase("discount")) {
-            product.setDiscount(Double.valueOf(elementValueRead));
+            product.setDiscount(Double.valueOf(stringUtil.filter(elementValueRead)));
             return;
         }
         if(element.equalsIgnoreCase("category")) {
