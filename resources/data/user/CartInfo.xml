@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CartInfo>
+    <cart id="storemanager-admin">
+        <product>
+            <category>laptop</category>
+            <product-id>8</product-id>
+            <accessory>
+                <accessory-id>4</accessory-id>
+                <accessory-id>5</accessory-id>
+            </accessory>
+        </product>
+    </cart>
+</CartInfo>

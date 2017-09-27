@@ -33,6 +33,7 @@
                 else { %>
                     <li><a href="<%=rootPath%>/account">My Account</a></li>
                     <li><a href="<%=rootPath%>/logout">Sign Out</a></li>
+                    <li><a href="<%=rootPath%>/cart">Cart(<%=currentUser.getShoppingCart().countItem()%>)</a></li>
             <%  } %>
                             
             <%-- <li class="end"><a href="#">Contact</a></li> --%>

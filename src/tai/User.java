@@ -4,11 +4,13 @@ public class User {
     private String username;
     private String password;
     private Role role;
+    private ShoppingCart cart;
 
     public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.cart = new ShoppingCart();
     }
     public String getUsername() {
         return this.username;
@@ -27,6 +29,13 @@ public class User {
     }
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return this.cart;
+    }
+    public void setShoppingCart(ShoppingCart cart) {
+        this.cart = cart;
     }
 
 }
