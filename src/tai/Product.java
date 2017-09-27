@@ -23,6 +23,44 @@ public class Product {
         ;
         return result.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        }
+        if(obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Product product = (Product) obj;
+        return (
+            (this.id == product.id || (product.id != null && this.id.equals(product.id)))
+        &&  (this.category == product.category || (product.category != null && this.category.equals(product.category)))
+        &&  (this.name == product.name || (product.name != null && this.name.equals(product.name)))
+        &&  (this.image == product.image || (product.image != null && this.image.equals(product.image)))
+        &&  (this.price == product.price || (product.price != null && this.price.equals(product.price)))
+        &&  (this.discount == product.discount || (product.discount != null && this.discount.equals(product.discount)))
+        &&  (this.listAccessoryId == product.listAccessoryId || (product.listAccessoryId != null && this.listAccessoryId.equals(product.listAccessoryId)))
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash;
+        hash = 31 * hash
+         + (null == listAccessoryId ? 0 : listAccessoryId.hashCode())
+         + (null == id ? 0 : id.hashCode())
+         + (null == category ? 0 : category.hashCode())
+         + (null == name ? 0 : name.hashCode())
+         + (null == image ? 0 : image.hashCode())
+         + (null == price ? 0 : price.hashCode())
+         + (null == discount ? 0 : discount.hashCode())
+        ;
+        return hash;
+    }
+
     public Integer getId() {
         return this.id;
     }

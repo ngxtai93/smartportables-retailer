@@ -1,21 +1,23 @@
 package tai;
 
-import java.util.ArrayList;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ShoppingCart {
-    private ArrayList<Product> listItem;
+    private LinkedHashMap<Product, Integer> listProduct;
     private String cartId;
 
     public ShoppingCart() {
-        this.listItem = new ArrayList<>();
+        this.listProduct = new LinkedHashMap<>();
     }
 
-    public ArrayList<Product> getListItem() {
-        return this.listItem;
+    public LinkedHashMap<Product, Integer> getListProduct() {
+        return this.listProduct;
     }
 
-    public void setListItem(ArrayList<Product> listItem) {
-        this.listItem = listItem;
+    public void setListProduct(LinkedHashMap<Product, Integer> listProduct) {
+        this.listProduct = listProduct;
     }
 
     public String getCartId() {
@@ -28,6 +30,11 @@ public class ShoppingCart {
 
 
     public int countItem() {
-        return listItem.size();
+        int count = 0;
+        for(Map.Entry<Product, Integer> entry: this.listProduct.entrySet()) {
+            count += entry.getValue();
+        }
+
+        return count;
     }
 }

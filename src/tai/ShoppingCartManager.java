@@ -156,7 +156,9 @@ public class ShoppingCartManager {
         ProductManager pm = new ProductManager();
         List<Product> listAllProduct = pm.getListProduct(sc);
         for(ShoppingCart cart: listCart) {
-            for(Product p: cart.getListItem()) {
+            LinkedHashMap<Product, Integer> listItem = cart.getListProduct();
+            for(Map.Entry<Product, Integer> entry: listItem.entrySet()) {
+                Product p = entry.getKey();
                 for(Product product: listAllProduct) {
                     if(p.getCategory().equals(product.getCategory()) && p.getId().equals(product.getId())) {
                         p.setName(product.getName());

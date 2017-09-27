@@ -8,12 +8,18 @@ import java.util.ArrayList;
 
 public class ServletCart extends HttpServlet {
 
-    // @Override
+    @Override
 
-    // protected void doGet(HttpServletRequest req, HttpServletResponse res)
-    //     throws ServletException, IOException {
-    //         req.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(req, res);
-    // }
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+        throws ServletException, IOException {
+        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        if(currentUser == null) {
+            res.sendRedirect(req.getContextPath() + "/login");
+        }
+        else {
+            req.getRequestDispatcher("/WEB-INF/jsp/cart.jsp").forward(req, res);    
+        }
+    }
     
     private ShoppingCartManager cm;
     private ProductManager pm;
@@ -52,17 +58,13 @@ public class ServletCart extends HttpServlet {
             cm.addToCart(req, res, currentUser, category, productId);
 
             // update currentUser
-            Map<Integer, Product> mapProduct = pm.getListProduct(req, category);
-            Product product = mapProduct.get(productId);
-            ShoppingCart cart = currentUser.getShoppingCart();
-            if(cart == null) {
-                cart = new ShoppingCart();
-                currentUser.setShoppingCart(cart);
-            }
-            cart.getListItem().add(product);
-
-            req.getSession().setAttribute("command-executed", "cart-add");
-            req.getSession().setAttribute("prev-uri", req.getHeader("Referer"));
+            Authenticator auth = new Authenticator();
+            currentUser = auth.getUser(req.getServletContext(), currentUser.getUsername());
+            HttpSession session = req.getSession();
+            
+            session.setAttribute("currentUser", currentUser);
+            session.setAttribute("command-executed", "cart-add");
+            session.setAttribute("prev-uri", req.getHeader("Referer"));
             res.sendRedirect(req.getContextPath() + "/success");
     }
 }

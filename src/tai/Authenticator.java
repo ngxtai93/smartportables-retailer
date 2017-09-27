@@ -52,7 +52,7 @@ public class Authenticator {
     }
 
 
-    private User getUser(ServletContext sc, String username) {
+    public User getUser(ServletContext sc, String username) {
         User user = null;
         for(Role r: Role.values()) {
             user = findUserByRole(sc, username, r);
