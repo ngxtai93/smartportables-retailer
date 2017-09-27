@@ -11,6 +11,7 @@ public class SaxCartHandler extends DefaultHandler {
     private String elementValueRead;
     private Product product;
     private StringUtilities stringUtil = StringUtilities.INSTANCE;
+    private int amount;
 
     public SaxCartHandler() {
         listShoppingCart = new ArrayList<>();
@@ -37,8 +38,14 @@ public class SaxCartHandler extends DefaultHandler {
             product.setId(Integer.valueOf(stringUtil.filter(elementValueRead)));
             return;
         }
+        if (element.equalsIgnoreCase("amount")) {
+            amount = Integer.parseInt(stringUtil.filter(elementValueRead));
+            return;
+        }
         if (element.equalsIgnoreCase("product")) {
-            cart.getListItem().add(product);
+            for(int i = 0; i < amount; i++) {
+                cart.getListItem().add(product);
+            }
             product = null;
             return;
         }

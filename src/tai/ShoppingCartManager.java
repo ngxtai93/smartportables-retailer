@@ -45,18 +45,47 @@ public class ShoppingCartManager {
             cartInfoElement.appendChild(cartElement);
         }
 
-        Element productElement = createNewProductElement(document, category, id);
-        cartElement.appendChild(productElement);
+        Element productElement = findExistingProduct(document, cartId, category, id);
+        if(productElement == null) {
+            productElement = createNewProductElement(document, category, id);
+            cartElement.appendChild(productElement);
+        }
+        else {
+            Element amountElement = (Element) productElement.getElementsByTagName("amount").item(0);
+            int amountIncrement = Integer.parseInt(amountElement.getTextContent());
+            amountIncrement += 1;
+            amountElement.setTextContent(String.valueOf(amountIncrement));
+        }
         
         xmlUtil.writeToXml(document, filePath);
     }
 
     private Element createNewCartElement(Document doc, String cartId) {
-
         Element newCartElement = doc.createElement("cart");
         newCartElement.setAttribute("id", cartId);
 
         return newCartElement;
+    }
+
+    private Element findExistingProduct(Document doc, String cartId, String category, Integer id) {
+        XPath xpath =   XPathFactory.newInstance()
+        .newXPath();
+        String exprStr =    "/CartInfo"
+                            + "/cart[@id=\'" + cartId + "\']"
+                            + "/product"
+                            + "[category=\'" + category + "\'"
+                            + " and product-id=\'" + id + "\']"
+        ;
+        NodeList nl = null;
+        try {
+            XPathExpression expr = xpath.compile(exprStr);
+            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+        }
+        catch(XPathExpressionException e) {
+            e.printStackTrace();
+        }
+
+        return (nl == null ? null : (Element) nl.item(0));
     }
 
     private Element createNewProductElement(
@@ -70,10 +99,13 @@ public class ShoppingCartManager {
         categoryElement.setTextContent(category);
         Element productIdElement = doc.createElement("product-id");
         productIdElement.setTextContent(String.valueOf(productId));
+        Element amountElement = doc.createElement("amount");
+        amountElement.setTextContent(String.valueOf("1"));
 
         // append to new element
         productElement.appendChild(categoryElement);
         productElement.appendChild(productIdElement);
+        productElement.appendChild(amountElement);
 
         return productElement;
     }
