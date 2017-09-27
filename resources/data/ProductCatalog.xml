@@ -40,12 +40,20 @@
             <name><![CDATA[Apple - MacBook Air® - 13.3" Display - Intel Core i5 - 8GB Memory - 128GB Flash Storage (Latest Model) - Silver]]></name>
             <price>999.99</price>
             <discount>125.0</discount>
+            <accessories>
+                <product-id id="1"/>
+                <product-id id="4"/>
+                <product-id id="5"/>
+            </accessories>
         </product>
     <product id="7">
             <image>EESS2JO1TGP8YQINP0.jpg</image>
             <name><![CDATA[HP - 17.3" Laptop - Intel Core i5 - 8GB Memory - 1TB Hard Drive - HP finish in jet black]]></name>
             <price>529.99</price>
             <discount>50.0</discount>
+            <accessories>
+                <product-id id="3"/>
+            </accessories>
         </product>
     <product id="8">
             <image>FTNB7SI7G05NFVUZ0V.jpg</image>
@@ -401,6 +409,24 @@
             <name><![CDATA[Logitech - MX Anywhere 2S Wireless Laser Mouse - Graphite]]></name>
             <price>79.99</price>
             <discount>12.0</discount>
+        </product>
+    <product id="3">
+            <image>F3G3PD277MIRK28G7W.jpg</image>
+            <name><![CDATA[Logitech - M325 Wireless Optical Mouse - Silver]]></name>
+            <price>19.99</price>
+            <discount>7.0</discount>
+        </product>
+    <product id="4">
+            <image>RD1IGW9EHKMFN1GZ79.jpg</image>
+            <name><![CDATA[Apple - USB-C-to-USB Adapter - White]]></name>
+            <price>19.0</price>
+            <discount>0.0</discount>
+        </product>
+    <product id="5">
+            <image>J60NZPJYYEYCVK3U5G.jpg</image>
+            <name><![CDATA[Apple - Magic Mouse 2 - Silver]]></name>
+            <price>79.99</price>
+            <discount>3.0</discount>
         </product>
     </category>
 </ProductCatalog>
