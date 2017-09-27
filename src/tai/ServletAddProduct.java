@@ -177,11 +177,16 @@ public class ServletAddProduct extends HttpServlet {
         priceElement.setTextContent(String.valueOf(product.getPrice()));
         Element discountElement = doc.createElement("discount");
         discountElement.setTextContent(String.valueOf(product.getDiscount()));
-        Element accessoriesElement = doc.createElement("accessories");
-        for(Integer accessoryId: product.getListAccessoryId()) {
-            Element idElement = doc.createElement("product-id");
-            idElement.setAttribute("id", String.valueOf(accessoryId));
-            accessoriesElement.appendChild(idElement);
+        
+        ArrayList<Integer> listAccessory = product.getListAccessoryId();
+        Element accessoriesElement = null;
+        if(listAccessory != null) {
+            accessoriesElement = doc.createElement("accessories");
+            for(Integer accessoryId: listAccessory) {
+                Element idElement = doc.createElement("product-id");
+                idElement.setAttribute("id", String.valueOf(accessoryId));
+                accessoriesElement.appendChild(idElement);
+            }
         }
 
         // append to new element
@@ -189,7 +194,9 @@ public class ServletAddProduct extends HttpServlet {
         newProductElement.appendChild(nameElement);
         newProductElement.appendChild(priceElement);
         newProductElement.appendChild(discountElement);
-        newProductElement.appendChild(accessoriesElement);
+        if(listAccessory != null) {
+            newProductElement.appendChild(accessoriesElement);
+        }
 
         return newProductElement;
     }
