@@ -100,7 +100,16 @@
         <servlet-name>ServletProduct</servlet-name>
         <url-pattern>/product/*</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+        <servlet-name>ServletCart</servlet-name>
+        <servlet-class>tai.ServletCart</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletCart</servlet-name>
+        <url-pattern>/cart/*</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>PageSuccess</servlet-name>
         <jsp-file>/WEB-INF/jsp/success.jsp</jsp-file>
