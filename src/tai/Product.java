@@ -11,6 +11,18 @@ public class Product {
     private Double discount;
     private ArrayList<Integer> listAccessoryId;
 
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("category: " + (category == null ? "null" : category + "\n"))
+            .append("id: " + (id == null ? "null" : String.valueOf(id + "\n")))
+            .append("name: " + (name == null ? "null" : name + "\n"))
+            .append("image: " + (image == null ? "null" : image + "\n"))
+            .append("price: " + (price == null ? "null" : String.valueOf(price + "\n")))
+            .append("discount: " + (discount == null ? "null" : String.valueOf(discount + "\n")))
+        ;
+        return result.toString();
+    }
     public Integer getId() {
         return this.id;
     }

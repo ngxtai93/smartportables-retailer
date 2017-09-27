@@ -14,7 +14,7 @@ public class ProductManager {
     
     public Map<Integer, Product> getListProduct(HttpServletRequest req, String category) {
 
-        List<Product> listAllProduct = getListProduct(req);
+        List<Product> listAllProduct = getListProduct(req.getServletContext());
         Map<Integer, Product> productByCategory = getProductByCategory(listAllProduct, category);
         return productByCategory;
     }
@@ -25,7 +25,7 @@ public class ProductManager {
             return null;
         }
 
-        List<Product> listAllProduct = getListProduct(req);
+        List<Product> listAllProduct = getListProduct(req.getServletContext());
         Map<Integer, Product> productByCategory = getProductByCategory(listAllProduct, "accessory");
 
         Map<Integer, Product> mapAccessory = new LinkedHashMap<>();
@@ -35,9 +35,8 @@ public class ProductManager {
 
         return mapAccessory;
     }
-    private List<Product> getListProduct(HttpServletRequest req) {
-        String productCatalogFilePath = req.getServletContext()
-        .getRealPath("resources/data/ProductCatalog.xml");
+    public List<Product> getListProduct(ServletContext sc) {
+        String productCatalogFilePath = sc.getRealPath("resources/data/ProductCatalog.xml");
         File productCatalogFile = new File(productCatalogFilePath);
 
         return buildListProduct(productCatalogFile);

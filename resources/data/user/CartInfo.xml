@@ -4,10 +4,14 @@
         <product>
             <category>laptop</category>
             <product-id>8</product-id>
-            <accessory>
-                <accessory-id>4</accessory-id>
-                <accessory-id>5</accessory-id>
-            </accessory>
+        </product>
+        <product>
+                <category>accessory</category>
+                <product-id>4</product-id>
+        </product>
+        <product>
+                <category>accessory</category>
+                <product-id>5</product-id>
         </product>
     </cart>
 </CartInfo>

@@ -11,6 +11,11 @@ public class Authenticator {
     private final String SALE_FILE_NAME = "salesman.txt";
     private final String SM_FILE_NAME = "storemanager.txt";
     
+    private ShoppingCartManager cm;
+    public Authenticator() {
+        cm = new ShoppingCartManager();
+    }
+
     public Status doRegister(HttpServletRequest req, HttpServletResponse res) {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -85,6 +90,7 @@ public class Authenticator {
                 String[] split = line.split("\t");
                 if(username.equals(split[0])) {     // found
                     result = new User(username, split[1], Role.CUSTOMER);
+                    result.setShoppingCart(cm.getCart(sc, result));
                     break;
                 }
             }
@@ -107,6 +113,7 @@ public class Authenticator {
                 String[] split = line.split("\t");
                 if(username.equals(split[0])) {     // found
                     result = new User(username, split[1], Role.SALESMAN);
+                    result.setShoppingCart(cm.getCart(sc, result));
                     break;
                 }
             }
@@ -129,6 +136,7 @@ public class Authenticator {
                 String[] split = line.split("\t");
                 if(username.equals(split[0])) {     // found
                     result = new User(username, split[1], Role.STORE_MANAGER);
+                    result.setShoppingCart(cm.getCart(sc, result));
                     break;
                 }
             }

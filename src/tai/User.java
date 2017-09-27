@@ -10,7 +10,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.cart = new ShoppingCart();
     }
     public String getUsername() {
         return this.username;
