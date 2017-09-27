@@ -1,5 +1,8 @@
 <%@include file = "../partials/header.jsp" %>
+<%@ page import = "java.util.Map" %>
+<%@ page import = "tai.Product" %>
 
+<% Map<Integer, Product> mapAccessory = (Map<Integer, Product>) request.getAttribute("list-accessory"); %>
 <div id="body">
     <section class="content">
         <br>
@@ -47,10 +50,20 @@
                             <th><b>Image: </b></th>
                             <td><input required name="image" type="file" size="30"></td>
                         </tr>
-                        <tr>
-                            <td><button id="login-button" type="submit">Submit</button></td>
-                        </tr>
                     </table>
+                    
+                    <div class="container">
+                        <% if(mapAccessory != null && mapAccessory.size() != 0) { %>
+                            <b>Include accessories: </b>
+                            <br>
+                            <% for(Map.Entry<Integer, Product> entry: mapAccessory.entrySet()) { %>
+                                <input type="checkbox" name="accessory-id" value="<%=entry.getKey()%>">
+                                <%=entry.getValue().getName()%><br>
+                            <% }
+                        } %>
+                    </div>
+                    
+                    <button id="login-button" type="submit">Submit</button>   
                 </div>
             </form>
         <% } %>

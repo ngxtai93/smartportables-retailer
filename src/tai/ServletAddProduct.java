@@ -43,15 +43,22 @@ public class ServletAddProduct extends HttpServlet {
             try {
                 List<FileItem> listItem = upload.parseRequest(req);
                 Map<String, String> productParam = new HashMap<>();
+                ArrayList<Integer> listAccessoryId = new ArrayList<>();
                 for(FileItem fi: listItem) {
                     if(fi.isFormField()) {  // param from form input
-                        productParam.put(fi.getFieldName(), fi.getString());
+                        if(fi.getFieldName().equals("accessory-id")) {
+                            listAccessoryId.add(Integer.valueOf(fi.getString()));
+                        }
+                        else {
+                            productParam.put(fi.getFieldName(), fi.getString());
+                        }
                     }
                     else {
                         uploadFile(req, productParam, fi);
                     }
                 }
-                product = buildProductObject(productParam);
+                
+                product = buildProductObject(productParam, listAccessoryId);
             }
             catch(FileUploadException e) {
                 e.printStackTrace();
@@ -88,7 +95,7 @@ public class ServletAddProduct extends HttpServlet {
         }
     }
 
-    private Product buildProductObject(Map<String, String> productParam) {
+    private Product buildProductObject(Map<String, String> productParam, ArrayList<Integer> listAccessoryId) {
         Product product = new Product();
         product.setCategory (productParam.get("category"));
         if(productParam.get("discount").equals("")) {
@@ -100,6 +107,9 @@ public class ServletAddProduct extends HttpServlet {
         product.setName     (productParam.get("name"));
         product.setPrice    (Double.parseDouble(productParam.get("price")));
         product.setImage    (productParam.get("image"));
+        if(listAccessoryId.size() > 0) {
+            product.setListAccessoryId(listAccessoryId);
+        }
 
         return product;
     }
@@ -167,12 +177,19 @@ public class ServletAddProduct extends HttpServlet {
         priceElement.setTextContent(String.valueOf(product.getPrice()));
         Element discountElement = doc.createElement("discount");
         discountElement.setTextContent(String.valueOf(product.getDiscount()));
+        Element accessoriesElement = doc.createElement("accessories");
+        for(Integer accessoryId: product.getListAccessoryId()) {
+            Element idElement = doc.createElement("product-id");
+            idElement.setAttribute("id", String.valueOf(accessoryId));
+            accessoriesElement.appendChild(idElement);
+        }
 
         // append to new element
         newProductElement.appendChild(imageElement);
         newProductElement.appendChild(nameElement);
         newProductElement.appendChild(priceElement);
         newProductElement.appendChild(discountElement);
+        newProductElement.appendChild(accessoriesElement);
 
         return newProductElement;
     }

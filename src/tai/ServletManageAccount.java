@@ -72,6 +72,14 @@ public class ServletManageAccount extends HttpServlet {
             return null;
         }
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/product/product_add.jsp");
+
+        String category = req.getParameter("category");
+        if(category != null) {
+            if(!category.equals("accessory")) {
+                Map<Integer, Product> mapAccessory = pm.getListProduct(req, "accessory");
+                req.setAttribute("list-accessory", mapAccessory);
+            }
+        }
         return rd;
     }
 
@@ -92,6 +100,11 @@ public class ServletManageAccount extends HttpServlet {
                     case "category":
                         Map<Integer, Product> mapProduct = pm.getListProduct(req, value);
                         req.setAttribute("mapProduct", mapProduct);
+
+                        if(!name.equals("accessory")) {
+                            Map<Integer, Product> mapAccessory = pm.getListProduct(req, "accessory");
+                            req.setAttribute("list-accessory", mapAccessory);
+                        }
                         break;
                 }
             }

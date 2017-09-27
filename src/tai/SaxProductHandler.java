@@ -20,9 +20,18 @@ public class SaxProductHandler extends DefaultHandler {
         if(elementName.equalsIgnoreCase("category")) {
             category = attributes.getValue("id");
         }    
-        if (elementName.equalsIgnoreCase("product")) {
+        if(elementName.equalsIgnoreCase("product")) {
             product = new Product();
             product.setId(Integer.parseInt(attributes.getValue("id")));
+        }
+
+        if(elementName.equalsIgnoreCase("accessories")) {
+            product.setListAccessoryId(new ArrayList<Integer>());
+        }
+
+        if(elementName.equalsIgnoreCase("product-id")) {
+            Integer id = Integer.valueOf(attributes.getValue("id"));
+            product.getListAccessoryId().add(id);
         }
     }
 

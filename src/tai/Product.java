@@ -1,5 +1,7 @@
 package tai;
 
+import java.util.ArrayList;
+
 public class Product {
     private Integer id;
     private String category;
@@ -7,6 +9,7 @@ public class Product {
     private String image;
     private Double price;
     private Double discount;
+    private ArrayList<Integer> listAccessoryId;
 
     public Integer getId() {
         return this.id;
@@ -54,5 +57,13 @@ public class Product {
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public ArrayList<Integer> getListAccessoryId() {
+        return this.listAccessoryId;
+    }
+
+    public void setListAccessoryId(ArrayList<Integer> listAccessoryId) {
+        this.listAccessoryId = listAccessoryId;
     }
 }
