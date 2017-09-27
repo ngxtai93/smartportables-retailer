@@ -31,12 +31,16 @@ public class ServletProduct extends HttpServlet {
             if(stringUtil.isNumeric(uriSplit[4])) {
                 Integer productId = Integer.valueOf(uriSplit[4]);
                 Product product = mapProduct.get(productId);
+                Map<Integer, Product> mapAccessory = pm.getProductAccessories(req, product);
                 if(product == null) {
                     res.sendRedirect(req.getContextPath());
                 }
                 else {
                     req.setAttribute("current-product", product);
                     req.setAttribute("current-category", uriSplit[3]);
+                    if(mapAccessory != null) {
+                        req.setAttribute("product-accessory", mapAccessory);
+                    }
                     req.getRequestDispatcher("/WEB-INF/jsp/product/product_detail.jsp").forward(req, res);
                 }
             }

@@ -19,6 +19,22 @@ public class ProductManager {
         return productByCategory;
     }
 
+    public Map<Integer, Product> getProductAccessories(HttpServletRequest req, Product product) {
+        ArrayList<Integer> listAccessoryId = product.getListAccessoryId();
+        if(listAccessoryId == null) {
+            return null;
+        }
+
+        List<Product> listAllProduct = getListProduct(req);
+        Map<Integer, Product> productByCategory = getProductByCategory(listAllProduct, "accessory");
+
+        Map<Integer, Product> mapAccessory = new LinkedHashMap<>();
+        for(Integer id: listAccessoryId) {
+            mapAccessory.put(id, productByCategory.get(id));
+        }
+
+        return mapAccessory;
+    }
     private List<Product> getListProduct(HttpServletRequest req) {
         String productCatalogFilePath = req.getServletContext()
         .getRealPath("resources/data/ProductCatalog.xml");
