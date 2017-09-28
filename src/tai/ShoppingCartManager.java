@@ -74,6 +74,19 @@ public class ShoppingCartManager {
         xmlUtil.writeToXml(document, filePath);
     }
 
+    public void deleteFromCart(
+        HttpServletRequest req, HttpServletResponse res, User user
+        , String cartId, String category, Integer id) {
+        String filePath = req.getServletContext().getRealPath(CART_INFO_PATH);
+        Document document = xmlUtil.getXmlDocument(filePath);
+        Element cartElement = findCartElement(document, cartId);
+        Element productElement = findExistingProduct(document, cartId, category, id);
+        
+        cartElement.removeChild(productElement);
+        
+        xmlUtil.writeToXml(document, filePath);
+    }
+
     private Element createNewCartElement(Document doc, String cartId) {
         Element newCartElement = doc.createElement("cart");
         newCartElement.setAttribute("id", cartId);

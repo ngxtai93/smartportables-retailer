@@ -44,10 +44,11 @@ public class ServletCart extends HttpServlet {
                         case "add":
                             processAddToCart(req, res);
                             break;
-                    }
-                    switch(uriSplit[3]) {
                         case "update":
                             processUpdateToCart(req, res);
+                            break;
+                        case "delete":
+                            processDeleteFromCart(req, res);
                             break;
                     }
                 }
@@ -81,11 +82,6 @@ public class ServletCart extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         Integer amount = Integer.valueOf(req.getParameter("amount"));
 
-        System.out.println("cart id: " + cartId);
-        System.out.println("category: " + productCategory);
-        System.out.println("product id: " + productId);
-        System.out.println("amount: " + amount);
-
         cm.updateToCart(req, res, currentUser, cartId, productCategory, productId, amount);
 
         // update currentUser
@@ -95,5 +91,23 @@ public class ServletCart extends HttpServlet {
         
         session.setAttribute("currentUser", currentUser);
         res.sendRedirect(req.getHeader("Referer"));
-}
+    }
+
+    private void processDeleteFromCart(HttpServletRequest req, HttpServletResponse res)
+    throws ServletException, IOException {
+        String cartId = req.getParameter("cart-id");
+        String productCategory = req.getParameter("product-category");
+        Integer productId = Integer.valueOf(req.getParameter("product-id"));
+        User currentUser = (User) req.getSession().getAttribute("currentUser");
+
+        cm.deleteFromCart(req, res, currentUser, cartId, productCategory, productId);
+
+        // update currentUser
+        Authenticator auth = new Authenticator();
+        currentUser = auth.getUser(req.getServletContext(), currentUser.getUsername());
+        HttpSession session = req.getSession();
+        
+        session.setAttribute("currentUser", currentUser);
+        res.sendRedirect(req.getHeader("Referer"));
+    }
 }
