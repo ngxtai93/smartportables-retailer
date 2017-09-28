@@ -4,7 +4,7 @@
         <product>
             <category>laptop</category>
             <product-id>8</product-id>
-            <amount>1</amount>
+            <amount>2</amount>
         </product>
         <product>
             <category>accessory</category>
@@ -14,7 +14,7 @@
         <product>
             <category>accessory</category>
             <product-id>5</product-id>
-            <amount>1</amount>
+            <amount>2</amount>
         </product>
     </cart>
 </CartInfo>
