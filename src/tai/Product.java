@@ -21,6 +21,20 @@ public class Product {
             .append("price: " + (price == null ? "null" : String.valueOf(price + "\n")))
             .append("discount: " + (discount == null ? "null" : String.valueOf(discount + "\n")))
         ;
+        StringBuilder listAccessoryIdStr = new StringBuilder();
+        listAccessoryIdStr.append("accessory-id: ");
+        if(listAccessoryId == null) {
+            listAccessoryIdStr.append("null");
+        }
+        else {
+            for(int i = 0; i < listAccessoryId.size(); i++) {
+                listAccessoryIdStr.append(listAccessoryId.get(i));
+                if(i != listAccessoryId.size() - 1) {
+                    listAccessoryIdStr.append(", ");
+                }
+            }
+        }
+        result.append(listAccessoryIdStr.toString());
         return result.toString();
     }
 
