@@ -43,10 +43,9 @@ public class SaxCartHandler extends DefaultHandler {
             return;
         }
         if (element.equalsIgnoreCase("product")) {
-            for(int i = 0; i < amount; i++) {
-                cart.getListItem().add(product);
-            }
+            cart.getListProduct().put(product, Integer.valueOf(amount));
             product = null;
+            amount = 0;
             return;
         }
         if(element.equalsIgnoreCase("cart")) {
