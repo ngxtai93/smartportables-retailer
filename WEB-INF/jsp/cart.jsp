@@ -25,9 +25,11 @@
             <br>
             <h2 id="cart-heading-text">Your Cart <i><%=count%> Item</i></h2>
             <div class="add-to-cart-button">
-                <button class="button-cart">
-                    Checkout
-                </button>
+                <form action="<%=rootPath%>/checkout" method="get">
+                    <button class="button-cart">
+                        Checkout
+                    </button>
+                </form>
             </div>
         </div>
         <% for(Map.Entry<Product, Integer> entry: cart.getListProduct().entrySet()) {
@@ -91,9 +93,11 @@
             <% } %>
             <p>Product total: <b><%=currencyFormatter.format(totalPrice)%></b></p>
             <div class="add-to-cart-button">
-                <button class="button-cart">
-                    Checkout
-                </button>
+                <form action="<%=rootPath%>/checkout" method="get">
+                    <button class="button-cart">
+                        Checkout
+                    </button>
+                </form>
             </div>
         </div>
     <% } %>
