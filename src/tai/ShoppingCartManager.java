@@ -165,6 +165,7 @@ public class ShoppingCartManager {
                         p.setImage(product.getImage());
                         p.setPrice(product.getPrice());
                         p.setDiscount(product.getDiscount());
+                        p.setListAccessoryId(product.getListAccessoryId());
                         break;
                     }
                 }

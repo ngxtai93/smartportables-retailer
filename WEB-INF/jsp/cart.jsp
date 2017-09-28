@@ -1,6 +1,6 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.text.NumberFormat" %>
-<%@ page import = "tai.ShoppingCart, tai.User, tai.Product" %>
+<%@ page import = "tai.ProductManager, tai.ShoppingCart, tai.User, tai.Product" %>
 
 <%@include file = "./partials/header.jsp" %>
 <%
@@ -10,6 +10,7 @@
         count = cart.countItem();
     }
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+    ProductManager pm = new ProductManager();
 %>
 <div id="body">
     <section class="content">
@@ -28,6 +29,7 @@
         </div>
         <% for(Map.Entry<Product, Integer> entry: cart.getListProduct().entrySet()) {
             Product product = entry.getKey();
+            //System.out.println(product);
             Integer amount = entry.getValue(); %> 
             <div class="cart-product-description">
                 <div class="col-1">
@@ -42,7 +44,7 @@
                     Quantity: <input type="text" size="3" value="<%=amount%>">
                 </div>
                 <div class="col-4">
-                    <span class="price"><%=currencyFormatter.format(product.getPrice() - product.getDiscount() * amount)%></span>
+                    <span class="price"><%=currencyFormatter.format((product.getPrice() - product.getDiscount()) * amount)%></span>
                     <% if(product.getDiscount() > 0) { %> 
                         <div class="sale-message">
                         On Sale
@@ -57,6 +59,12 @@
                 </div>
             </div>
             <br>
+            <% Map<Integer, Product> mapProductAccessories = pm.getProductAccessories(request, product); %>
+            <% if(mapProductAccessories != null && mapProductAccessories.size() > 0) {
+                    request.setAttribute("product-accessory", mapProductAccessories);
+                    request.setAttribute("current-product", product); %>
+                    <jsp:include page="/WEB-INF/jsp/partials/accessories_carousel.jsp"/>
+            <% } %>
         <% } %>
     <% } %>
     </section>
