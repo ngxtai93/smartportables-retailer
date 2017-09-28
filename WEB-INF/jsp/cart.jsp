@@ -41,7 +41,14 @@
                     <span><a href="<%=rootPath%>/product/<%=product.getCategory()%>/<%=product.getId()%>"><%=product.getName()%></a></span>
                 </div>
                 <div class="col-3">
-                    Quantity: <input type="text" size="3" value="<%=amount%>">
+                    <input type="hidden" name="cart-id" value="<%=cart.getCartId()%>" form="update delete">
+                    Quantity: <input type="text" size="3" name="amount" value="<%=amount%>" form="update">
+                    <form method="post" action="<%=rootPath%>/cart/update" name="update">
+                        <button type="submit">Update</button>
+                    </form>
+                    <form method="post" action="<%=rootPath%>/cart/delete" name="delete">
+                        <button type="submit">Remove</button>
+                    </form>
                 </div>
                 <div class="col-4">
                     <span class="price"><%=currencyFormatter.format((product.getPrice() - product.getDiscount()) * amount)%></span>
