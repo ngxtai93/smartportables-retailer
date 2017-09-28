@@ -60,6 +60,20 @@ public class ShoppingCartManager {
         xmlUtil.writeToXml(document, filePath);
     }
 
+    public void updateToCart(
+        HttpServletRequest req, HttpServletResponse res, User user
+        , String cartId, String category, Integer id, Integer amount) {
+        String filePath = req.getServletContext().getRealPath(CART_INFO_PATH);
+        Document document = xmlUtil.getXmlDocument(filePath);
+        Element cartElement = findCartElement(document, cartId);
+        Element productElement = findExistingProduct(document, cartId, category, id);
+
+        Element amountElement = (Element) productElement.getElementsByTagName("amount").item(0);
+        amountElement.setTextContent(String.valueOf(amount));
+        
+        xmlUtil.writeToXml(document, filePath);
+    }
+
     private Element createNewCartElement(Document doc, String cartId) {
         Element newCartElement = doc.createElement("cart");
         newCartElement.setAttribute("id", cartId);

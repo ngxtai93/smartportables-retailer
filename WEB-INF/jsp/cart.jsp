@@ -11,6 +11,9 @@
     }
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
     ProductManager pm = new ProductManager();
+    Double totalSaving = Double.valueOf(0);
+    Double totalPrice = Double.valueOf(0);
+
 %>
 <div id="body">
     <section class="content">
@@ -22,15 +25,18 @@
             <br>
             <h2 id="cart-heading-text">Your Cart <i><%=count%> Item</i></h2>
             <div class="add-to-cart-button">
-            <button class="button-cart">
-                Checkout
-            </button>
+                <button class="button-cart">
+                    Checkout
+                </button>
             </div>
         </div>
         <% for(Map.Entry<Product, Integer> entry: cart.getListProduct().entrySet()) {
             Product product = entry.getKey();
             //System.out.println(product);
-            Integer amount = entry.getValue(); %> 
+            Integer amount = entry.getValue();
+            Double netPrice = (product.getPrice() - product.getDiscount()) * amount;
+            totalPrice += netPrice;
+            totalSaving += product.getDiscount();  %>
             <div class="cart-product-description">
                 <div class="col-1">
                     <img class="product-image"
@@ -41,17 +47,23 @@
                     <span><a href="<%=rootPath%>/product/<%=product.getCategory()%>/<%=product.getId()%>"><%=product.getName()%></a></span>
                 </div>
                 <div class="col-3">
-                    <input type="hidden" name="cart-id" value="<%=cart.getCartId()%>" form="update delete">
-                    Quantity: <input type="text" size="3" name="amount" value="<%=amount%>" form="update">
-                    <form method="post" action="<%=rootPath%>/cart/update" name="update">
+                    <form method="post" action="<%=rootPath%>/cart/update" id="update">
+                        Quantity: <input type="text" size="3" name="amount" value="<%=amount%>">
+                        <input type="hidden" name="cart-id" value="<%=cart.getCartId()%>">
+                        <input type="hidden" name="product-category" value="<%=product.getCategory()%>">
+                        <input type="hidden" name="product-id" value="<%=product.getId()%>">
                         <button type="submit">Update</button>
                     </form>
-                    <form method="post" action="<%=rootPath%>/cart/delete" name="delete">
+                    <form method="post" action="<%=rootPath%>/cart/delete" id="delete">
+                        <input type="hidden" name="cart-id" value="<%=cart.getCartId()%>">
+                        <input type="hidden" name="product-category" value="<%=product.getCategory()%>">
+                        <input type="hidden" name="product-id" value="<%=product.getId()%>">
                         <button type="submit">Remove</button>
                     </form>
+                    
                 </div>
                 <div class="col-4">
-                    <span class="price"><%=currencyFormatter.format((product.getPrice() - product.getDiscount()) * amount)%></span>
+                    <span class="price"><%=currencyFormatter.format(netPrice)%></span>
                     <% if(product.getDiscount() > 0) { %> 
                         <div class="sale-message">
                         On Sale
@@ -73,6 +85,15 @@
                     <jsp:include page="/WEB-INF/jsp/partials/accessories_carousel.jsp"/>
             <% } %>
         <% } %>
+        <div class="cart-summary">
+            <p>Total saved: <%=currencyFormatter.format(totalSaving)%></p>
+            <p>Product total: <b><%=currencyFormatter.format(totalPrice)%></b></p>
+            <div class="add-to-cart-button">
+                <button class="button-cart">
+                    Checkout
+                </button>
+            </div>
+        </div>
     <% } %>
     </section>
 
