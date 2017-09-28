@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Order>
+    <order id="1" username="admin">
+        <product>
+            <category>laptop</category>
+            <product-id>8</product-id>
+            <amount>2</amount>
+        </product>
+        <customer-info>
+            <name>Tai</name>
+            <address>123 abc</address>
+            <city>Chicago</city>
+            <state>IL</state>
+            <zip>60616</zip>
+            <phone>123456789</phone>
+        </customer-info>
+        <credit-card>
+            <number>1111222233334444</number>
+            <expire>0119</expire>
+        </credit-card>
+        <status>
+            placed
+        </status>
+    </order>
+</Order>
