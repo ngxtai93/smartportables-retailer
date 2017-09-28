@@ -86,7 +86,9 @@
             <% } %>
         <% } %>
         <div class="cart-summary">
-            <p>Total saved: <%=currencyFormatter.format(totalSaving)%></p>
+            <% if(totalSaving > 0) { %>
+                <p>Total saved: <%=currencyFormatter.format(totalSaving)%></p>
+            <% } %>
             <p>Product total: <b><%=currencyFormatter.format(totalPrice)%></b></p>
             <div class="add-to-cart-button">
                 <button class="button-cart">
