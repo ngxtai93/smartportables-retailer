@@ -102,12 +102,16 @@ public class ServletUpdateProduct extends HttpServlet {
         product.setId       (Integer.parseInt(productParam.get("product-id")));
         
         String discount = productParam.get("discount");
+        String rebate = productParam.get("rebate");
         String name = productParam.get("name");
         String price = productParam.get("price");
         String image = productParam.get("image");
         // can be null. If null -> no update
         if(discount != null && !discount.equals("")) {
             product.setDiscount (Double.parseDouble(discount));
+        }
+        if(rebate != null && !rebate.equals("")) {
+            product.setRebate (Double.parseDouble(rebate));
         }
         if(name != null && !name.equals("")) {
             product.setName     (name);
@@ -166,12 +170,15 @@ public class ServletUpdateProduct extends HttpServlet {
         priceElement.setTextContent(String.valueOf(product.getPrice()));
         Element discountElement = doc.createElement("discount");
         discountElement.setTextContent(String.valueOf(product.getDiscount()));
+        Element rebateElement = doc.createElement("rebate");
+        rebateElement.setTextContent(String.valueOf(product.getRebate()));
 
         // append to new element
         newProductElement.appendChild(imageElement);
         newProductElement.appendChild(nameElement);
         newProductElement.appendChild(priceElement);
         newProductElement.appendChild(discountElement);
+        newProductElement.appendChild(rebateElement);
 
         return newProductElement;
     }
@@ -193,6 +200,10 @@ public class ServletUpdateProduct extends HttpServlet {
         if(product.getDiscount() != null) {
             Element discountElement = (Element) origin.getElementsByTagName("discount").item(0);
             discountElement.setTextContent(String.valueOf(product.getDiscount()));
+        }
+        if(product.getRebate() != null) {
+            Element rebateElement = (Element) origin.getElementsByTagName("rebate").item(0);
+            rebateElement.setTextContent(String.valueOf(product.getRebate()));
         }
     }
 

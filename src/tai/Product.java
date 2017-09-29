@@ -9,6 +9,7 @@ public class Product {
     private String image;
     private Double price;
     private Double discount;
+    private Double rebate;
     private ArrayList<Integer> listAccessoryId;
 
     @Override
@@ -20,6 +21,7 @@ public class Product {
             .append("image: " + (image == null ? "null" : image + "\n"))
             .append("price: " + (price == null ? "null" : String.valueOf(price + "\n")))
             .append("discount: " + (discount == null ? "null" : String.valueOf(discount + "\n")))
+            .append("rebate: " + (rebate == null ? "null" : String.valueOf(rebate + "\n")))
         ;
         StringBuilder listAccessoryIdStr = new StringBuilder();
         listAccessoryIdStr.append("accessory-id: ");
@@ -71,6 +73,7 @@ public class Product {
          + (null == image ? 0 : image.hashCode())
          + (null == price ? 0 : price.hashCode())
          + (null == discount ? 0 : discount.hashCode())
+         + (null == rebate ? 0 : rebate.hashCode())
         ;
         return hash;
     }
@@ -121,6 +124,14 @@ public class Product {
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public Double getRebate() {
+        return this.rebate;
+    }
+
+    public void setRebate(Double rebate) {
+        this.rebate = rebate;
     }
 
     public ArrayList<Integer> getListAccessoryId() {

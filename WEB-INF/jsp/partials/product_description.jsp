@@ -34,6 +34,11 @@
         Was <%=currencyFormatter.format(product.getPrice())%>
         </div>
     <% } %>
+    <% if(product.getRebate() > 0) { %> 
+        <div class="savings">
+        Save <%=currencyFormatter.format(product.getRebate())%> in rebate
+        </div>
+    <% } %>
     <div class="add-to-cart-button">
       <form method="post" action="<%=request.getContextPath()%>/cart/add">
           <input type="hidden" name="category" value="<%=currentCategory%>">

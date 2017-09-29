@@ -106,6 +106,12 @@ public class ServletAddProduct extends HttpServlet {
         else {
             product.setDiscount (Double.parseDouble(productParam.get("discount")));
         }
+        if(productParam.get("rebate").equals("")) {
+            product.setRebate(Double.valueOf(0));
+        }
+        else {
+            product.setRebate (Double.parseDouble(productParam.get("rebate")));
+        }
         product.setName     (productParam.get("name"));
         product.setPrice    (Double.parseDouble(productParam.get("price")));
         product.setImage    (productParam.get("image"));
@@ -165,6 +171,8 @@ public class ServletAddProduct extends HttpServlet {
         priceElement.setTextContent(String.valueOf(product.getPrice()));
         Element discountElement = doc.createElement("discount");
         discountElement.setTextContent(String.valueOf(product.getDiscount()));
+        Element rebateElement = doc.createElement("rebate");
+        rebateElement.setTextContent(String.valueOf(product.getRebate()));
         
         ArrayList<Integer> listAccessory = product.getListAccessoryId();
         Element accessoriesElement = null;
@@ -182,6 +190,7 @@ public class ServletAddProduct extends HttpServlet {
         newProductElement.appendChild(nameElement);
         newProductElement.appendChild(priceElement);
         newProductElement.appendChild(discountElement);
+        newProductElement.appendChild(rebateElement);
         if(listAccessory != null) {
             newProductElement.appendChild(accessoriesElement);
         }

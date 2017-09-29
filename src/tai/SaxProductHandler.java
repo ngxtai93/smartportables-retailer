@@ -59,6 +59,10 @@ public class SaxProductHandler extends DefaultHandler {
             product.setDiscount(Double.valueOf(stringUtil.filter(elementValueRead)));
             return;
         }
+        if (element.equalsIgnoreCase("rebate")) {
+            product.setRebate(Double.valueOf(stringUtil.filter(elementValueRead)));
+            return;
+        }
         if(element.equalsIgnoreCase("category")) {
             category = null;
             return;

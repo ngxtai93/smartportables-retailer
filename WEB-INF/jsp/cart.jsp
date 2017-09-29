@@ -68,13 +68,16 @@
                     <span class="price"><%=currencyFormatter.format(netPrice)%></span>
                     <% if(product.getDiscount() > 0) { %> 
                         <div class="sale-message">
-                        On Sale
+                            On Sale
                         </div>
                         <div class="savings">
-                        Save <%=currencyFormatter.format(product.getDiscount() * amount)%>
+                            Save <%=currencyFormatter.format(product.getDiscount() * amount)%>
                         </div>
                          <div class="regular-price">
-                        Was <%=currencyFormatter.format(product.getPrice() * amount)%>
+                            Was <%=currencyFormatter.format(product.getPrice() * amount)%>
+                        </div>
+                        <div class="savings">
+                            Save <%=currencyFormatter.format(product.getRebate() * amount)%> in rebate!
                         </div>
                     <% } %>
                 </div>

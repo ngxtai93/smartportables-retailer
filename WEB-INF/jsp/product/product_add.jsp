@@ -47,6 +47,10 @@
                             <td><input name="discount" type="text" size="10"></td>
                         </tr>
                         <tr>
+                            <th><b>Rebate: </b></th>
+                            <td><input name="rebate" type="text" size="10"></td>
+                        </tr>
+                        <tr>
                             <th><b>Image: </b></th>
                             <td><input required name="image" type="file" size="30"></td>
                         </tr>

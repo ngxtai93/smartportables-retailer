@@ -38,6 +38,9 @@
                             <br>
                             <span class="price"><%=currencyFormatter.format(accessory.getPrice() - accessory.getDiscount())%></span>
                             <br>
+                            <%if(accessory.getRebate() > 0) { %>
+                                <span class="price">Get <%=currencyFormatter.format(accessory.getRebate())%> in rebate!</span>
+                            <% } %>
                             <div class="add-to-cart-button">
                                 <form method="post" action="<%=request.getContextPath()%>/cart/add">
                                     <input type="hidden" name="category" value="accessory">

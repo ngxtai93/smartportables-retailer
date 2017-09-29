@@ -59,7 +59,6 @@ public class ServletDeleteProduct extends HttpServlet {
         for(String id: listProductId) {
             Element elementToBeDeleted = findProductElement(doc, category, id);
             elementToBeDeleted.getParentNode().removeChild(elementToBeDeleted);
-            // updateElement(elementToBeUpdated, product);
         }
         xmlUtil.writeToXml(doc, xmlFilePath);
         // write back to file
@@ -83,66 +82,5 @@ public class ServletDeleteProduct extends HttpServlet {
         }
         
         return (Element) nl.item(0);
-    }
-
-    private Element createNewProductElement(Document doc, Product product, int productCount) {
-        int nextProductId = productCount + 1;
-
-        Element newProductElement = doc.createElement("product");
-        newProductElement.setAttribute("id", String.valueOf(nextProductId));
-
-        // create subelement of product
-        Element imageElement = doc.createElement("image");
-        imageElement.setTextContent(product.getImage());
-        Element nameElement = doc.createElement("name");
-        nameElement.setTextContent(product.getName());
-        Element priceElement = doc.createElement("price");
-        priceElement.setTextContent(String.valueOf(product.getPrice()));
-        Element discountElement = doc.createElement("discount");
-        discountElement.setTextContent(String.valueOf(product.getDiscount()));
-
-        // append to new element
-        newProductElement.appendChild(imageElement);
-        newProductElement.appendChild(nameElement);
-        newProductElement.appendChild(priceElement);
-        newProductElement.appendChild(discountElement);
-
-        return newProductElement;
-    }
-
-    private void updateElement(Element origin, Product product) {
-        // update element
-        if(product.getImage() != null) {
-            Element imageElement = (Element) origin.getElementsByTagName("image").item(0);
-            imageElement.setTextContent(product.getImage());
-        }
-        if(product.getName() != null) {
-            Element nameElement = (Element) origin.getElementsByTagName("name").item(0);
-            nameElement.setTextContent(product.getName());
-        }
-        if(product.getPrice() != null) {
-            Element priceElement = (Element) origin.getElementsByTagName("price").item(0);
-            priceElement.setTextContent(String.valueOf(product.getPrice()));
-        }
-        if(product.getDiscount() != null) {
-            Element discountElement = (Element) origin.getElementsByTagName("discount").item(0);
-            discountElement.setTextContent(String.valueOf(product.getDiscount()));
-        }
-    }
-
-    private File getFilePath(HttpServletRequest req, Map<String, String> productParam, String extension) {
-        String category = productParam.get("category");
-        String uploadFilePath = req.getServletContext().getRealPath("resources/images/product/")
-                                + "\\"
-                                + category
-                                + "\\"
-        ;
-        String fileName = stringUtil.generateRandomString(10) + extension;
-        File file = new File(uploadFilePath + fileName);
-        while(file.exists()) {
-            fileName = stringUtil.generateRandomString(10) + extension;
-            file = new File(uploadFilePath + fileName);
-        }
-        return file;
     }
 }
