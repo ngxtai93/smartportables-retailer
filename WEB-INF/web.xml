@@ -120,6 +120,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>PageError</servlet-name>
+        <jsp-file>/WEB-INF/jsp/error.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PageError</servlet-name>
+        <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>PageSuccess</servlet-name>
         <jsp-file>/WEB-INF/jsp/success.jsp</jsp-file>
     </servlet>
@@ -127,6 +136,7 @@
         <servlet-name>PageSuccess</servlet-name>
         <url-pattern>/success</url-pattern>
     </servlet-mapping>
+
     <filter>
         <filter-name>FilterGetListCategory</filter-name>
         <filter-class>tai.FilterGetListCategory</filter-class>

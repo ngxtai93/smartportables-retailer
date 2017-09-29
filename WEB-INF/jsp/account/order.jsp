@@ -40,8 +40,10 @@
                             <p><b>Order <%=order.getStatus() %></b></p>
                         </div>
                         <div class="col-5">
-                            <form method="post">
-                                <button type="submit">Cancel Order </button>
+                            <p>Confirmation number: <%=order.getConfirmNumber()%></p>
+                            <form method="post" action="<%=rootPath%>/account/order/cancel">
+                                <input type="hidden" name="order-id" value="<%=order.getId()%>"> 
+                                <button type="submit">Cancel Order</button>
                             </form>
                         </div>
                     </div>
@@ -57,8 +59,9 @@
                                  src="<%=rootPath%>/resources/images/product/<%=product.getCategory()%>/<%=product.getImage()%>">
                             </div>
                             <div class="col-2">
+                                <%=amount > 1 ? amount + "x " : ""%>
                                 <a href="<%=rootPath%>/product/<%=product.getCategory()%>/<%=product.getId()%>">
-                                    <%=amount > 1 ? amount + "x " : ""%><%=product.getName()%>
+                                    <%=product.getName()%>
                                 </a>
                                 <br>
                                 <p><%=currencyFormatter.format((product.getPrice() - product.getDiscount()) * amount)%></p>

@@ -3,6 +3,7 @@ package tai;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 import javax.servlet.*;
@@ -48,6 +49,67 @@ public class OrderManager {
         populateListOrder(listOrder, req.getServletContext());
 
         return listOrder;
+    }
+
+    public boolean canCancel(HttpServletRequest req, Integer id) {
+        boolean result = false;
+
+        List<Order> listAllOrder = getListAllOrder(req);
+        Order order = null;
+
+        for(Order o: listAllOrder) {
+            if(o.getId().equals(id)) {
+                order = o;
+                break;
+            }
+        }
+
+        // current date and delivery date has to be at least 5 business days apart
+        LocalDate date = LocalDate.now();
+        int businessDay = 0;
+        while(date.isBefore(order.getDeliverDate())) {
+            date = date.plusDays(1);
+            DayOfWeek dow = date.getDayOfWeek();
+            if(dow != DayOfWeek.SATURDAY && dow != DayOfWeek.SUNDAY) {
+                businessDay++;
+            }
+        }
+
+        if(businessDay >= 5) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public void cancelOrder(HttpServletRequest req, Integer id) {
+        String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
+        Document document = xmlUtil.getXmlDocument(filePath);
+
+        Element orderElement = findOrderById(document, id);
+
+        Element statusElement = (Element) orderElement.getElementsByTagName("status").item(0);
+        statusElement.setTextContent("Cancelled");
+
+        xmlUtil.writeToXml(document, filePath);
+    }
+
+    private Element findOrderById(Document doc, Integer id) {
+        XPath xpath =   XPathFactory.newInstance()
+        .newXPath();
+        String exprStr =    "/Order"
+                            + "/order[@id=\'" + id + "\']"
+        ;
+        NodeList nl = null;
+        try {
+            XPathExpression expr = xpath.compile(exprStr);
+            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+        }
+        catch(XPathExpressionException e) {
+            e.printStackTrace();
+        }
+
+        return (nl == null ? null : (Element) nl.item(0));
     }
 
     private ArrayList<Order> buildListOrder(File xmlFile) {

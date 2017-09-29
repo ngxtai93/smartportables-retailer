@@ -73,7 +73,7 @@
                         <div class="savings">
                         Save <%=currencyFormatter.format(product.getDiscount() * amount)%>
                         </div>
-                        <div class="regular-price">
+                         <div class="regular-price">
                         Was <%=currencyFormatter.format(product.getPrice() * amount)%>
                         </div>
                     <% } %>
