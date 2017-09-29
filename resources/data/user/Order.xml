@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Order>
-    <order id="1" username="admin" order-date="2017-09-28" confirm-number="1234567">
+<order confirm-number="4617676" deliver-date="2017-10-12" id="1" order-date="2017-09-28" username="admin">
         <product>
             <category>laptop</category>
             <product-id>8</product-id>
             <amount>2</amount>
         </product>
+        <product>
+            <category>accessory</category>
+            <product-id>4</product-id>
+            <amount>1</amount>
+        </product>
+        <product>
+            <category>accessory</category>
+            <product-id>5</product-id>
+            <amount>2</amount>
+        </product>
         <customer-info>
-            <name>Tai</name>
-            <address>123 abc</address>
+            <name>Tai Nguyen</name>
+            <address>IIT</address>
             <city>Chicago</city>
             <state>IL</state>
             <zip>60616</zip>
-            <phone>123456789</phone>
+            <phone>1234567</phone>
         </customer-info>
         <credit-card>
-            <number>1111222233334444</number>
-            <expire>0119</expire>
+            <number>0000111122223333</number>
+            <expire>0719</expire>
         </credit-card>
-        <status>
-            placed
-        </status>
+        <status>placed</status>
     </order>
 </Order>
