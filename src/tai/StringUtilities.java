@@ -25,7 +25,7 @@ public enum StringUtilities {
 
     public long generateRandomNumber(int digit) {
         // max = 10 digits
-        long range = Math.pow(10,digit);
+        long range = (long) Math.pow(10,digit);
         return ThreadLocalRandom.current().nextLong(range);
     }
     
