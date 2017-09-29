@@ -28,6 +28,6 @@
             <number>0000111122223333</number>
             <expire>0719</expire>
         </credit-card>
-        <status>placed</status>
+        <status>Placed</status>
     </order>
 </Order>

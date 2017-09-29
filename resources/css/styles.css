@@ -754,3 +754,17 @@ hr {
 .cart-product-description .col-4 {
 	width:20%;
 }
+
+.order-product {
+	display:inline-block;
+	width:100%;
+}
+
+.order-product .col-1 {
+	width:15%;
+	float:left;
+}
+
+.order-product .col-2 {
+	width:85%;
+}

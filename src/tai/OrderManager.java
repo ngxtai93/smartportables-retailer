@@ -112,7 +112,7 @@ public class OrderManager {
         LocalDate expDate = convertExpirationToLocalDate(ccExp);
         order.setExpireDate(expDate);
 
-        order.setStatus("placed");
+        order.setStatus("Placed");
         return order;
     }
 
