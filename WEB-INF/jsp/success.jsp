@@ -1,4 +1,5 @@
 <%@include file = "./partials/header.jsp" %>
+<%@ page import = "java.time.LocalDate, java.time.format.DateTimeFormatter, tai.Order" %>
 
 <div id="body">
     <section class="content">
@@ -36,7 +37,19 @@
 				<a href="<%=prevUri%>">Back to shopping</>
 			</p>
         <% } %>
-
+		<% if(commandExecuted.equals("order-place")) {
+			Order order = (Order) session.getAttribute("order");
+			LocalDate deliverDate = order.getDeliverDate();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, uuuu");
+			session.removeAttribute("order");
+		%>
+			<p>Thank you for shopping with us. Your order has been successfully placed. </p>
+			<p>Your order is schedule to be shipped on <%=formatter.format(deliverDate)%>. </p>
+			<p>Your confirmation number is <%= order.getConfirmNumber() %>.</p>
+			<p>
+				<a href="<%=rootPath%>">Back to homepage</>
+			</p>
+        <% } %>
 
         <%session.removeAttribute("command-executed");%>
 

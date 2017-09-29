@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Order>
-    <order id="1" username="admin">
+    <order id="1" username="admin" order-date="2017-09-28" confirm-number="1234567">
         <product>
             <category>laptop</category>
             <product-id>8</product-id>

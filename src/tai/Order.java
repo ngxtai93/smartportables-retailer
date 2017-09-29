@@ -1,13 +1,17 @@
 package tai;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.*;
 
 public class Order {
     private Integer id;
     private String username;
+    private LocalDate orderDate;
+    private LocalDate deliverDate;
+    private Long confirmNumber;
 
-    private ArrayList<Product> orderProduct;
+    private LinkedHashMap<Product, Integer> orderProduct;
 
     private String name;
     private String address;
@@ -16,10 +20,52 @@ public class Order {
     private Integer zip;
     private Integer phone;
 
-    private Integer creditCardNum;
+    private BigInteger creditCardNum;
     private LocalDate expireDate;
 
     private String status;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb  .append("id: ")
+            .append(id == null ? "null" : this.id)
+            .append("\n")
+            .append("username: ")
+            .append(username == null ? "null" : this.username)
+            .append("\n")
+            .append("name: ")
+            .append(name == null ? "null" : this.name)
+            .append("\n")
+            .append("address: ")
+            .append(address == null ? "null" : this.address)
+            .append("\n")
+            .append("city: ")
+            .append(city == null ? "null" : this.city)
+            .append("\n")
+            .append("state: ")
+            .append(state == null ? "null" : this.state)
+            .append("\n")
+            .append("zip: ")
+            .append(zip == null ? "null" : this.zip)
+            .append("\n")
+            .append("phone: ")
+            .append(phone == null ? "null" : this.phone)
+            .append("\n")
+            .append("\n")
+            .append("phone: ")
+            .append(phone == null ? "null" : this.phone)
+            .append("\n")
+            .append("creditCardNum: ")
+            .append(creditCardNum == null ? "null" : this.creditCardNum)
+            .append("\n")
+            .append("expiration: ")
+            .append(expireDate == null ? "null" : 
+                (this.expireDate.getMonthValue() + "/" + this.expireDate.getYear()))
+            .append("\n")
+        ;
+        return sb.toString();
+    }
 
     public Integer getId() {
         return this.id;
@@ -35,11 +81,32 @@ public class Order {
         this.username = username;
     }
 
-    public ArrayList<Product> getListProduct() {
+    public LocalDate getOrderDate() {
+        return this.orderDate;
+    }
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public LocalDate getDeliverDate() {
+        return this.deliverDate;
+    }
+    public void setDeliverDate(LocalDate deliverDate) {
+        this.deliverDate = deliverDate;
+    }
+
+    public Long getConfirmNumber() {
+        return this.confirmNumber;
+    }
+    public void setConfirmNumber(Long confirmNumber) {
+        this.confirmNumber = confirmNumber;
+    }
+
+    public LinkedHashMap<Product, Integer> getListProduct() {
         return this.orderProduct;
     }
 
-    public void setListProduct(ArrayList<Product> orderProduct) {
+    public void setListProduct(LinkedHashMap<Product, Integer> orderProduct) {
         this.orderProduct = orderProduct;
     }
 
@@ -86,10 +153,10 @@ public class Order {
         this.phone = phone;
     }
 
-    public Integer getCreditCardNum() {
+    public BigInteger getCreditCardNum() {
         return this.creditCardNum;
     }
-    public void setCreditCardNum(Integer creditCardNum) {
+    public void setCreditCardNum(BigInteger creditCardNum) {
         this.creditCardNum = creditCardNum;
     }
 
