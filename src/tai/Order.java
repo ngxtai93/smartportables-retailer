@@ -67,6 +67,27 @@ public class Order {
         return sb.toString();
     }
 
+    public double getTotalPrice() {
+        double price = 0;
+        for(Map.Entry<Product, Integer> entry: orderProduct.entrySet()) {
+            Product product = entry.getKey();
+            Integer amount = entry.getValue();
+            price += ((product.getPrice() - product.getDiscount()) * amount);
+        }
+
+        return price;
+        
+    }
+
+    public int getProductCount() {
+        int count = 0;
+
+        for(Map.Entry<Product, Integer> entry: orderProduct.entrySet()) {
+            count += entry.getValue().intValue();
+        }
+
+        return count;
+    }
     public Integer getId() {
         return this.id;
     }
