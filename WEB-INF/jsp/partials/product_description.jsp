@@ -34,7 +34,7 @@
         Was <%=currencyFormatter.format(product.getPrice())%>
         </div>
     <% } %>
-    <% if(product.getRebate() > 0) { %> 
+    <% if(product.getRebate() != null && product.getRebate() > 0) { %> 
         <div class="savings">
         Save <%=currencyFormatter.format(product.getRebate())%> in rebate
         </div>
