@@ -44,7 +44,7 @@
 			session.removeAttribute("order");
 		%>
 			<p>Thank you for shopping with us. Your order has been successfully placed. </p>
-			<p>Your order is schedule to be shipped on <%=formatter.format(deliverDate)%>. </p>
+			<p>Your order is scheduled to be shipped on <%=formatter.format(deliverDate)%>. </p>
 			<p>Your confirmation number is <%= order.getConfirmNumber() %>.</p>
 			<p>
 				<a href="<%=rootPath%>">Back to homepage</>
