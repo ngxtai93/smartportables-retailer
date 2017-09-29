@@ -52,7 +52,9 @@
                         Integer amount = entry.getValue(); %>
 
                         <div class="order-product">
-                            <p><b>Arriving <%=fullFormatter.format(order.getDeliverDate())%></b></p>
+                            <% if(!order.getStatus().equals("Cancelled")) { %>
+                                <p><b>Arriving <%=fullFormatter.format(order.getDeliverDate())%></b></p>
+                            <% } %>
 
                             <div class="col-1">
                                 <img class="product-image"

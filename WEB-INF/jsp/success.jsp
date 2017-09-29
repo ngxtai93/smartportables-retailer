@@ -50,6 +50,13 @@
 				<a href="<%=rootPath%>">Back to homepage</>
 			</p>
         <% } %>
+		<% if(commandExecuted.equals("order-cancel")) {
+		%>
+			<p>Order successfully cancelled.</p>
+			<p>
+				<a href="<%=rootPath%>/account">Back to your account</>
+			</p>
+        <% } %>
 
         <%session.removeAttribute("command-executed");%>
 
