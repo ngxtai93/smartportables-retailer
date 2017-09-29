@@ -50,7 +50,6 @@ public class ServletManageAccount extends HttpServlet {
                         req.setAttribute("list-order", listOrder);
                     }
                     rd = req.getRequestDispatcher("/WEB-INF/jsp/account/order.jsp");
-                    break;
                 }
             }
 

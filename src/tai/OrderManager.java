@@ -31,6 +31,61 @@ public class OrderManager {
         return order;
     }
 
+    public List<Order> getListOrder(HttpServletRequest req, User user) {
+        List<Order> listAllOrder = getListAllOrder(req);
+        List<Order> listOrder = new ArrayList<>();
+        for(Order order: listAllOrder) {
+            if(order.getUsername().equals(user.getUsername())) {
+                listOrder.add(order);
+            }
+        }
+        return listOrder;
+    }
+
+    public List<Order> getListAllOrder(HttpServletRequest req) {
+        File orderFile = new File(req.getServletContext().getRealPath(ORDER_INFO_PATH));
+        ArrayList<Order> listOrder = buildListOrder(orderFile);
+        populateListOrder(listOrder, req.getServletContext());
+
+        return listOrder;
+    }
+
+    private ArrayList<Order> buildListOrder(File xmlFile) {
+        try {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            InputStream xmlInput = new FileInputStream(xmlFile);
+            SAXParser saxParser = factory.newSAXParser();
+            SaxOrderHandler orderHandler = new SaxOrderHandler();
+            saxParser.parse(xmlInput, orderHandler);
+            return orderHandler.listOrder;
+        }
+        catch(IOException | ParserConfigurationException | SAXException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void populateListOrder(ArrayList<Order> listOrder, ServletContext sc) {
+        ProductManager pm = new ProductManager();
+        List<Product> listAllProduct = pm.getListProduct(sc);
+        for(Order order: listOrder) {
+            LinkedHashMap<Product, Integer> listItem = order.getListProduct();
+            for(Map.Entry<Product, Integer> entry: listItem.entrySet()) {
+                Product p = entry.getKey();
+                for(Product product: listAllProduct) {
+                    if(p.getCategory().equals(product.getCategory()) && p.getId().equals(product.getId())) {
+                        p.setName(product.getName());
+                        p.setImage(product.getImage());
+                        p.setPrice(product.getPrice());
+                        p.setDiscount(product.getDiscount());
+                        p.setListAccessoryId(product.getListAccessoryId());
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     private Order buildOrder(HttpServletRequest req) {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
 
