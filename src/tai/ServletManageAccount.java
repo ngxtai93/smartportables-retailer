@@ -4,13 +4,16 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
 import java.util.Map;
+import java.util.List;
 
 public class ServletManageAccount extends HttpServlet {
 
     private ProductManager pm;
+    private OrderManager om;
 
     public ServletManageAccount() {
         pm = new ProductManager();
+        om = new OrderManager();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -38,6 +41,16 @@ public class ServletManageAccount extends HttpServlet {
                     case "delete":
                         rd = processProductDelete(req, user);
                         break;
+                }
+            }
+            else if(uriSplit[3].equals("order")) {
+                if(uriSplit.length == 4) {
+                    List<Order> listOrder = om.getListOrder(req, user);
+                    if(listOrder != null && listOrder.size() > 0) {
+                        req.setAttribute("list-order", listOrder);
+                    }
+                    rd = req.getRequestDispatcher("/WEB-INF/jsp/account/order.jsp");
+                    break;
                 }
             }
 

@@ -2,7 +2,8 @@
 
 <div id="body">
     <section class="content">
-        <p>Customer landing page</p>
+        <br>
+        <p><a href="<%=rootPath%>/account/order">My Order</p>
     </section>
 
 <%@include file = "../partials/sidebar.jsp" %>

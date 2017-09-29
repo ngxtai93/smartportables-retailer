@@ -7,6 +7,10 @@
         <p><a href="<%=rootPath%>/account/customer/order/add">Add customer order</a></p>
         <p><a href="<%=rootPath%>/account/customer/order/update">Update customer order</a></p>
         <p><a href="<%=rootPath%>/account/customer/order/delete">Delete customer order</a></p>
+
+        <br>
+        <h2>Customer function</h2>
+        <p><a href="<%=rootPath%>/account/order">My Order</p>
     </section>
 
 <%@include file = "../partials/sidebar.jsp" %>
