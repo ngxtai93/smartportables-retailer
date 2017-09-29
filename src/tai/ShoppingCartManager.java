@@ -75,7 +75,7 @@ public class ShoppingCartManager {
     }
 
     public void deleteFromCart(
-        HttpServletRequest req, HttpServletResponse res, User user
+        HttpServletRequest req, User user
         , String cartId, String category, Integer id) {
         String filePath = req.getServletContext().getRealPath(CART_INFO_PATH);
         Document document = xmlUtil.getXmlDocument(filePath);
@@ -84,6 +84,16 @@ public class ShoppingCartManager {
         
         cartElement.removeChild(productElement);
         
+        xmlUtil.writeToXml(document, filePath);
+    }
+
+    public void deleteCart(HttpServletRequest req, String cartId) {
+        String filePath = req.getServletContext().getRealPath(CART_INFO_PATH);
+        Document document = xmlUtil.getXmlDocument(filePath);
+        Element cartElement = findCartElement(document, cartId);
+
+        document.getFirstChild().removeChild(cartElement);
+
         xmlUtil.writeToXml(document, filePath);
     }
 
