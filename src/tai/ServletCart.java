@@ -100,7 +100,7 @@ public class ServletCart extends HttpServlet {
         Integer productId = Integer.valueOf(req.getParameter("product-id"));
         User currentUser = (User) req.getSession().getAttribute("currentUser");
 
-        cm.deleteFromCart(req, res, currentUser, cartId, productCategory, productId);
+        cm.deleteFromCart(req, currentUser, cartId, productCategory, productId);
 
         // update currentUser
         Authenticator auth = new Authenticator();

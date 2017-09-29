@@ -210,7 +210,7 @@ public class ShoppingCartManager {
         }
     }
 
-    private String buildCartId(User user) {
+    public String buildCartId(User user) {
         String cartId = null;
         //[role]-[username]
         switch(user.getRole()) {

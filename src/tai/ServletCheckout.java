@@ -26,12 +26,25 @@ public class ServletCheckout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
-        User currentUser = (User) req.getSession().getAttribute("currentUser");
+        HttpSession session = req.getSession();
+        User currentUser = (User) session.getAttribute("currentUser");
         if(currentUser == null) {
             res.sendRedirect(req.getContextPath() + "/login");
         }
 
         Order order = om.processOrderPlaced(req, res);
+
+        // clear cart after purchase
+        ShoppingCartManager cm = new ShoppingCartManager();
+        String cartId = cm.buildCartId(currentUser);
+        cm.deleteCart(req, cartId);
+
+        // update currentUser
+        Authenticator auth = new Authenticator();
+        currentUser = auth.getUser(req.getServletContext(), currentUser.getUsername());
+        
+        
+        session.setAttribute("currentUser", currentUser);
 
         req.getSession().setAttribute("command-executed", "order-place");
         req.getSession().setAttribute("order", order);
