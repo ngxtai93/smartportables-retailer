@@ -19,13 +19,14 @@ public class SaxOrderHandler extends DefaultHandler {
 
     public SaxOrderHandler() {
         listOrder = new ArrayList<>();
-        listProduct = new LinkedHashMap<>();
     }
 
     @Override
     public void startElement(String str1, String str2, String elementName, Attributes attributes) throws SAXException {
         if(elementName.equals("order")) {
             order = new Order();
+            listProduct = new LinkedHashMap<>();
+            
             order.setId             (Integer.valueOf(attributes.getValue("id")));
             order.setUsername       (attributes.getValue("username"));
             order.setConfirmNumber  (Long.valueOf(attributes.getValue("confirm-number")));
@@ -106,6 +107,8 @@ public class SaxOrderHandler extends DefaultHandler {
         if (element.equals("order")) {
             order.setListProduct(listProduct);
             listOrder.add(order);
+            order = null;
+            listProduct = null;
             return;
         }
 
