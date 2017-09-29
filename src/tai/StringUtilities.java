@@ -1,6 +1,8 @@
 package tai;
 
+import java.math.BigInteger;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public enum StringUtilities {
     INSTANCE;
@@ -20,6 +22,14 @@ public enum StringUtilities {
         String saltStr = salt.toString();
         return saltStr;
     }
+
+    public long generateRandomNumber(int digit) {
+        // max = 10 digits
+        long range = Math.pow(10,digit);
+        return ThreadLocalRandom.current().nextLong(range);
+    }
+    
+
 
     public boolean isNumeric(String str) {
         if (str == null) {
