@@ -75,7 +75,6 @@ public class ServletManageAccount extends HttpServlet {
             // 0: blank, 1: csj, 2: account, 3: order
             if (uriSplit.length == 5) {
                 if (uriSplit[4].equals("cancel")) {
-                    System.out.println("cancel order");
                     HttpSession session = req.getSession();
                     boolean isOrderOfUser = false;
                     List<Order> listOrder = om.getListOrder(req, user);

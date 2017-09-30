@@ -88,6 +88,15 @@ public class Order {
 
         return count;
     }
+
+    public String getShortExpDate() {
+        int month = this.expireDate.getMonthValue();
+        int year = this.expireDate.getYear();
+
+        return "" + (month < 10 ? "0" + month : month) + "/" + (year - 2000);
+
+    }
+    
     public Integer getId() {
         return this.id;
     }

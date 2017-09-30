@@ -74,9 +74,13 @@ public class ServletManageCustomer extends HttpServlet {
                         doRegisterCustomer(req, res);
                         break;
                     case "order":
+                        
                         switch(uriSplit[5]) {
                             case "add":
                                 doAddOrder(req, res);
+                                break;
+                            case "update":
+                                doUpdateOrder(req, res);
                                 break;
                             case "delete":
                                 doDeleteOrder(req, res);
@@ -148,7 +152,6 @@ public class ServletManageCustomer extends HttpServlet {
 
                 case "add-product":
                     category = req.getParameter("category");
-                    System.out.println("add product");
                     Integer productId = Integer.valueOf(req.getParameter("product-id"));
                     Integer amount = Integer.valueOf(req.getParameter("product-amount"));
                     if(productId != null && amount != null) {
@@ -171,7 +174,6 @@ public class ServletManageCustomer extends HttpServlet {
                 break;
 
                 case "finish-add":
-                    System.out.println("done add product");
                     req.setAttribute("done-add-product", "true");
                 break;
             }
@@ -185,6 +187,44 @@ public class ServletManageCustomer extends HttpServlet {
         }
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/customer/order_update.jsp");
 
+        HttpSession session = req.getSession();
+        String action = req.getParameter("action");
+
+        if(action != null) {
+            switch(action) {
+                case "choose-user":
+                    String username = req.getParameter("username");
+                    User user = null;
+                    if(username != null) {
+                        Authenticator auth = new Authenticator();
+                        user = auth.getUser(req.getServletContext(), username);
+                        if(user == null) {
+                            req.setAttribute("addFailed", "username");
+                        }
+                        else {
+                            session.setAttribute("user-queried", user);
+                        }
+                    }
+                    if(user != null) {
+                        List<Order> listOrder = om.getListOrder(req, user);
+                        session.setAttribute("list-order", listOrder);
+                    }
+                    break;
+                case "choose-order":
+                    Integer orderId = Integer.valueOf(req.getParameter("order-id"));
+                    Order order = null;
+                    @SuppressWarnings("unchecked")
+                    List<Order> listOrder = (List<Order>) session.getAttribute("list-order");
+                    for(Order o: listOrder) {
+                        if(o.getId().equals(orderId)) {
+                            order = o;
+                            break;
+                        }
+                    }
+                    session.setAttribute("queried-order", order);
+                    break;
+            }
+        }
         return rd;
     }
 
@@ -241,6 +281,32 @@ public class ServletManageCustomer extends HttpServlet {
         
     }
 
+    private void doUpdateOrder(HttpServletRequest req, HttpServletResponse res)
+        throws IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user-queried");
+        Order queriedOrder = (Order) session.getAttribute("queried-order");
+        
+        queriedOrder.setName(req.getParameter("name"));
+        queriedOrder.setAddress(req.getParameter("address"));
+        queriedOrder.setCity(req.getParameter("city"));
+        queriedOrder.setState(req.getParameter("state"));
+        queriedOrder.setZip(Integer.valueOf(req.getParameter("zip")));
+        queriedOrder.setPhone(new BigInteger(req.getParameter("phone")));
+        queriedOrder.setCreditCardNum(new BigInteger(req.getParameter("cc-num")));
+        queriedOrder.setExpireDate(om.convertExpirationToLocalDate(req.getParameter("cc-exp")));
+        queriedOrder.setDeliverDate(LocalDate.parse(req.getParameter("deliver-date")));
+
+        om.updateOrder(req, queriedOrder);
+
+        session.removeAttribute("user-queried");
+        session.removeAttribute("queried-order");
+
+        session.setAttribute("command-executed", "sales-order-update");
+        res.sendRedirect(req.getContextPath() + "/success");
+    
+}
+
     private void doDeleteOrder(HttpServletRequest req, HttpServletResponse res)
         throws IOException {
         HttpSession session = req.getSession();
@@ -258,6 +324,8 @@ public class ServletManageCustomer extends HttpServlet {
 
         om.deleteOrder(req, toDelete);
 
+        session.removeAttribute("user-queried");
+        session.removeAttribute("list-order");
         session.setAttribute("command-executed", "sales-order-delete");
         res.sendRedirect(req.getContextPath() + "/success");
     }

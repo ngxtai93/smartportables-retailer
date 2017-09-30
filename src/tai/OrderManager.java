@@ -31,6 +31,7 @@ public class OrderManager {
 
         return order;
     }
+    
 
     public List<Order> getListOrder(HttpServletRequest req, User user) {
         List<Order> listAllOrder = getListAllOrder(req);
@@ -103,6 +104,39 @@ public class OrderManager {
 
         xmlUtil.writeToXml(document, filePath);
     }
+
+    public void updateOrder(HttpServletRequest req, Order order) {
+        String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
+        Document document = xmlUtil.getXmlDocument(filePath);
+
+        Element orderElement = findOrderById(document, order.getId());
+        updateOrderElement(orderElement, order);
+
+        xmlUtil.writeToXml(document, filePath);
+    }
+
+    private void updateOrderElement(Element orderElement, Order order) {
+        Element nameElement = (Element) orderElement.getElementsByTagName("name").item(0);
+        nameElement.setTextContent(order.getName());
+        Element addressElement = (Element) orderElement.getElementsByTagName("address").item(0);
+        addressElement.setTextContent(order.getAddress());
+        Element cityElement = (Element) orderElement.getElementsByTagName("city").item(0);
+        cityElement.setTextContent(order.getCity());
+        Element stateElement = (Element) orderElement.getElementsByTagName("state").item(0);
+        stateElement.setTextContent(order.getState());
+        Element zipElement = (Element) orderElement.getElementsByTagName("zip").item(0);
+        zipElement.setTextContent(order.getZip().toString());
+        Element phoneElement = (Element) orderElement.getElementsByTagName("phone").item(0);
+        phoneElement.setTextContent(order.getPhone().toString());
+
+        Element creditCardElement = (Element) orderElement.getElementsByTagName("number").item(0);
+        creditCardElement.setTextContent(order.getCreditCardNum().toString());
+        Element expireElement = (Element) orderElement.getElementsByTagName("expire").item(0);
+        expireElement.setTextContent(order.getShortExpDate());
+
+        orderElement.setAttribute("deliver-date", order.getDeliverDate().toString());
+    }
+
 
     private Element findOrderById(Document doc, Integer id) {
         XPath xpath =   XPathFactory.newInstance()
@@ -324,7 +358,7 @@ public class OrderManager {
         creditCardElement.appendChild(numberElement);
         creditCardElement.appendChild(expireElement);
     }
-    private LocalDate convertExpirationToLocalDate(String creditCardExpire) {
+    public LocalDate convertExpirationToLocalDate(String creditCardExpire) {
         String[] expSplit = creditCardExpire.split("/");
         int month = Integer.parseInt(expSplit[0]);
         int year = Integer.parseInt(expSplit[1]) + 2000;

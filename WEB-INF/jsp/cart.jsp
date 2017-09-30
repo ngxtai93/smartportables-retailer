@@ -34,7 +34,6 @@
         </div>
         <% for(Map.Entry<Product, Integer> entry: cart.getListProduct().entrySet()) {
             Product product = entry.getKey();
-            //System.out.println(product);
             Integer amount = entry.getValue();
             Double netPrice = (product.getPrice() - product.getDiscount()) * amount;
             totalPrice += netPrice;
