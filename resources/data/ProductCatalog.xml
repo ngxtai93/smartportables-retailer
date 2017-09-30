@@ -429,5 +429,19 @@
             <price>79.99</price>
             <discount>3.0</discount>
         </product>
+    <product id="6">
+            <image>NLY4VUFYFXTS4MVPQ5.jpg</image>
+            <name><![CDATA[SanDisk - Ultra Fit 32GB USB 3.0 Flash Drive - Black/Silver]]></name>
+            <price>34.99</price>
+            <discount>25.0</discount>
+            <rebate>0.0</rebate>
+        </product>
+    <product id="7">
+            <image>QHQ8QLOIKCP8NMMZXA.jpg</image>
+            <name><![CDATA[Apple - 10.5-Inch iPad Pro (Latest Model) with Wi-Fi + Cellular - 256GB - Silver]]></name>
+            <price>929.99</price>
+            <discount>0.0</discount>
+            <rebate>0.0</rebate>
+        </product>
     </category>
 </ProductCatalog>
