@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 import java.io.*;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class ServletManageCustomer extends HttpServlet {
 
@@ -40,8 +41,14 @@ public class ServletManageCustomer extends HttpServlet {
                     case "order":
                         switch(uriSplit[5]) {
                             case "add":
-                            rd = processAddCustomerOrder(req, user);
-                            break;    
+                                rd = processAddCustomerOrder(req, user);
+                                break;
+                            case "update":
+                                rd = processUpdateCustomerOrder(req, user);
+                                break;
+                            case "delete":
+                                rd = processDeleteCustomerOrder(req, user);
+                            break;
                         }
                         break;
                 }
@@ -69,8 +76,11 @@ public class ServletManageCustomer extends HttpServlet {
                     case "order":
                         switch(uriSplit[5]) {
                             case "add":
-                            doAddOrder(req, res);
-                            break;    
+                                doAddOrder(req, res);
+                                break;
+                            case "delete":
+                                doDeleteOrder(req, res);
+                                break;
                         }
                 }
             }
@@ -169,6 +179,50 @@ public class ServletManageCustomer extends HttpServlet {
         return rd;
     }
 
+    private RequestDispatcher processUpdateCustomerOrder(HttpServletRequest req, User loggedUser) {
+        if(loggedUser.getRole() != Role.SALESMAN) {
+            return null;
+        }
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/customer/order_update.jsp");
+
+        return rd;
+    }
+
+    private RequestDispatcher processDeleteCustomerOrder(HttpServletRequest req, User loggedUser) {
+        if(loggedUser.getRole() != Role.SALESMAN) {
+            return null;
+        }
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/customer/order_delete.jsp");
+
+        HttpSession session = req.getSession();
+        String action = req.getParameter("action");
+
+        if(action != null) {
+            switch(action) {
+                case "choose-user":
+                    String username = req.getParameter("username");
+                    User user = null;
+                    if(username != null) {
+                        Authenticator auth = new Authenticator();
+                        user = auth.getUser(req.getServletContext(), username);
+                        if(user == null) {
+                            req.setAttribute("addFailed", "username");
+                        }
+                        else {
+                            session.setAttribute("user-queried", user);
+                        }
+                    }
+                    if(user != null) {
+                        List<Order> listOrder = om.getListOrder(req, user);
+                        session.setAttribute("list-order", listOrder);
+                    }
+                    break;
+            }
+        }
+
+        return rd;
+    }
+
     private void doAddOrder(HttpServletRequest req, HttpServletResponse res)
         throws IOException {
         HttpSession session = req.getSession();
@@ -185,5 +239,26 @@ public class ServletManageCustomer extends HttpServlet {
         session.setAttribute("command-executed", "sales-order-add");
         res.sendRedirect(req.getContextPath() + "/success");
         
+    }
+
+    private void doDeleteOrder(HttpServletRequest req, HttpServletResponse res)
+        throws IOException {
+        HttpSession session = req.getSession();
+        @SuppressWarnings("unchecked")
+        List<Order> listOrder = (List<Order>) session.getAttribute("list-order");
+
+        Integer orderId = Integer.valueOf(req.getParameter("order-id"));
+        Order toDelete = null;
+        for(Order order: listOrder) {
+            if(order.getId().equals(orderId)) {
+                toDelete = order;
+                break;
+            }
+        }
+
+        om.deleteOrder(req, toDelete);
+
+        session.setAttribute("command-executed", "sales-order-delete");
+        res.sendRedirect(req.getContextPath() + "/success");
     }
 }

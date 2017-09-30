@@ -94,6 +94,16 @@ public class OrderManager {
         xmlUtil.writeToXml(document, filePath);
     }
 
+    public void deleteOrder(HttpServletRequest req, Order order) {
+        String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
+        Document document = xmlUtil.getXmlDocument(filePath);
+
+        Element orderElement = findOrderById(document, order.getId());
+        orderElement.getParentNode().removeChild(orderElement);
+
+        xmlUtil.writeToXml(document, filePath);
+    }
+
     private Element findOrderById(Document doc, Integer id) {
         XPath xpath =   XPathFactory.newInstance()
         .newXPath();
