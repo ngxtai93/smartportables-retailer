@@ -5,11 +5,16 @@
             <image>61Yeir0uhIL._SL1322_.jpg</image>
             <name>Acer Aspire E 15 E5-575-33BM 15.6-Inch FHD Notebook</name>
             <price>349.99</price>
-            <discount>0.0</discount>
+            <discount>30.0</discount>
             <rebate>40.0</rebate>
             <accessories>
                 <product-id id="1"/>
                 <product-id id="2"/>
+                <product-id id="3"/>
+                <product-id id="4"/>
+                <product-id id="5"/>
+                <product-id id="6"/>
+                <product-id id="7"/>
             </accessories>
         </product>
     <product id="2">
