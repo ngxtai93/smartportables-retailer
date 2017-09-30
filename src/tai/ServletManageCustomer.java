@@ -1,16 +1,23 @@
 package tai;
 
+import java.math.BigInteger;
+import java.time.LocalDate;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
 import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class ServletManageCustomer extends HttpServlet {
 
     private Authenticator auth;
+    private ProductManager pm;
+    private OrderManager om;
 
     public ServletManageCustomer() {
         auth = new Authenticator();
+        pm = new ProductManager();
+        om = new OrderManager();
     }
 
     @Override
@@ -29,6 +36,13 @@ public class ServletManageCustomer extends HttpServlet {
                 switch(uriSplit[4]) {
                     case "register":
                         rd = processRegisterCustomer(req, user);
+                        break;
+                    case "order":
+                        switch(uriSplit[5]) {
+                            case "add":
+                            rd = processAddCustomerOrder(req, user);
+                            break;    
+                        }
                         break;
                 }
             }
@@ -52,6 +66,12 @@ public class ServletManageCustomer extends HttpServlet {
                     case "register":
                         doRegisterCustomer(req, res);
                         break;
+                    case "order":
+                        switch(uriSplit[5]) {
+                            case "add":
+                            doAddOrder(req, res);
+                            break;    
+                        }
                 }
             }
     }
@@ -75,5 +95,95 @@ public class ServletManageCustomer extends HttpServlet {
         }
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
         return rd;
+    }
+
+    private RequestDispatcher processAddCustomerOrder(HttpServletRequest req, User loggedUser) {
+        if(loggedUser.getRole() != Role.SALESMAN) {
+            return null;
+        }
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/customer/order_add.jsp");
+
+        String action = req.getParameter("action");
+        HttpSession session = req.getSession();
+
+        if(action != null) {
+            switch(action) {
+                case "choose-user":
+                    String username = req.getParameter("username");
+                    if(username != null) {
+                        Authenticator auth = new Authenticator();
+                        User user = auth.getUser(req.getServletContext(), username);
+                        if(user == null) {
+                            req.setAttribute("addFailed", "username");
+                        }
+                        else {
+                            session.setAttribute("user-queried", user);
+                        }
+                    }
+                break;
+
+                case "choose-category":
+                    String category = req.getParameter("category");
+                    if(category != null) {
+                        if(category.equals("none")) {
+                            req.setAttribute("addFailed", "category");
+                        }
+                        else {
+                            Map<Integer, Product> listProduct = pm.getListProduct(req, category);
+                            req.setAttribute("listProduct", listProduct);
+                            req.setAttribute("category", category);
+                        }
+                    }
+                break;
+
+                case "add-product":
+                    category = req.getParameter("category");
+                    System.out.println("add product");
+                    Integer productId = Integer.valueOf(req.getParameter("product-id"));
+                    Integer amount = Integer.valueOf(req.getParameter("product-amount"));
+                    if(productId != null && amount != null) {
+                        @SuppressWarnings("unchecked")
+                        Map<Product, Integer> mapOrderProduct =
+                         (Map<Product, Integer>) session.getAttribute("order-product-list");
+
+                        if(mapOrderProduct == null) {
+                            mapOrderProduct = new LinkedHashMap<>();
+                            session.setAttribute("order-product-list", mapOrderProduct);
+                        }
+
+                        Map<Integer, Product> mapProduct = pm.getListProduct(req, category);
+                        Product p = mapProduct.get(productId);
+
+                        mapOrderProduct.put(p, amount);
+                        session.setAttribute("order-product-list", mapOrderProduct);
+                        req.setAttribute("recently-added", "true");
+                    }
+                break;
+
+                case "finish-add":
+                    System.out.println("done add product");
+                    req.setAttribute("done-add-product", "true");
+                break;
+            }
+        }
+        return rd;
+    }
+
+    private void doAddOrder(HttpServletRequest req, HttpServletResponse res)
+        throws IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user-queried");
+        @SuppressWarnings("unchecked")
+        LinkedHashMap<Product, Integer> mapProduct = 
+            (LinkedHashMap<Product, Integer>) session.getAttribute("order-product-list");
+        Order order = om.buildOrder(req, user, mapProduct);
+        om.addToOrderFile(req, res, order);
+
+        session.removeAttribute("user-queried");
+        session.removeAttribute("order-product-list");
+
+        session.setAttribute("command-executed", "sales-order-add");
+        res.sendRedirect(req.getContextPath() + "/success");
+        
     }
 }

@@ -18,7 +18,7 @@ public class Order {
     private String city;
     private String state;
     private Integer zip;
-    private Integer phone;
+    private BigInteger phone;
 
     private BigInteger creditCardNum;
     private LocalDate expireDate;
@@ -167,10 +167,10 @@ public class Order {
         this.zip = zip;
     }
     
-    public Integer getPhone() {
+    public BigInteger getPhone() {
         return this.phone;
     }
-    public void setPhone(Integer phone) {
+    public void setPhone(BigInteger phone) {
         this.phone = phone;
     }
 

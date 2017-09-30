@@ -83,7 +83,7 @@ public class SaxOrderHandler extends DefaultHandler {
             return;
         }
         if (element.equalsIgnoreCase("phone")) {
-            order.setPhone(Integer.valueOf(stringUtil.filter(elementValueRead)));
+            order.setPhone(new BigInteger(stringUtil.filter(elementValueRead)));
             return;
         }
 

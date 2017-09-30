@@ -150,12 +150,17 @@ public class OrderManager {
 
     private Order buildOrder(HttpServletRequest req) {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
+        LinkedHashMap<Product, Integer> listProduct = currentUser.getShoppingCart().getListProduct();
+        return buildOrder(req, currentUser, listProduct);
 
+    }
+
+    public Order buildOrder(HttpServletRequest req, User user, LinkedHashMap<Product, Integer> listProduct) {
         Order order = new Order();        
         LocalDate orderDate = LocalDate.now();
         // populate order
-        order.setUsername(currentUser.getUsername());
-        order.setListProduct(currentUser.getShoppingCart().getListProduct());
+        order.setUsername(user.getUsername());
+        order.setListProduct(listProduct);
         order.setOrderDate(orderDate);
         order.setConfirmNumber(Long.valueOf(StringUtilities.INSTANCE.generateRandomNumber(7)));
         order.setDeliverDate(orderDate.plusWeeks(2));
@@ -166,8 +171,8 @@ public class OrderManager {
         order.setCity(req.getParameter("city"));
         order.setState(req.getParameter("state"));
         order.setZip(Integer.valueOf(req.getParameter("zip")));
-        order.setPhone(Integer.valueOf(req.getParameter("phone")));
-    
+        order.setPhone(new BigInteger(req.getParameter("phone")));
+
         order.setCreditCardNum(new BigInteger((req.getParameter("cc-num"))));
         // date expiration
         String ccExp = req.getParameter("cc-exp");
@@ -175,10 +180,10 @@ public class OrderManager {
         order.setExpireDate(expDate);
 
         order.setStatus("Placed");
-        return order;
+        return order;        
     }
 
-    private void addToOrderFile(HttpServletRequest req, HttpServletResponse res, Order order) {
+    public void addToOrderFile(HttpServletRequest req, HttpServletResponse res, Order order) {
         String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
         Document document = xmlUtil.getXmlDocument(filePath);
         Element rootElement = (Element) document.getFirstChild();

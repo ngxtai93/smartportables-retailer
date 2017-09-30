@@ -57,7 +57,13 @@
 				<a href="<%=rootPath%>/account">Back to your account</>
 			</p>
         <% } %>
-
+		<% if(commandExecuted.equals("sales-order-add")) {
+		%>
+			<p>Order successfully placed.</p>
+			<p>
+				<a href="<%=rootPath%>/account">Back to your account</>
+			</p>
+        <% } %>
         <%session.removeAttribute("command-executed");%>
 
     </section>
