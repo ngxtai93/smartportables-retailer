@@ -1,4 +1,4 @@
-<%@ page import = "tai.Product" %>
+<%@ page import = "tai.entity.Product" %>
 <%@ page import = "java.text.NumberFormat, java.util.*" %>
 <%@include file = "../partials/header.jsp" %>
 

@@ -1,6 +1,6 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.text.NumberFormat" %>
-<%@ page import = "tai.ProductManager, tai.ShoppingCart, tai.User, tai.Product" %>
+<%@ page import = "tai.model.ProductManager, tai.entity.ShoppingCart, tai.entity.User, tai.entity.Product" %>
 
 <%@include file = "./partials/header.jsp" %>
 <%

@@ -1,6 +1,6 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.text.NumberFormat" %>
-<%@ page import = "tai.Product" %>
+<%@ page import = "tai.entity.Product" %>
 
 <% 
     String rootPath = request.getContextPath();

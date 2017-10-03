@@ -1,5 +1,5 @@
 <%@ page import = "java.util.Map" %>
-<%@ page import = "tai.Category, tai.Product" %>
+<%@ page import = "tai.entity.Category, tai.entity.Product" %>
 
 <%@include file = "../partials/header.jsp" %>
 <div id="body">

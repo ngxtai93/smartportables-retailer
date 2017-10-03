@@ -1,6 +1,6 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.Map" %>
-<%@ page import = "tai.Product" %>
+<%@ page import = "tai.entity.Product" %>
 
 <% Map<Integer, Product> mapAccessory = (Map<Integer, Product>) request.getAttribute("list-accessory"); %>
 <div id="body">

@@ -1,5 +1,5 @@
 <%@include file = "./partials/header.jsp" %>
-<%@ page import = "java.time.LocalDate, java.time.format.DateTimeFormatter, tai.Order" %>
+<%@ page import = "java.time.LocalDate, java.time.format.DateTimeFormatter, tai.entity.Order" %>
 
 <div id="body">
     <section class="content">

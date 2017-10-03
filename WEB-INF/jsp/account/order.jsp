@@ -1,5 +1,5 @@
 <%@include file = "../partials/header.jsp" %>
-<%@ page import = "tai.Order, tai.Product" %>
+<%@ page import = "tai.entity.Order, tai.entity.Product" %>
 <%@ page import = "java.util.*, java.time.format.DateTimeFormatter, java.time.LocalDate, java.text.NumberFormat" %>
 <%
     List<Order> listOrder = (List<Order>) request.getAttribute("list-order");

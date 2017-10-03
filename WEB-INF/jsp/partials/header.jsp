@@ -1,6 +1,6 @@
-<%@ page import = "tai.User, tai.Role" %>
+<%@ page import = "tai.entity.User, tai.entity.Role" %>
 <%@ page import = "java.util.ArrayList" %>
-<%@ page import = "tai.Category" %>
+<%@ page import = "tai.entity.Category" %>
 
 <% String rootPath = request.getContextPath(); %>
 

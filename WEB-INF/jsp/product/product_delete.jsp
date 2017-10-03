@@ -1,6 +1,6 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.Map" %>
-<%@ page import = "tai.Product" %>
+<%@ page import = "tai.entity.Product" %>
 <div id="body">
     <section class="content">
         <br>
