@@ -22,7 +22,7 @@
 >
     <servlet>
         <servlet-name>ServletLogin</servlet-name>
-        <servlet-class>tai.ServletLogin</servlet-class>
+        <servlet-class>tai.servlet.ServletLogin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
@@ -31,7 +31,7 @@
     
     <servlet>
         <servlet-name>ServletRegister</servlet-name>
-        <servlet-class>tai.ServletRegister</servlet-class>
+        <servlet-class>tai.servlet.ServletRegister</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletRegister</servlet-name>
@@ -40,7 +40,7 @@
 
     <servlet>
         <servlet-name>ServletLogout</servlet-name>
-        <servlet-class>tai.ServletLogout</servlet-class>
+        <servlet-class>tai.servlet.ServletLogout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogout</servlet-name>
@@ -49,7 +49,7 @@
 
     <servlet>
         <servlet-name>ServletManageAccount</servlet-name>
-        <servlet-class>tai.ServletManageAccount</servlet-class>
+        <servlet-class>tai.servlet.ServletManageAccount</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletManageAccount</servlet-name>
@@ -58,7 +58,7 @@
 
     <servlet>
         <servlet-name>ServletAddProduct</servlet-name>
-        <servlet-class>tai.ServletAddProduct</servlet-class>
+        <servlet-class>tai.servlet.ServletAddProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletAddProduct</servlet-name>
@@ -67,7 +67,7 @@
 
     <servlet>
         <servlet-name>ServletUpdateProduct</servlet-name>
-        <servlet-class>tai.ServletUpdateProduct</servlet-class>
+        <servlet-class>tai.servlet.ServletUpdateProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletUpdateProduct</servlet-name>
@@ -76,7 +76,7 @@
 
     <servlet>
         <servlet-name>ServletDeleteProduct</servlet-name>
-        <servlet-class>tai.ServletDeleteProduct</servlet-class>
+        <servlet-class>tai.servlet.ServletDeleteProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletDeleteProduct</servlet-name>
@@ -85,7 +85,7 @@
     
     <servlet>
         <servlet-name>ServletManageCustomer</servlet-name>
-        <servlet-class>tai.ServletManageCustomer</servlet-class>
+        <servlet-class>tai.servlet.ServletManageCustomer</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletManageCustomer</servlet-name>
@@ -94,7 +94,7 @@
 
     <servlet>
         <servlet-name>ServletProduct</servlet-name>
-        <servlet-class>tai.ServletProduct</servlet-class>
+        <servlet-class>tai.servlet.ServletProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletProduct</servlet-name>
@@ -103,7 +103,7 @@
 
     <servlet>
         <servlet-name>ServletCart</servlet-name>
-        <servlet-class>tai.ServletCart</servlet-class>
+        <servlet-class>tai.servlet.ServletCart</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletCart</servlet-name>
@@ -112,7 +112,7 @@
 
     <servlet>
         <servlet-name>ServletCheckout</servlet-name>
-        <servlet-class>tai.ServletCheckout</servlet-class>
+        <servlet-class>tai.servlet.ServletCheckout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletCheckout</servlet-name>
@@ -139,7 +139,7 @@
 
     <filter>
         <filter-name>FilterGetListCategory</filter-name>
-        <filter-class>tai.FilterGetListCategory</filter-class>
+        <filter-class>tai.filter.FilterGetListCategory</filter-class>
     </filter>
 
     <servlet-mapping>
