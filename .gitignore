@@ -1,3 +1,4 @@
 deploy.bat
 csj.war
 *.class
+.vscode/settings.json
