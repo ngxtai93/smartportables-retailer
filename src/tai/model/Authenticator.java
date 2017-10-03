@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 import tai.entity.User;
 import tai.entity.Role;
 import tai.model.ShoppingCartManager;
+import tai.utils.MySQLDataStoreUtilities;
 import tai.constants.Status;
 
 
@@ -18,6 +19,8 @@ public class Authenticator {
     private final String SM_FILE_NAME = "storemanager.txt";
     
     private ShoppingCartManager cm;
+    private MySQLDataStoreUtilities mysqlUtil = MySQLDataStoreUtilities.INSTANCE;
+
     public Authenticator() {
         cm = new ShoppingCartManager();
     }
@@ -40,6 +43,10 @@ public class Authenticator {
         }
     }
 
+    public User getUser(ServletContext sc, String username) {
+        return mysqlUtil.getUser(sc, username);
+    }
+
     public Status doLogin(HttpServletRequest req, HttpServletResponse res) {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -55,103 +62,6 @@ public class Authenticator {
 
         req.getSession().setAttribute("currentUser", userInFile);
         return Status.OK;
-    }
-
-
-    public User getUser(ServletContext sc, String username) {
-        User user = null;
-        for(Role r: Role.values()) {
-            user = findUserByRole(sc, username, r);
-            if(user != null) {
-                break;
-            }
-        }
-        return user;
-    }
-
-    private User findUserByRole(ServletContext sc, String username, Role r) {
-        User user = null;
-        switch(r) {
-            case CUSTOMER:
-                user = findCustomerById(sc, username);
-                break;
-            case SALESMAN:
-                user = findSalesmanById(sc, username);
-                break;
-            case STORE_MANAGER:
-                user = findStoreManagerById(sc, username);
-                break;
-        }
-        return user;
-    }
-    
-    private User findCustomerById(ServletContext sc, String username) {
-        File file = new File(sc.getRealPath(USER_INFO_PATH + CUSTOMER_FILE_NAME));
-        User result = null;
-        try(
-            BufferedReader br = new BufferedReader(new FileReader(file));
-        ) {
-            String line;
-            while((line = br.readLine()) != null) {
-                String[] split = line.split("\t");
-                if(username.equals(split[0])) {     // found
-                    result = new User(username, split[1], Role.CUSTOMER);
-                    result.setShoppingCart(cm.getCart(sc, result));
-                    break;
-                }
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    private User findSalesmanById(ServletContext sc, String username) {
-        File file = new File(sc.getRealPath(USER_INFO_PATH + SALE_FILE_NAME));
-        User result = null;
-        try(
-            BufferedReader br = new BufferedReader(new FileReader(file));
-        ) {
-            
-            String line;
-            while((line = br.readLine()) != null) {
-                String[] split = line.split("\t");
-                if(username.equals(split[0])) {     // found
-                    result = new User(username, split[1], Role.SALESMAN);
-                    result.setShoppingCart(cm.getCart(sc, result));
-                    break;
-                }
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-    private User findStoreManagerById(ServletContext sc, String username) {
-        File file = new File(sc.getRealPath(USER_INFO_PATH + SM_FILE_NAME));
-        User result = null;
-        try(
-            BufferedReader br = new BufferedReader(new FileReader(file));
-        ) {
-            String line;
-            while((line = br.readLine()) != null) {
-                String[] split = line.split("\t");
-                if(username.equals(split[0])) {     // found
-                    result = new User(username, split[1], Role.STORE_MANAGER);
-                    result.setShoppingCart(cm.getCart(sc, result));
-                    break;
-                }
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
     }
 
     private void registerCustomer(ServletContext sc, String username, String password) {
