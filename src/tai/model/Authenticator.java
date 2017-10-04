@@ -57,7 +57,6 @@ public class Authenticator {
         if(!userInFile.getPassword().equals(password)) {
             return Status.LOGIN_WRONG_PASSWORD;
         }
-
         req.getSession().setAttribute("currentUser", userInFile);
         return Status.OK;
     }
