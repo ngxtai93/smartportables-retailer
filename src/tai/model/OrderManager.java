@@ -9,25 +9,14 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.*;
-
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
-
 import tai.entity.Order;
 import tai.entity.Product;
 import tai.entity.User;
 import tai.utils.*;
-import tai.sax.SaxOrderHandler;
 
 public class OrderManager {
 
     private final String ORDER_INFO_PATH = "resources/data/user/Order.xml";
-    private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
     private MySQLDataStoreUtilities mysqlUtil = MySQLDataStoreUtilities.INSTANCE;
     public static final String[] LIST_STATUS = {"Placed", "Delivered", "Cancelled"};
 
@@ -51,14 +40,6 @@ public class OrderManager {
         }
         return listOrder;
         
-    }
-
-    public List<Order> getListAllOrder(HttpServletRequest req) {
-        File orderFile = new File(req.getServletContext().getRealPath(ORDER_INFO_PATH));
-        ArrayList<Order> listOrder = buildListOrder(orderFile);
-        populateListOrder(listOrder, req.getServletContext());
-
-        return listOrder;
     }
 
     public boolean canCancel(HttpServletRequest req, Integer id, User requestedUser) {
@@ -96,62 +77,6 @@ public class OrderManager {
 
     public void updateOrder(HttpServletRequest req, Order order) {
         mysqlUtil.updateOrder(req.getServletContext(), order.getId().intValue(), order);
-    }
-
-    private void updateOrderElement(Element orderElement, Order order) {
-        Element nameElement = (Element) orderElement.getElementsByTagName("name").item(0);
-        nameElement.setTextContent(order.getName());
-        Element addressElement = (Element) orderElement.getElementsByTagName("address").item(0);
-        addressElement.setTextContent(order.getAddress());
-        Element cityElement = (Element) orderElement.getElementsByTagName("city").item(0);
-        cityElement.setTextContent(order.getCity());
-        Element stateElement = (Element) orderElement.getElementsByTagName("state").item(0);
-        stateElement.setTextContent(order.getState());
-        Element zipElement = (Element) orderElement.getElementsByTagName("zip").item(0);
-        zipElement.setTextContent(order.getZip().toString());
-        Element phoneElement = (Element) orderElement.getElementsByTagName("phone").item(0);
-        phoneElement.setTextContent(order.getPhone().toString());
-
-        Element creditCardElement = (Element) orderElement.getElementsByTagName("number").item(0);
-        creditCardElement.setTextContent(order.getCreditCardNum().toString());
-        Element expireElement = (Element) orderElement.getElementsByTagName("expire").item(0);
-        expireElement.setTextContent(order.getShortExpDate());
-
-        orderElement.setAttribute("deliver-date", order.getDeliverDate().toString());
-    }
-
-
-    private Element findOrderById(Document doc, Integer id) {
-        XPath xpath =   XPathFactory.newInstance()
-        .newXPath();
-        String exprStr =    "/Order"
-                            + "/order[@id=\'" + id + "\']"
-        ;
-        NodeList nl = null;
-        try {
-            XPathExpression expr = xpath.compile(exprStr);
-            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-        }
-        catch(XPathExpressionException e) {
-            e.printStackTrace();
-        }
-
-        return (nl == null ? null : (Element) nl.item(0));
-    }
-
-    private ArrayList<Order> buildListOrder(File xmlFile) {
-        try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            InputStream xmlInput = new FileInputStream(xmlFile);
-            SAXParser saxParser = factory.newSAXParser();
-            SaxOrderHandler orderHandler = new SaxOrderHandler();
-            saxParser.parse(xmlInput, orderHandler);
-            return orderHandler.listOrder;
-        }
-        catch(IOException | ParserConfigurationException | SAXException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private void populateListOrder(List<Order> listOrder, ServletContext sc) {
@@ -210,137 +135,6 @@ public class OrderManager {
         return order;        
     }
 
-    public void addToOrderFile(HttpServletRequest req, HttpServletResponse res, Order order) {
-        String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
-        Document document = xmlUtil.getXmlDocument(filePath);
-        Element rootElement = (Element) document.getFirstChild();
-
-        int productCount = rootElement.getElementsByTagName("order").getLength();
-        order.setId(Integer.valueOf(productCount + 1));
-        Element orderElement = buildOrderElement(document, order);
-
-        rootElement.appendChild(orderElement);
-        xmlUtil.writeToXml(document, filePath);
-    }
-
-    private Element buildOrderElement(Document doc, Order order) {
-        // create order element: <order id="x" username="x">
-        Element orderElement = doc.createElement("order");
-        orderElement.setAttribute("id", String.valueOf(order.getId()));
-        orderElement.setAttribute("username", order.getUsername());
-        orderElement.setAttribute("order-date", order.getOrderDate().toString());
-        orderElement.setAttribute("deliver-date", order.getDeliverDate().toString());
-        orderElement.setAttribute("confirm-number", String.valueOf(order.getConfirmNumber()));
-
-
-        // product elements
-        List<Element> listProductElement = buildListProductElement(doc, order);
-
-        // customer info element
-        Element customerInfoElement = doc.createElement("customer-info");
-        buildCustomerInfoElement(customerInfoElement, doc, order);
-
-        // credit card element
-        Element creditCardElement = doc.createElement("credit-card");
-        buildCreditCardElement(creditCardElement, doc, order);
-
-        // status element
-        Element statusElement = doc.createElement("status");
-        statusElement.setTextContent(order.getStatus());
-
-        for(Element element: listProductElement) {
-            orderElement.appendChild(element);
-        }
-        orderElement.appendChild(customerInfoElement);
-        orderElement.appendChild(creditCardElement);
-        orderElement.appendChild(statusElement);
-
-        return orderElement;
-    }
-
-    private List<Element> buildListProductElement(Document doc, Order order) {
-        List<Element> list = new ArrayList<>();
-        LinkedHashMap<Product, Integer> mapProduct = order.getListProduct();
-        for(Map.Entry<Product, Integer> entry: mapProduct.entrySet()) {
-            Product product = entry.getKey();
-            Integer amount = entry.getValue();
-
-            Element productElement = doc.createElement("product");
-
-            Element categoryElement = doc.createElement("category");
-            categoryElement.setTextContent(product.getCategory());
-            Element productIdElement = doc.createElement("product-id");
-            productIdElement.setTextContent(String.valueOf(product.getId()));
-            Element amountElement = doc.createElement("amount");
-            amountElement.setTextContent(amount.toString());
-
-            productElement.appendChild(categoryElement);
-            productElement.appendChild(productIdElement);
-            productElement.appendChild(amountElement);
-
-            list.add(productElement);
-        }
-        
-        return list;
-    }
-
-    private void buildCustomerInfoElement(Element customerInfoElement, Document doc, Order order) {
-        Element nameElement = doc.createElement("name");
-        nameElement.setTextContent(order.getName());
-        Element addressElement = doc.createElement("address");
-        addressElement.setTextContent(order.getAddress());
-        Element cityElement = doc.createElement("city");
-        cityElement.setTextContent(order.getCity());
-        Element stateElement = doc.createElement("state");
-        stateElement.setTextContent(order.getState());
-        Element zipElement = doc.createElement("zip");
-        zipElement.setTextContent(order.getZip().toString());
-        Element phoneElement = doc.createElement("phone");
-        phoneElement.setTextContent(order.getPhone().toString());
-
-        customerInfoElement.appendChild(nameElement);
-        customerInfoElement.appendChild(addressElement);
-        customerInfoElement.appendChild(cityElement);
-        customerInfoElement.appendChild(stateElement);
-        customerInfoElement.appendChild(zipElement);
-        customerInfoElement.appendChild(phoneElement);
-
-    }
-
-    private void buildCreditCardElement(Element creditCardElement, Document doc, Order order) {
-        Element numberElement = doc.createElement("number");
-        Long creditCardNum = order.getCreditCardNum();
-
-        String ccStr = processCreditCardNum(creditCardNum);
-        
-        numberElement.setTextContent(ccStr);
-
-        // expiration to string
-        LocalDate expDate = order.getExpireDate();
-        int month = expDate.getMonthValue();
-        int year = expDate.getYear();
-
-        String monthStr = "";
-        String yearStr = "";
-
-        if(month / 10 == 0) {
-            monthStr += "0";
-        }
-        monthStr += String.valueOf(month);
-
-        // take only 2 latter numbers
-        year = year % 100;
-        if(year / 10 == 0) {
-            yearStr += "0";
-        }
-        yearStr += String.valueOf(year);
-
-        Element expireElement = doc.createElement("expire");
-        expireElement.setTextContent(monthStr + yearStr);
-
-        creditCardElement.appendChild(numberElement);
-        creditCardElement.appendChild(expireElement);
-    }
     public LocalDate convertExpirationToLocalDate(String creditCardExpire) {
         String[] expSplit = creditCardExpire.split("/");
         int month = Integer.parseInt(expSplit[0]);
@@ -350,23 +144,5 @@ public class OrderManager {
         expDate = expDate.plusMonths(1).minusDays(1);   // last day of that month
 
         return expDate;
-    }
-
-    private String processCreditCardNum(Long ccNum) {
-        // get number of digits in creditCardNum
-        int digit = 0;
-        long tmp = ccNum.longValue();
-        while(tmp != 0) {
-            tmp = tmp / 10;
-            digit++;
-        }
-        int digitToAdd = 16 - digit;
-        String ccStr = "";
-        for(int i = 0; i < digitToAdd; i++) {
-            ccStr += "0";
-        }
-        ccStr += ccNum.toString();
-
-        return ccStr;
     }
 }
