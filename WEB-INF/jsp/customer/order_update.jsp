@@ -98,11 +98,27 @@
                         </tr>
                         <tr>
                             <th><label for="cc-exp">Expiration date(MM/YY):</label></th>
-                            <td><input required value="<%=order.getShortExpDate()%>"name="cc-exp" type="text" size="5" maxlength="5"><br></td>
+                            <td><input required value="<%=order.getShortExpDate()%>" name="cc-exp" type="text" size="5" maxlength="5"><br></td>
                         </tr>
                         <tr>
                             <th><label for="deliver-date">Delivery date(YYYY-MM-DD):</label></th>
                             <td><input required value="<%=order.getDeliverDate().toString()%>" name="deliver-date" type="text" size="10" maxlength="10"><br></td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <table>
+                        <tr>
+                            <th><label for="status">Status:</label></th>
+                            <td>
+                                <select name="status">
+                                    <% String[] listStatus = (String[]) request.getAttribute("list-order-status");
+                                    for(String status: listStatus) { %>
+                                        <option <%=order.getStatus().equals(status) ? "selected" : ""%> value="<%=status%>">
+                                            <%=status%>
+                                        </option>
+                                    <% } %>
+                                </select>
+                            </td>
                         </tr>
                     </table>
                     <button type="submit" id="login-button">

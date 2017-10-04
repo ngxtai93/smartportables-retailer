@@ -191,6 +191,7 @@ public class ServletManageCustomer extends HttpServlet {
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/customer/order_update.jsp");
 
         HttpSession session = req.getSession();
+        req.setAttribute("list-order-status", OrderManager.LIST_STATUS);
         String action = req.getParameter("action");
 
         if(action != null) {
@@ -304,6 +305,7 @@ public class ServletManageCustomer extends HttpServlet {
         queriedOrder.setCreditCardNum(Long.valueOf(req.getParameter("cc-num")));
         queriedOrder.setExpireDate(om.convertExpirationToLocalDate(req.getParameter("cc-exp")));
         queriedOrder.setDeliverDate(LocalDate.parse(req.getParameter("deliver-date")));
+        queriedOrder.setStatus(req.getParameter("status"));
 
         om.updateOrder(req, queriedOrder);
 

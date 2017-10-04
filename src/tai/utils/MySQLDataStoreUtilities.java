@@ -215,6 +215,7 @@ public enum MySQLDataStoreUtilities {
                         + ", `credit_card`= ?"
                         + ", `expire`= ?"
                         + ", `deliver_date`= ?"
+                        + ", `status`= ?"
                         + " WHERE `seq_no`= ?;";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString    (1, newOrder.getName());
@@ -226,7 +227,8 @@ public enum MySQLDataStoreUtilities {
             ps.setLong      (7, newOrder.getCreditCardNum());
             ps.setString    (8, newOrder.getShortExpDate());
             ps.setDate      (9, Date.valueOf(newOrder.getDeliverDate()));
-            ps.setInt       (10, id);
+            ps.setString    (10, newOrder.getStatus());
+            ps.setInt       (11, id);
             ps.execute();
         }
         catch(SQLException e) {

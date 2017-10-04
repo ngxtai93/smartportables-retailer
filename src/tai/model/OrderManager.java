@@ -29,14 +29,11 @@ public class OrderManager {
     private final String ORDER_INFO_PATH = "resources/data/user/Order.xml";
     private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
     private MySQLDataStoreUtilities mysqlUtil = MySQLDataStoreUtilities.INSTANCE;
+    public static final String[] LIST_STATUS = {"Placed", "Delivered", "Cancelled"};
 
     public Order processOrderPlaced(HttpServletRequest req, HttpServletResponse res) {
         Order order = buildOrder(req);
         User user = (User) req.getSession().getAttribute("currentUser");
-
-        // add to xml
-        // addToOrderFile(req, res, order);
-
 
         // insert to mysql db
         insertOrder(req, order, user);
