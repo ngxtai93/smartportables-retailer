@@ -48,14 +48,12 @@ public class OrderManager {
     }
 
     public List<Order> getListOrder(HttpServletRequest req, User user) {
-        List<Order> listAllOrder = getListAllOrder(req);
-        List<Order> listOrder = new ArrayList<>();
-        for(Order order: listAllOrder) {
-            if(order.getUsername().equals(user.getUsername())) {
-                listOrder.add(order);
-            }
+        List<Order> listOrder =  mysqlUtil.selectOrder(req.getServletContext(), user);
+        if(listOrder != null) {
+            populateListOrder(listOrder, req.getServletContext());
         }
         return listOrder;
+        
     }
 
     public List<Order> getListAllOrder(HttpServletRequest req) {
@@ -120,13 +118,15 @@ public class OrderManager {
     }
 
     public void updateOrder(HttpServletRequest req, Order order) {
-        String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
-        Document document = xmlUtil.getXmlDocument(filePath);
+        // String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
+        // Document document = xmlUtil.getXmlDocument(filePath);
 
-        Element orderElement = findOrderById(document, order.getId());
-        updateOrderElement(orderElement, order);
+        // Element orderElement = findOrderById(document, order.getId());
+        // updateOrderElement(orderElement, order);
 
-        xmlUtil.writeToXml(document, filePath);
+        // xmlUtil.writeToXml(document, filePath);
+
+        mysqlUtil.updateOrder(req.getServletContext(), order.getId().intValue(), order);
     }
 
     private void updateOrderElement(Element orderElement, Order order) {
@@ -185,7 +185,7 @@ public class OrderManager {
         return null;
     }
 
-    private void populateListOrder(ArrayList<Order> listOrder, ServletContext sc) {
+    private void populateListOrder(List<Order> listOrder, ServletContext sc) {
         ProductManager pm = new ProductManager();
         List<Product> listAllProduct = pm.getListProduct(sc);
         for(Order order: listOrder) {

@@ -3,8 +3,10 @@ package tai.utils;
 import java.sql.*;
 import java.util.Properties;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,7 +22,12 @@ public enum MySQLDataStoreUtilities {
     private final String PROPERTIES_FILE_PATH = "resources/database.properties";
 
     private MySQLDataStoreUtilities() {
-
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public User getUser(ServletContext sc, String username) {
@@ -30,7 +37,7 @@ public enum MySQLDataStoreUtilities {
             return null;
         }
 
-        String sql = "select * from login_user where username = ?";
+        String sql = "select * from smart_portables.login_user WHERE username = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
@@ -88,7 +95,7 @@ public enum MySQLDataStoreUtilities {
         }
 
         // get id of new account
-        sql = "SELECT seq_no from login_user where username = ?";
+        sql = "SELECT seq_no from smart_portables.login_user WHERE username = ?";
         Integer id = null;
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
@@ -122,7 +129,7 @@ public enum MySQLDataStoreUtilities {
                         + "(`user`, `order_date`, `deliver_date`"
                         + ", `confirm_number`, `name`, `address`"
                         + ", `city`, `state`, `zip`"
-                        + ", `phone`, `creditcard`, `expire`"
+                        + ", `phone`, `credit_card`, `expire`"
                         + ", `status`, `product_link`)"
                         + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
         ;
@@ -156,9 +163,121 @@ public enum MySQLDataStoreUtilities {
         }
     }
 
-    // public List<Order> selectOrder(ServletContext sc, User user) {
-    //     return null;
-    // }
+    public List<Order> selectOrder(ServletContext sc, User user) {
+        List<Order> listOrder = null;
+        Connection conn = initConnection(sc);
+
+        String sql =    "SELECT * from smart_portables.order WHERE user = ?";
+
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, user.getId().intValue());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                if(rs.getRow() == 1) {
+                    listOrder = new ArrayList<>();
+                }
+
+                listOrder.add(buildOrder(rs, user));
+            }
+
+            rs.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listOrder;
+    }
+
+    public void updateOrder(ServletContext sc, int id, Order newOrder) {
+        Connection conn = initConnection(sc);
+
+        String sql =    "UPDATE `smart_portables`.`order`"
+                        + " SET `name`= ?"
+                        + ", `address`= ?"
+                        + ", `city`= ?"
+                        + ", `state`= ?"
+                        + ", `zip`= ?"
+                        + ", `phone`= ?"
+                        + ", `credit_card`= ?"
+                        + ", `expire`= ?"
+                        + ", `deliver_date`= ?"
+                        + " WHERE `seq_no`= ?;";
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString    (1, newOrder.getName());
+            ps.setString    (2, newOrder.getAddress());
+            ps.setString    (3, newOrder.getCity());
+            ps.setString    (4, newOrder.getState());
+            ps.setInt       (5, newOrder.getZip());
+            ps.setLong      (6, newOrder.getPhone());
+            ps.setLong      (7, newOrder.getCreditCardNum());
+            ps.setString    (8, newOrder.getShortExpDate());
+            ps.setDate      (9, Date.valueOf(newOrder.getDeliverDate()));
+            ps.setInt       (10, id);
+            ps.execute();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private Order buildOrder(ResultSet rs, User user) {
+        Order order = new Order();
+        try {
+            order.setId             (Integer.valueOf(rs.getInt("seq_no")));
+            order.setUsername       (user.getUsername());
+            order.setOrderDate      (rs.getDate("order_date").toLocalDate());
+            order.setDeliverDate    (rs.getDate("deliver_date").toLocalDate());
+            order.setConfirmNumber  (Long.valueOf(rs.getLong("confirm_number")));
+            order.setListProduct    (buildListProduct(rs.getString("product_link")));
+            order.setName           (rs.getString("name"));
+            order.setAddress        (rs.getString("address"));
+            order.setCity           (rs.getString("city"));
+            order.setState          (rs.getString("state"));
+            order.setZip            (Integer.valueOf(rs.getInt("zip")));
+            order.setPhone          (Long.valueOf(rs.getLong("phone")));
+            order.setCreditCardNum  (Long.valueOf(rs.getLong("credit_card")));
+            order.setExpireDate     (processExpDate(rs.getString("expire")));
+            order.setStatus         (rs.getString("status"));
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return order;
+    }
+
+    private LinkedHashMap<Product, Integer> buildListProduct
+        (String productLink) {
+            LinkedHashMap<Product, Integer> result = new LinkedHashMap<>();
+            // product separated by ';'
+            String[] productLinkSplit = productLink.split(";");
+            for(int i = 0; i < productLinkSplit.length; i++) {
+                // format product: [category],[product_id],[amount]
+                String[] productSplit = productLinkSplit[i].split(",");
+                Product product = new Product();
+                product.setCategory(productSplit[0]);
+                product.setId(Integer.valueOf(productSplit[1]));
+                result.put(product, Integer.valueOf(productSplit[2]));
+            }
+
+            return result;
+    }
 
     private String buildProductLink(Order order) {
         StringBuilder sb = new StringBuilder();
@@ -186,7 +305,6 @@ public enum MySQLDataStoreUtilities {
         try(InputStream input = new FileInputStream(propertiesFullFilePath)) {
             Properties prop = new Properties();
             prop.load(input);
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
 
             conn = DriverManager.getConnection((
                     "jdbc:mysql://"
@@ -198,12 +316,23 @@ public enum MySQLDataStoreUtilities {
                 ), prop.getProperty("dbuser"), prop.getProperty("password")
             );
         }
-        catch(Exception e) {
+        catch(SQLException | IOException e) {
             e.printStackTrace();
         }
 
         return conn;
     }
     
+    private LocalDate processExpDate(String sqlString) {
+        // format sqlString: e.g. 0719
+        String monthStr = sqlString.substring(0, 2);
+        String yearStr = sqlString.substring(3, 5);
+
+        int month = Integer.parseInt(monthStr);
+        int year = 2000 + Integer.parseInt(yearStr);
+
+        LocalDate date = LocalDate.of(year, month, 1);
+        return date.plusMonths(1).minusDays(1);
+    }
 }
 
