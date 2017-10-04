@@ -34,7 +34,7 @@ public enum MySQLDataStoreUtilities {
                 user = new User();
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
-                switch(rs.getString("role")) {
+                switch(rs.getString("type")) {
                     case "customer":
                         user.setRole(Role.CUSTOMER);
                     break;
