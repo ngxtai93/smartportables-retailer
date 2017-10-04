@@ -24,6 +24,7 @@ public enum MySQLDataStoreUtilities {
         if(conn == null) {
             initConnection(sc);
         }
+
         String sql = "select * from login_user where username = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
@@ -53,6 +54,27 @@ public enum MySQLDataStoreUtilities {
         }
         
 
+        return user;
+    }
+
+    public User registerCustomer(ServletContext sc, String username, String password) {
+        if(conn == null) {
+            initConnection(sc);
+        }
+
+        String sql = "INSERT INTO `smart_portables`.`login_user` (`username`, `password`, `type`) VALUES (?, ?, ?);";
+
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, "customer");
+            ps.execute();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        User user = new User(username, password, Role.CUSTOMER);
         return user;
     }
 
