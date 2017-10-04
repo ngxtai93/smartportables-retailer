@@ -61,19 +61,10 @@ public class OrderManager {
         return listOrder;
     }
 
-    public boolean canCancel(HttpServletRequest req, Integer id) {
+    public boolean canCancel(HttpServletRequest req, Integer id, User requestedUser) {
         boolean result = false;
 
-        List<Order> listAllOrder = getListAllOrder(req);
-        Order order = null;
-
-        for(Order o: listAllOrder) {
-            if(o.getId().equals(id)) {
-                order = o;
-                break;
-            }
-        }
-
+        Order order = mysqlUtil.selectOrder(req.getServletContext(), id.intValue());
         // current date and delivery date has to be at least 5 business days apart
         LocalDate date = LocalDate.now();
         int businessDay = 0;
@@ -93,15 +84,10 @@ public class OrderManager {
     }
 
     public void cancelOrder(HttpServletRequest req, Integer id) {
-        String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
-        Document document = xmlUtil.getXmlDocument(filePath);
-
-        Element orderElement = findOrderById(document, id);
-
-        Element statusElement = (Element) orderElement.getElementsByTagName("status").item(0);
-        statusElement.setTextContent("Cancelled");
-
-        xmlUtil.writeToXml(document, filePath);
+        ServletContext sc = req.getServletContext();
+        Order order = mysqlUtil.selectOrder(sc, id.intValue());
+        order.setStatus(LIST_STATUS[2]);
+        mysqlUtil.updateOrder(sc, id.intValue(), order);
     }
 
     public void deleteOrder(HttpServletRequest req, Order order) {

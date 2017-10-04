@@ -41,10 +41,12 @@
                         </div>
                         <div class="col-5">
                             <p>Confirmation number: <%=order.getConfirmNumber()%></p>
-                            <form method="post" action="<%=rootPath%>/account/order/cancel">
-                                <input type="hidden" name="order-id" value="<%=order.getId()%>"> 
-                                <button type="submit">Cancel Order</button>
-                            </form>
+                            <% if(order.getStatus().equals("Placed")) { %>
+                                <form method="post" action="<%=rootPath%>/account/order/cancel">
+                                    <input type="hidden" name="order-id" value="<%=order.getId()%>"> 
+                                    <button type="submit">Cancel Order</button>
+                                </form>
+                            <% } %>
                         </div>
                     </div>
                     <% for(Map.Entry<Product, Integer> entry: order.getListProduct().entrySet()) {

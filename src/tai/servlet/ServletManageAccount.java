@@ -79,30 +79,7 @@ public class ServletManageAccount extends HttpServlet {
             // 0: blank, 1: csj, 2: account, 3: order
             if (uriSplit.length == 5) {
                 if (uriSplit[4].equals("cancel")) {
-                    HttpSession session = req.getSession();
-                    boolean isOrderOfUser = false;
-                    List<Order> listOrder = om.getListOrder(req, user);
-                    if (listOrder != null) {
-                        for (Order order : listOrder) {
-                            if (order.getUsername().equals(user.getUsername())) {
-                                isOrderOfUser = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!isOrderOfUser) {
-                        res.sendRedirect(req.getContextPath());
-                    }
-                    Integer id = Integer.valueOf(req.getParameter("order-id"));
-
-                    if (om.canCancel(req, id)) {
-                        om.cancelOrder(req, id);
-                        session.setAttribute("command-executed", "order-cancel");
-                        res.sendRedirect(req.getContextPath() + "/success");
-                    } else {
-                        session.setAttribute("command-executed", "order-cancel");
-                        res.sendRedirect(req.getContextPath() + "/error");
-                    }
+                    doCancelOrder(req, res, user);
                 }
             }
         }
@@ -189,5 +166,20 @@ public class ServletManageAccount extends HttpServlet {
             }
         }
         return rd;
+    }
+
+    private void doCancelOrder(HttpServletRequest req, HttpServletResponse res, User requestedUser)
+        throws IOException {
+        HttpSession session = req.getSession();
+        Integer id = Integer.valueOf(req.getParameter("order-id"));
+
+        if (om.canCancel(req, id, requestedUser)) {
+            om.cancelOrder(req, id);
+            session.setAttribute("command-executed", "order-cancel");
+            res.sendRedirect(req.getContextPath() + "/success");
+        } else {
+            session.setAttribute("command-executed", "order-cancel");
+            res.sendRedirect(req.getContextPath() + "/error");
+        }
     }
 }

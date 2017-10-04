@@ -76,6 +76,52 @@ public enum MySQLDataStoreUtilities {
         return user;
     }
 
+    public User getUser(ServletContext sc, int userId) {
+        User user = null;
+        Connection conn = initConnection(sc);
+        if(conn == null) {
+            return null;
+        }
+
+        String sql = "select * from smart_portables.login_user WHERE seq_no = ?";
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("seq_no"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                switch(rs.getString("type")) {
+                    case "customer":
+                        user.setRole(Role.CUSTOMER);
+                    break;
+                    case "sales":
+                        user.setRole(Role.SALESMAN);
+                    break;
+                    case "store_manager":
+                        user.setRole(Role.STORE_MANAGER);
+                    break;
+                }
+            }
+
+            rs.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
     public User registerCustomer(ServletContext sc, String username, String password) {
         Connection conn = initConnection(sc);
         if(conn == null) {
@@ -199,6 +245,38 @@ public enum MySQLDataStoreUtilities {
         return listOrder;
     }
 
+    public Order selectOrder(ServletContext sc, int orderId) {
+        Order order = null;
+        Connection conn = initConnection(sc);
+        if(conn == null) {
+            return null;
+        }
+
+        String sql =    "SELECT * from smart_portables.order WHERE seq_no = ?";
+
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                order = buildOrder(sc, rs);
+            }
+
+            rs.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return order;
+    }
+
     public void updateOrder(ServletContext sc, int id, Order newOrder) {
         Connection conn = initConnection(sc);
         if(conn == null) {
@@ -273,6 +351,35 @@ public enum MySQLDataStoreUtilities {
     private Order buildOrder(ResultSet rs, User user) {
         Order order = new Order();
         try {
+            order.setId             (Integer.valueOf(rs.getInt("seq_no")));
+            order.setUsername       (user.getUsername());
+            order.setOrderDate      (rs.getDate("order_date").toLocalDate());
+            order.setDeliverDate    (rs.getDate("deliver_date").toLocalDate());
+            order.setConfirmNumber  (Long.valueOf(rs.getLong("confirm_number")));
+            order.setListProduct    (buildListProduct(rs.getString("product_link")));
+            order.setName           (rs.getString("name"));
+            order.setAddress        (rs.getString("address"));
+            order.setCity           (rs.getString("city"));
+            order.setState          (rs.getString("state"));
+            order.setZip            (Integer.valueOf(rs.getInt("zip")));
+            order.setPhone          (Long.valueOf(rs.getLong("phone")));
+            order.setCreditCardNum  (Long.valueOf(rs.getLong("credit_card")));
+            order.setExpireDate     (processExpDate(rs.getString("expire")));
+            order.setStatus         (rs.getString("status"));
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return order;
+    }
+
+    private Order buildOrder(ServletContext sc, ResultSet rs) {
+        Order order = new Order();
+        try {
+            int userId = rs.getInt("user");
+            User user = getUser(sc, userId);
+
             order.setId             (Integer.valueOf(rs.getInt("seq_no")));
             order.setUsername       (user.getUsername());
             order.setOrderDate      (rs.getDate("order_date").toLocalDate());
