@@ -214,17 +214,20 @@ public class ServletManageCustomer extends HttpServlet {
                     }
                     break;
                 case "choose-order":
-                    Integer orderId = Integer.valueOf(req.getParameter("order-id"));
-                    Order order = null;
-                    @SuppressWarnings("unchecked")
-                    List<Order> listOrder = (List<Order>) session.getAttribute("list-order");
-                    for(Order o: listOrder) {
-                        if(o.getId().equals(orderId)) {
-                            order = o;
-                            break;
+                    String optionValue = req.getParameter("order-id");
+                    if(!optionValue.equals("none")) {
+                        Integer orderId = Integer.valueOf(req.getParameter("order-id"));
+                        Order order = null;
+                        @SuppressWarnings("unchecked")
+                        List<Order> listOrder = (List<Order>) session.getAttribute("list-order");
+                        for(Order o: listOrder) {
+                            if(o.getId().equals(orderId)) {
+                                order = o;
+                                break;
+                            }
                         }
+                        session.setAttribute("queried-order", order);
                     }
-                    session.setAttribute("queried-order", order);
                     break;
             }
         }

@@ -44,11 +44,13 @@
                         <td>
                             <select name="order-id">
                                 <option value="none">--------</option>
-                                <% for(Order order: listOrder) { %>
-                                    <option value="<%=order.getId()%>">
-                                        Order #<%=order.getId()%> / Confirmation number <%=order.getConfirmNumber()%>
-                                    </option>
-                                <% } %>
+                                <% if(listOrder != null) { 
+                                    for(Order order: listOrder) { %>
+                                        <option value="<%=order.getId()%>">
+                                            Order #<%=order.getId()%> / Confirmation number <%=order.getConfirmNumber()%>
+                                        </option>
+                                    <% }
+                                } %>
                             </select>
                         </td>
                     </tr>
