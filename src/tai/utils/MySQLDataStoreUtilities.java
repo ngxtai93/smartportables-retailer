@@ -3,6 +3,8 @@ package tai.utils;
 import java.sql.*;
 import java.util.Properties;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,7 +17,6 @@ import tai.entity.Product;
 public enum MySQLDataStoreUtilities {
     INSTANCE;
 
-    private Connection conn;
     private final String PROPERTIES_FILE_PATH = "resources/database.properties";
 
     private MySQLDataStoreUtilities() {
@@ -24,8 +25,9 @@ public enum MySQLDataStoreUtilities {
 
     public User getUser(ServletContext sc, String username) {
         User user = null;
+        Connection conn = initConnection(sc);
         if(conn == null) {
-            initConnection(sc);
+            return null;
         }
 
         String sql = "select * from login_user where username = ?";
@@ -57,13 +59,20 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
         
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
 
         return user;
     }
 
     public User registerCustomer(ServletContext sc, String username, String password) {
+        Connection conn = initConnection(sc);
         if(conn == null) {
-            initConnection(sc);
+            return null;
         }
 
         String sql = "INSERT INTO `smart_portables`.`login_user` (`username`, `password`, `type`) VALUES (?, ?, ?);";
@@ -91,6 +100,12 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }        
 
         User user = new User(username, password, Role.CUSTOMER);
         user.setId(id);
@@ -98,8 +113,9 @@ public enum MySQLDataStoreUtilities {
     }
 
     public void insertOrder(ServletContext sc, Order order, User user) {
+        Connection conn = initConnection(sc);
         if(conn == null) {
-            initConnection(sc);
+            return;
         }
 
         String sql =    "INSERT INTO `smart_portables`.`order` "
@@ -132,7 +148,17 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+    // public List<Order> selectOrder(ServletContext sc, User user) {
+    //     return null;
+    // }
 
     private String buildProductLink(Order order) {
         StringBuilder sb = new StringBuilder();
@@ -154,9 +180,9 @@ public enum MySQLDataStoreUtilities {
         return sb.toString();
     }
 
-    private void initConnection(ServletContext sc) {
+    private Connection initConnection(ServletContext sc) {
         String propertiesFullFilePath = sc.getRealPath(PROPERTIES_FILE_PATH);
-
+        Connection conn = null;
         try(InputStream input = new FileInputStream(propertiesFullFilePath)) {
             Properties prop = new Properties();
             prop.load(input);
@@ -175,6 +201,8 @@ public enum MySQLDataStoreUtilities {
         catch(Exception e) {
             e.printStackTrace();
         }
+
+        return conn;
     }
     
 }
