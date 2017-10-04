@@ -3,7 +3,6 @@ package tai.sax;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -87,12 +86,12 @@ public class SaxOrderHandler extends DefaultHandler {
             return;
         }
         if (element.equalsIgnoreCase("phone")) {
-            order.setPhone(new BigInteger(stringUtil.filter(elementValueRead)));
+            order.setPhone(Long.valueOf(stringUtil.filter(elementValueRead)));
             return;
         }
 
         if (element.equalsIgnoreCase("number")) {
-            order.setCreditCardNum(new BigInteger(stringUtil.filter(elementValueRead)));
+            order.setCreditCardNum(Long.valueOf(stringUtil.filter(elementValueRead)));
             return;
         }
         if (element.equalsIgnoreCase("expire")) {

@@ -221,9 +221,9 @@ public class OrderManager {
         order.setCity(req.getParameter("city"));
         order.setState(req.getParameter("state"));
         order.setZip(Integer.valueOf(req.getParameter("zip")));
-        order.setPhone(new BigInteger(req.getParameter("phone")));
+        order.setPhone(Long.valueOf(req.getParameter("phone")));
 
-        order.setCreditCardNum(new BigInteger((req.getParameter("cc-num"))));
+        order.setCreditCardNum(Long.valueOf((req.getParameter("cc-num"))));
         // date expiration
         String ccExp = req.getParameter("cc-exp");
         LocalDate expDate = convertExpirationToLocalDate(ccExp);
@@ -332,7 +332,7 @@ public class OrderManager {
 
     private void buildCreditCardElement(Element creditCardElement, Document doc, Order order) {
         Element numberElement = doc.createElement("number");
-        BigInteger creditCardNum = order.getCreditCardNum();
+        Long creditCardNum = order.getCreditCardNum();
 
         String ccStr = processCreditCardNum(creditCardNum);
         
@@ -375,12 +375,12 @@ public class OrderManager {
         return expDate;
     }
 
-    private String processCreditCardNum(BigInteger ccNum) {
+    private String processCreditCardNum(Long ccNum) {
         // get number of digits in creditCardNum
         int digit = 0;
-        BigInteger tmp = ccNum;
-        while(!tmp.equals(BigInteger.ZERO)) {
-            tmp = tmp.divide(BigInteger.TEN);
+        long tmp = ccNum.longValue();
+        while(tmp != 0) {
+            tmp = tmp / 10;
             digit++;
         }
         int digitToAdd = 16 - digit;

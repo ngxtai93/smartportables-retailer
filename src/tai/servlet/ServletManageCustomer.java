@@ -1,6 +1,5 @@
 package tai.servlet;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -296,8 +295,8 @@ public class ServletManageCustomer extends HttpServlet {
         queriedOrder.setCity(req.getParameter("city"));
         queriedOrder.setState(req.getParameter("state"));
         queriedOrder.setZip(Integer.valueOf(req.getParameter("zip")));
-        queriedOrder.setPhone(new BigInteger(req.getParameter("phone")));
-        queriedOrder.setCreditCardNum(new BigInteger(req.getParameter("cc-num")));
+        queriedOrder.setPhone(Long.valueOf(req.getParameter("phone")));
+        queriedOrder.setCreditCardNum(Long.valueOf(req.getParameter("cc-num")));
         queriedOrder.setExpireDate(om.convertExpirationToLocalDate(req.getParameter("cc-exp")));
         queriedOrder.setDeliverDate(LocalDate.parse(req.getParameter("deliver-date")));
 

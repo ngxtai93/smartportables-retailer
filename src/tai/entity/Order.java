@@ -1,6 +1,5 @@
 package tai.entity;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -18,9 +17,9 @@ public class Order {
     private String city;
     private String state;
     private Integer zip;
-    private BigInteger phone;
+    private Long phone;
 
-    private BigInteger creditCardNum;
+    private Long creditCardNum;
     private LocalDate expireDate;
 
     private String status;
@@ -176,17 +175,17 @@ public class Order {
         this.zip = zip;
     }
     
-    public BigInteger getPhone() {
+    public Long getPhone() {
         return this.phone;
     }
-    public void setPhone(BigInteger phone) {
+    public void setPhone(Long phone) {
         this.phone = phone;
     }
 
-    public BigInteger getCreditCardNum() {
+    public Long getCreditCardNum() {
         return this.creditCardNum;
     }
-    public void setCreditCardNum(BigInteger creditCardNum) {
+    public void setCreditCardNum(Long creditCardNum) {
         this.creditCardNum = creditCardNum;
     }
 
