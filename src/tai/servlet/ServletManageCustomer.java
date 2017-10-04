@@ -216,7 +216,7 @@ public class ServletManageCustomer extends HttpServlet {
                 case "choose-order":
                     String optionValue = req.getParameter("order-id");
                     if(!optionValue.equals("none")) {
-                        Integer orderId = Integer.valueOf(req.getParameter("order-id"));
+                        Integer orderId = Integer.valueOf(optionValue);
                         Order order = null;
                         @SuppressWarnings("unchecked")
                         List<Order> listOrder = (List<Order>) session.getAttribute("list-order");
@@ -260,7 +260,9 @@ public class ServletManageCustomer extends HttpServlet {
                     }
                     if(user != null) {
                         List<Order> listOrder = om.getListOrder(req, user);
-                        session.setAttribute("list-order", listOrder);
+                        if(listOrder != null) {
+                            session.setAttribute("list-order", listOrder);
+                        }
                     }
                     break;
             }
@@ -314,25 +316,31 @@ public class ServletManageCustomer extends HttpServlet {
 }
 
     private void doDeleteOrder(HttpServletRequest req, HttpServletResponse res)
-        throws IOException {
+        throws ServletException, IOException {
         HttpSession session = req.getSession();
         @SuppressWarnings("unchecked")
         List<Order> listOrder = (List<Order>) session.getAttribute("list-order");
-
-        Integer orderId = Integer.valueOf(req.getParameter("order-id"));
-        Order toDelete = null;
-        for(Order order: listOrder) {
-            if(order.getId().equals(orderId)) {
-                toDelete = order;
-                break;
+        
+        String orderIdStr = req.getParameter("order-id");
+        if(!orderIdStr.equals("none")) {
+            Integer orderId = Integer.valueOf(orderIdStr);
+            Order toDelete = null;
+            for(Order order: listOrder) {
+                if(order.getId().equals(orderId)) {
+                    toDelete = order;
+                    break;
+                }
             }
+
+            om.deleteOrder(req, toDelete);
+
+            session.removeAttribute("user-queried");
+            session.removeAttribute("list-order");
+            session.setAttribute("command-executed", "sales-order-delete");
+            res.sendRedirect(req.getContextPath() + "/success");
         }
-
-        om.deleteOrder(req, toDelete);
-
-        session.removeAttribute("user-queried");
-        session.removeAttribute("list-order");
-        session.setAttribute("command-executed", "sales-order-delete");
-        res.sendRedirect(req.getContextPath() + "/success");
+        else {
+            req.getRequestDispatcher("/WEB-INF/jsp/customer/order_delete.jsp").forward(req, res);
+        }
     }
 }

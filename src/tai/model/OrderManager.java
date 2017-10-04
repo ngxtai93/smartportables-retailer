@@ -108,24 +108,10 @@ public class OrderManager {
     }
 
     public void deleteOrder(HttpServletRequest req, Order order) {
-        String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
-        Document document = xmlUtil.getXmlDocument(filePath);
-
-        Element orderElement = findOrderById(document, order.getId());
-        orderElement.getParentNode().removeChild(orderElement);
-
-        xmlUtil.writeToXml(document, filePath);
+        mysqlUtil.deleteOrder(req.getServletContext(), order);
     }
 
     public void updateOrder(HttpServletRequest req, Order order) {
-        // String filePath = req.getServletContext().getRealPath(ORDER_INFO_PATH);
-        // Document document = xmlUtil.getXmlDocument(filePath);
-
-        // Element orderElement = findOrderById(document, order.getId());
-        // updateOrderElement(orderElement, order);
-
-        // xmlUtil.writeToXml(document, filePath);
-
         mysqlUtil.updateOrder(req.getServletContext(), order.getId().intValue(), order);
     }
 

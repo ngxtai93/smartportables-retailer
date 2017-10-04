@@ -166,6 +166,9 @@ public enum MySQLDataStoreUtilities {
     public List<Order> selectOrder(ServletContext sc, User user) {
         List<Order> listOrder = null;
         Connection conn = initConnection(sc);
+        if(conn == null) {
+            return null;
+        }
 
         String sql =    "SELECT * from smart_portables.order WHERE user = ?";
 
@@ -198,6 +201,9 @@ public enum MySQLDataStoreUtilities {
 
     public void updateOrder(ServletContext sc, int id, Order newOrder) {
         Connection conn = initConnection(sc);
+        if(conn == null) {
+            return;
+        }
 
         String sql =    "UPDATE `smart_portables`.`order`"
                         + " SET `name`= ?"
@@ -221,6 +227,32 @@ public enum MySQLDataStoreUtilities {
             ps.setString    (8, newOrder.getShortExpDate());
             ps.setDate      (9, Date.valueOf(newOrder.getDeliverDate()));
             ps.setInt       (10, id);
+            ps.execute();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            conn.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deleteOrder(ServletContext sc, Order order) {
+        Connection conn = initConnection(sc);
+        if(conn == null) {
+            return;
+        }
+        int id = order.getId().intValue();
+
+        String sql = "DELETE FROM `smart_portables`.`order` WHERE `seq_no`= ?;";
+
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
             ps.execute();
         }
         catch(SQLException e) {
