@@ -78,6 +78,12 @@
 				<a href="<%=rootPath%>/account">Back to your account</>
 			</p>
         <% } %>
+		<% if(commandExecuted.equals("product-review")) { %>
+			<p>Review submitted.</p>
+			<p>
+				<a href="<%=rootPath%>">Back to homepage</>
+			</p>
+        <% } %>
         <%session.removeAttribute("command-executed");%>
 
     </section>
