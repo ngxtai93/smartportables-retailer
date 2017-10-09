@@ -106,7 +106,7 @@
                 <tr>
                     <th><b>Review date:</b></th>
                     <td>
-                        <input required name="product-name" type="text" value="<%=formatter.format(LocalDate.now())%>">
+                        <input required name="review-date" type="text" value="<%=formatter.format(LocalDate.now())%>">
                     </td>
                 </tr>
                 <tr>
