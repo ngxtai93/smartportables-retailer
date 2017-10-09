@@ -120,6 +120,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ServletProductReview</servlet-name>
+        <servlet-class>tai.servlet.ServletProductReview</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletProductReview</servlet-name>
+        <url-pattern>/review</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>PageError</servlet-name>
         <jsp-file>/WEB-INF/jsp/error.jsp</jsp-file>
     </servlet>

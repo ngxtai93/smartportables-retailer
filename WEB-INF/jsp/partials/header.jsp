@@ -40,6 +40,7 @@
                     <li><a href="<%=rootPath%>/account">My Account</a></li>
                     <li><a href="<%=rootPath%>/logout">Sign Out</a></li>
                     <li><a href="<%=rootPath%>/cart">Cart(<%=countItem%>)</a></li>
+                    <li><a href="<%=rootPath%>/review">Review a Product</a></li>
             <%  } %>
                             
             <%-- <li class="end"><a href="#">Contact</a></li> --%>
