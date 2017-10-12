@@ -3,14 +3,18 @@ package tai.servlet;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
+
+import tai.entity.Review;
 import tai.entity.User;
+import tai.model.ReviewManager;
+
 import java.util.Map;
 import tai.utils.MongoDBDataStoreUtilities;
 
 public class ServletProductReview extends HttpServlet {
     
     private MongoDBDataStoreUtilities mongoDbUtil = MongoDBDataStoreUtilities.INSTANCE;
-
+    ReviewManager rm = new ReviewManager();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
@@ -34,7 +38,8 @@ public class ServletProductReview extends HttpServlet {
 
     private void doSubmitReview(HttpServletRequest req, HttpServletResponse res) 
         throws ServletException, IOException {
-        Map<String, String[]> paramMap = req.getParameterMap();
-        mongoDbUtil.insertReview(paramMap);
+        Review review = rm.buildReview(req);
+
+        mongoDbUtil.insertReview(review);
     }
 }
