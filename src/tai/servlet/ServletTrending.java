@@ -14,8 +14,8 @@ public class ServletTrending extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException {
         Map<String, Double> topFiveProductByRating = getTopFiveProductByRating();
-        Map<Integer, Integer> topFiveZip = getTopFiveZip();
-        List<String> topFiveProductByAmount = getTopFiveProductByAmount();
+        Map<Integer, Integer> topFiveZip = getTopZipByProductCount();
+        Map<String, Integer> topFiveProductByAmount = getTopFiveProductByAmount();
         
         req.setAttribute("top-five-product-rating", topFiveProductByRating);
         req.setAttribute("top-five-zip", topFiveZip);
@@ -29,14 +29,13 @@ public class ServletTrending extends HttpServlet {
         return result;
     }
 
-    private Map<Integer, Integer> getTopFiveZip() {
-        Map<Integer, Integer> result = null;
-        
+    private Map<Integer, Integer> getTopZipByProductCount() {
+        Map<Integer, Integer> result = mongoDbUtil.selectTopZipByProductCount(5);
         return result;
     }
 
-    private List<String> getTopFiveProductByAmount() {
-        List<String> result = new ArrayList<>();
+    private Map<String, Integer> getTopFiveProductByAmount() {
+        Map<String, Integer> result = mongoDbUtil.selectTopProductByAmount(5);
         
         return result;
     }

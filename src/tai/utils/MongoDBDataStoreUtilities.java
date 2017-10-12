@@ -73,9 +73,66 @@ public enum MongoDBDataStoreUtilities {
 		return result;
 	}
 
+	public Map<Integer, Integer> selectTopZipByProductCount(int limit) {
+		MongoCollection<Document> reviewCollection = mongoDatabase.getCollection("review");
+		Map<Integer, Integer> result = new LinkedHashMap<>(limit);
+		Block<Document> toResult = new Block<Document>() {
+			@Override
+			public void apply(final Document document) {
+				result.put(document.getInteger("_id"), 
+				document.getInteger("product-count"));
+				
+			}
+		};
+		reviewCollection.aggregate(
+			Arrays.asList(
+				  new Document("$group", 
+					new Document("_id", 
+						new Document("zip", "$retailer-zip")
+						.append("product", "$product-name")
+					)
+				  )
+				, new Document("$group",
+					new Document("_id", "$_id.zip")
+					.append("product-count", new Document("$sum", 1))
+				  )
+				, new Document("$limit", limit)
+				, new Document("$sort", new Document("count", -1))
+			)
+		)
+		.forEach(toResult);
+
+		return result;
+	}
+
+	public Map<String, Integer> selectTopProductByAmount(int limit) {
+		MongoCollection<Document> reviewCollection = mongoDatabase.getCollection("review");
+		Map<String, Integer> result = new LinkedHashMap<>(limit);
+		Block<Document> toResult = new Block<Document>() {
+			@Override
+			public void apply(final Document document) {
+				System.out.println(document.toJson());
+				result.put(document.getString("_id"), 
+				document.getInteger("product-count"));
+			}
+		};
+
+		reviewCollection.aggregate(
+			Arrays.asList(
+				Aggregates.group("$product-name", Accumulators.sum("product-count", 1))
+				, Aggregates.limit(limit)
+				, Aggregates.sort(Sorts.descending("product-count"))
+			)
+		)
+		.forEach(toResult);
+
+		return result;
+	}
+
 	public void closeMongoDbConnection() {
 		if(mongoClient != null) {
 			mongoClient.close();
+			System.out.println("MongoDB connection closed.");
 		}
 	}
 }
