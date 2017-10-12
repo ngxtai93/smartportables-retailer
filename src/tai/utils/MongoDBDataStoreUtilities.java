@@ -2,11 +2,12 @@ package tai.utils;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.*;
 import com.mongodb.Block;
 
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.bson.Document;
@@ -58,15 +59,17 @@ public enum MongoDBDataStoreUtilities {
 		Block<Document> toResult = new Block<Document>() {
 			@Override
 			public void apply(final Document document) {
-				result.put(document.getString("product-name"), 
-				Double.valueOf(document.getString("review-rating")));
+				result.put(document.getString("_id"), 
+				document.getDouble("average-rating"));
 			}
 		};
-		reviewCollection.find()
-			.sort(Sorts.descending("review-rating"))
-			.limit(limit)
-			.forEach(toResult)
-		;
+		reviewCollection.aggregate(
+			Arrays.asList(
+				Aggregates.group("$product-name", Accumulators.avg("average-rating", "$review-rating"))
+				, Aggregates.limit(limit)
+				, Aggregates.sort(Sorts.descending("average-rating"))
+			)
+		).forEach(toResult);
 		return result;
 	}
 

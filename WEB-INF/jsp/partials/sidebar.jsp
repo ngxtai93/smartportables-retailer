@@ -16,6 +16,9 @@
                     <% } %>
                 </ul>
             </li>
+            <li>
+                <h4><a href="<%=rootPath%>/trending">Trending</a></h4>
+            </li>
         </ul>
     
     </aside>

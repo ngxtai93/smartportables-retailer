@@ -127,7 +127,15 @@
         <servlet-name>ServletProductReview</servlet-name>
         <url-pattern>/review</url-pattern>
     </servlet-mapping>
-
+    
+    <servlet>
+        <servlet-name>ServletTrending</servlet-name>
+        <servlet-class>tai.servlet.ServletTrending</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletTrending</servlet-name>
+        <url-pattern>/trending</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>PageError</servlet-name>
         <jsp-file>/WEB-INF/jsp/error.jsp</jsp-file>
@@ -150,6 +158,10 @@
         <filter-name>FilterGetListCategory</filter-name>
         <filter-class>tai.filter.FilterGetListCategory</filter-class>
     </filter>
+
+    <listener>
+        <listener-class>tai.listener.ContextListener</listener-class>
+    </listener>
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
