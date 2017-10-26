@@ -208,6 +208,7 @@ public class ShoppingCartManager {
                         p.setDiscount(product.getDiscount());
                         p.setRebate(product.getRebate());
                         p.setListAccessoryId(product.getListAccessoryId());
+                        p.setAmount(product.getAmount());
                         break;
                     }
                 }
