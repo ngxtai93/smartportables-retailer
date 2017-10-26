@@ -39,14 +39,23 @@
         Save <%=currencyFormatter.format(product.getRebate())%> in rebate
         </div>
     <% } %>
-    <div class="add-to-cart-button">
-      <form method="post" action="<%=request.getContextPath()%>/cart/add">
-          <input type="hidden" name="category" value="<%=currentCategory%>">
-          <input type="hidden" name="product-id" value="<%=product.getId()%>">
-          <button class="button-cart" type="submit">
-              Add to cart
-          </button>
-      </form>
-    </div>
+    <% if(product.getAmount().intValue() > 0) { %>
+        <div class="add-to-cart-button">
+            <form method="post" action="<%=request.getContextPath()%>/cart/add">
+                <input type="hidden" name="category" value="<%=currentCategory%>">
+                <input type="hidden" name="product-id" value="<%=product.getId()%>">
+                <button class="button-cart" type="submit">
+                    Add to cart
+                </button>
+            </form>
+        </div>
+    <% }
+    else { %>
+        <div class="add-to-cart-button">
+            <button class="button-cart">
+                OUT OF STOCK
+            </button>
+        </div>
+    <% } %>
   </div>
 </div>
