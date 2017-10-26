@@ -41,15 +41,24 @@
                             <%if(accessory.getRebate() != null && accessory.getRebate() > 0) { %>
                                 <span class="price">Get <%=currencyFormatter.format(accessory.getRebate())%> in rebate!</span>
                             <% } %>
-                            <div class="add-to-cart-button">
-                                <form method="post" action="<%=request.getContextPath()%>/cart/add">
-                                    <input type="hidden" name="category" value="accessory">
-                                    <input type="hidden" name="product-id" value="<%=product.getId()%>">
+                            <% if(accessory.getAmount().intValue() > 0) { %>
+                                <div class="add-to-cart-button">
+                                    <form method="post" action="<%=request.getContextPath()%>/cart/add">
+                                        <input type="hidden" name="category" value="accessory">
+                                        <input type="hidden" name="product-id" value="<%=product.getId()%>">
+                                        <button class="button-cart" type="submit">
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                </div>
+                            <% }
+                            else { %>
+                                <div class="add-to-cart-button">
                                     <button class="button-cart" type="submit">
                                         Add to cart
                                     </button>
-                                </form>
-                            </div>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
