@@ -7,14 +7,25 @@ import javax.servlet.http.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import tai.entity.Product;
 import tai.sax.SaxProductHandler;
+import tai.utils.XmlUtilities;
 
 public class ProductManager {
     
+    private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
+
     public Map<Integer, Product> getListProduct(HttpServletRequest req, String category) {
 
         List<Product> listAllProduct = getListProduct(req.getServletContext());
@@ -43,6 +54,62 @@ public class ProductManager {
         File productCatalogFile = new File(productCatalogFilePath);
 
         return buildListProduct(productCatalogFile);
+    }
+
+    public void updateProduct(HttpServletRequest req, Product product) {
+        String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
+        Document doc = xmlUtil.getXmlDocument(xmlFilePath);
+        Element elementToBeUpdated = findProductElement(doc, product);
+        updateElement(elementToBeUpdated, product);
+
+        xmlUtil.writeToXml(doc, xmlFilePath);
+    }
+
+    private Element findProductElement(Document doc, Product product) {
+        XPath xpath =   XPathFactory.newInstance()
+                        .newXPath();
+        String exprStr =      "/ProductCatalog"
+                            + "/category[@id=\'" + product.getCategory() + "\']"
+                            + "/product[@id=\'" + product.getId() + "\']"
+        ;
+        NodeList nl = null;
+        try {
+            XPathExpression expr = xpath.compile(exprStr);
+            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+        }
+        catch(XPathExpressionException e) {
+            e.printStackTrace();
+        }
+        
+        return (Element) nl.item(0);
+    }
+
+    private void updateElement(Element origin, Product product) {
+        // update element
+        if(product.getImage() != null) {
+            Element imageElement = (Element) origin.getElementsByTagName("image").item(0);
+            imageElement.setTextContent(product.getImage());
+        }
+        if(product.getName() != null) {
+            Element nameElement = (Element) origin.getElementsByTagName("name").item(0);
+            nameElement.setTextContent(product.getName());
+        }
+        if(product.getPrice() != null) {
+            Element priceElement = (Element) origin.getElementsByTagName("price").item(0);
+            priceElement.setTextContent(String.valueOf(product.getPrice()));
+        }
+        if(product.getDiscount() != null) {
+            Element discountElement = (Element) origin.getElementsByTagName("discount").item(0);
+            discountElement.setTextContent(String.valueOf(product.getDiscount()));
+        }
+        if(product.getRebate() != null) {
+            Element rebateElement = (Element) origin.getElementsByTagName("rebate").item(0);
+            rebateElement.setTextContent(String.valueOf(product.getRebate()));
+        }
+        if(product.getAmount() != null) {
+            Element amountElement = (Element) origin.getElementsByTagName("amount").item(0);
+            amountElement.setTextContent(String.valueOf(product.getAmount()));
+        }
     }
 
     private Map<Integer, Product> getProductByCategory(List<Product> listProduct, String category) {

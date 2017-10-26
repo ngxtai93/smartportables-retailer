@@ -26,6 +26,16 @@ public class OrderManager {
 
         // insert to mysql db
         insertOrder(req, order, user);
+
+        // update amount of product
+        Map<Product, Integer> mapProduct = order.getListProduct();
+        ProductManager pm = new ProductManager();
+        for(Map.Entry<Product, Integer> entry: mapProduct.entrySet()) {
+            Product p = entry.getKey();
+            Integer amount = entry.getValue();
+            p.setAmount(p.getAmount() - amount);
+            pm.updateProduct(req, p);
+        }
         return order;
     }
     
