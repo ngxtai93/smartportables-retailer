@@ -54,6 +54,10 @@
                             <th><b>Image: </b></th>
                             <td><input required name="image" type="file" size="30"></td>
                         </tr>
+                        <tr>
+                            <th><b>Amount: </b></th>
+                            <td><input required name="amount" type="text" size="10"></td>
+                        </tr>
                     </table>
                     
                     <div class="container">

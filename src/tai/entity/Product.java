@@ -10,6 +10,7 @@ public class Product {
     private Double price;
     private Double discount;
     private Double rebate;
+    private Integer amount;
     private ArrayList<Integer> listAccessoryId;
 
     @Override
@@ -22,6 +23,7 @@ public class Product {
             .append("price: " + (price == null ? "null" : String.valueOf(price + "\n")))
             .append("discount: " + (discount == null ? "null" : String.valueOf(discount + "\n")))
             .append("rebate: " + (rebate == null ? "null" : String.valueOf(rebate + "\n")))
+            .append("amount: " + (amount == null ? "null" : String.valueOf(amount + "\n")))
         ;
         StringBuilder listAccessoryIdStr = new StringBuilder();
         listAccessoryIdStr.append("accessory-id: ");
@@ -134,6 +136,13 @@ public class Product {
         this.rebate = rebate;
     }
 
+    public Integer getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
     public ArrayList<Integer> getListAccessoryId() {
         return this.listAccessoryId;
     }

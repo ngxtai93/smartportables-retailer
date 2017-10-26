@@ -109,6 +109,7 @@ public class ServletUpdateProduct extends HttpServlet {
         String name = productParam.get("name");
         String price = productParam.get("price");
         String image = productParam.get("image");
+        String amount = productParam.get("amount");
         // can be null. If null -> no update
         if(discount != null && !discount.equals("")) {
             product.setDiscount (Double.parseDouble(discount));
@@ -124,6 +125,9 @@ public class ServletUpdateProduct extends HttpServlet {
         }
         if(image != null && !image.equals("")) {
             product.setImage    (image);
+        }
+        if(amount != null && !amount.equals("")) {
+            product.setAmount    (Integer.valueOf(amount));
         }
         return product;
     }
@@ -207,6 +211,10 @@ public class ServletUpdateProduct extends HttpServlet {
         if(product.getRebate() != null) {
             Element rebateElement = (Element) origin.getElementsByTagName("rebate").item(0);
             rebateElement.setTextContent(String.valueOf(product.getRebate()));
+        }
+        if(product.getAmount() != null) {
+            Element amountElement = (Element) origin.getElementsByTagName("amount").item(0);
+            amountElement.setTextContent(String.valueOf(product.getAmount()));
         }
     }
 
