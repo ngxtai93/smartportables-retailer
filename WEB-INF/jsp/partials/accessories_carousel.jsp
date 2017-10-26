@@ -54,8 +54,8 @@
                             <% }
                             else { %>
                                 <div class="add-to-cart-button">
-                                    <button class="button-cart" type="submit">
-                                        Add to cart
+                                    <button class="button-cart">
+                                        OUT OF STOCK
                                     </button>
                                 </div>
                             <% } %>
