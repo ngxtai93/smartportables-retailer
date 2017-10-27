@@ -6,6 +6,8 @@
     <section class="content">
         <h4><a href="<%=rootPath%>/account/report/inventory/list">1. List all Product</a></h4>
         <h4><a href="<%=rootPath%>/account/report/inventory/barchart">2. Bar Chart</a></h4>
+        <h4><a href="<%=rootPath%>/account/report/inventory/onsale">3. List all Product on sale</a></h4>
+        <h4><a href="<%=rootPath%>/account/report/inventory/rebate">4. List all Product with rebate</a></h4>
     </section>
 <%@include file = "../partials/sidebar.jsp" %>
 </div>

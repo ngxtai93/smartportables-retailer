@@ -59,6 +59,20 @@ public class ServletReport extends HttpServlet {
                     req.getRequestDispatcher("/WEB-INF/jsp/report/inventory_barchart.jsp").forward(req, res);
                 }
                 break;
+                case "onsale":
+                {
+                    List<Product> listAllProduct = rm.getListAllProduct(req);
+                    req.setAttribute("listAllProduct", listAllProduct);
+                    req.getRequestDispatcher("/WEB-INF/jsp/report/inventory_onsale.jsp").forward(req, res);
+                }
+                break;
+                case "rebate":
+                {
+                    List<Product> listAllProduct = rm.getListAllProduct(req);
+                    req.setAttribute("listAllProduct", listAllProduct);
+                    req.getRequestDispatcher("/WEB-INF/jsp/report/inventory_rebate.jsp").forward(req, res);
+                }
+                break;
             }
         }
     }
