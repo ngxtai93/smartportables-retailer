@@ -52,6 +52,8 @@ public enum StringUtilities {
             filtered.append("&lt;");
           } else if (c == '>') {
             filtered.append("&gt;");
+          } else if (c == '\'') {
+            filtered.append("&apos;");
           } else if (c == '"') {
             filtered.append("&quot;");
           } else if (c == '&') {

@@ -2,7 +2,8 @@
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "tai.entity.Category" %>
 
-<% String rootPath = request.getContextPath(); %>
+<%  String rootPath = request.getContextPath();
+    Boolean useBarchart = (Boolean) request.getAttribute("useBarchart");%>
 
 <!doctype html>
 <html>
@@ -10,6 +11,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SmartPortables</title>
     <link rel="stylesheet" href="<%=rootPath%>/resources/css/styles.css" type="text/css" />
+    <% if(useBarchart != null && useBarchart.equals(Boolean.TRUE)) { %>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <% }%>
 </head>
 <body>
 
