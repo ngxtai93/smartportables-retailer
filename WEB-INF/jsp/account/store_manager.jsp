@@ -10,7 +10,12 @@
 
         <br>
         <h2>Customer function</h2>
-        <p><a href="<%=rootPath%>/account/order">My Orders</p>
+        <p><a href="<%=rootPath%>/account/order">My Orders</a></p>
+        
+        <br>
+        <h2>Generate Report</h2>
+        <p><a href="<%=rootPath%>/account/report/inventory">Inventory Report</a></p>
+        <p><a href="<%=rootPath%>/account/report/sales">Sales Report</a></p>
     </section>
 
 <%@include file = "../partials/sidebar.jsp" %>
