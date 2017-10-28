@@ -215,18 +215,31 @@ public enum MySQLDataStoreUtilities {
         if(conn == null) {
             return null;
         }
-
-        String sql =    "SELECT * from smart_portables.order WHERE user = ?";
+        // if user is null, select all order
+        String sql = null;
+        if(user != null) {
+            sql =   "SELECT * from smart_portables.order WHERE user = ?";
+        }
+        else {
+            sql =   "SELECT * from smart_portables.order";
+        }
 
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, user.getId().intValue());
+            if(user != null) {
+                ps.setInt(1, user.getId().intValue());
+            }
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 if(rs.getRow() == 1) {
                     listOrder = new ArrayList<>();
                 }
 
-                listOrder.add(buildOrder(rs, user));
+                if(user != null) {
+                    listOrder.add(buildOrder(rs, user));
+                }
+                else {
+                    listOrder.add(buildOrder(sc, rs));
+                }
             }
 
             rs.close();
@@ -381,7 +394,7 @@ public enum MySQLDataStoreUtilities {
             User user = getUser(sc, userId);
 
             order.setId             (Integer.valueOf(rs.getInt("seq_no")));
-            // order.setUsername       (user.getUsername());
+            order.setUser           (user);
             order.setOrderDate      (rs.getDate("order_date").toLocalDate());
             order.setDeliverDate    (rs.getDate("deliver_date").toLocalDate());
             order.setConfirmNumber  (Long.valueOf(rs.getLong("confirm_number")));
