@@ -5,6 +5,7 @@ import javax.servlet.http.*;
 import java.io.*;
 
 import java.util.List;
+import java.util.Map;
 
 import tai.entity.User;
 import tai.entity.Product;
@@ -29,6 +30,9 @@ public class ServletReport extends HttpServlet {
             case "inventory":
                 processInventoryPage(req, res);
                 break;
+            case "sales":
+                processSalesPage(req, res);
+                break;                
         }
     }
 
@@ -71,6 +75,29 @@ public class ServletReport extends HttpServlet {
                     List<Product> listAllProduct = rm.getListAllProduct(req);
                     req.setAttribute("listAllProduct", listAllProduct);
                     req.getRequestDispatcher("/WEB-INF/jsp/report/inventory_rebate.jsp").forward(req, res);
+                }
+                break;
+            }
+        }
+    }
+
+    private void processSalesPage(HttpServletRequest req, HttpServletResponse res)
+    throws ServletException, IOException {
+        String uri = req.getRequestURI();
+        String[] uriSplit = uri.split("/");
+        // 0: blank, 1: csj, 2: account, 3: report, 4: sales
+        if(uriSplit.length == 5) {
+            // display menu
+            req.getRequestDispatcher("/WEB-INF/jsp/report/sales.jsp").forward(req, res);
+            return;
+        }
+        else {
+            switch(uriSplit[5]) {
+                case "list":
+                {
+                    Map<Product, Integer> mapProductAmount = rm.buildMapProductAmount(req);
+                    req.setAttribute("mapProductAmount", mapProductAmount);
+                    req.getRequestDispatcher("/WEB-INF/jsp/report/sales_list.jsp").forward(req, res);
                 }
                 break;
             }
