@@ -100,6 +100,14 @@ public class ServletReport extends HttpServlet {
                     req.getRequestDispatcher("/WEB-INF/jsp/report/sales_list.jsp").forward(req, res);
                 }
                 break;
+                case "barchart":
+                {
+                    Map<Product, Integer> mapProductAmount = rm.buildMapProductAmount(req);
+                    req.setAttribute("mapProductAmount", mapProductAmount);
+                    req.setAttribute("useBarchart", Boolean.TRUE);
+                    req.getRequestDispatcher("/WEB-INF/jsp/report/sales_barchart.jsp").forward(req, res);
+                }
+                break;
             }
         }
     }
