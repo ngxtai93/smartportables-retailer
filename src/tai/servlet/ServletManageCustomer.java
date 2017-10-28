@@ -280,7 +280,7 @@ public class ServletManageCustomer extends HttpServlet {
         LinkedHashMap<Product, Integer> mapProduct = 
             (LinkedHashMap<Product, Integer>) session.getAttribute("order-product-list");
         Order order = om.buildOrder(req, user, mapProduct);
-        om.insertOrder(req, order, user);
+        om.insertOrder(req, order);
 
         session.removeAttribute("user-queried");
         session.removeAttribute("order-product-list");

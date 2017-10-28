@@ -165,7 +165,7 @@ public enum MySQLDataStoreUtilities {
         return user;
     }
 
-    public void insertOrder(ServletContext sc, Order order, User user) {
+    public void insertOrder(ServletContext sc, Order order) {
         Connection conn = initConnection(sc);
         if(conn == null) {
             return;
@@ -181,7 +181,7 @@ public enum MySQLDataStoreUtilities {
         ;
 
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt   (1, user.getId().intValue());
+            ps.setInt   (1, order.getUser().getId().intValue());
             ps.setDate  (2, Date.valueOf(order.getOrderDate()));
             ps.setDate  (3, Date.valueOf(order.getDeliverDate()));
             ps.setLong  (4, order.getConfirmNumber().longValue());
@@ -352,7 +352,7 @@ public enum MySQLDataStoreUtilities {
         Order order = new Order();
         try {
             order.setId             (Integer.valueOf(rs.getInt("seq_no")));
-            order.setUsername       (user.getUsername());
+            order.setUser           (user);
             order.setOrderDate      (rs.getDate("order_date").toLocalDate());
             order.setDeliverDate    (rs.getDate("deliver_date").toLocalDate());
             order.setConfirmNumber  (Long.valueOf(rs.getLong("confirm_number")));
@@ -381,7 +381,7 @@ public enum MySQLDataStoreUtilities {
             User user = getUser(sc, userId);
 
             order.setId             (Integer.valueOf(rs.getInt("seq_no")));
-            order.setUsername       (user.getUsername());
+            // order.setUsername       (user.getUsername());
             order.setOrderDate      (rs.getDate("order_date").toLocalDate());
             order.setDeliverDate    (rs.getDate("deliver_date").toLocalDate());
             order.setConfirmNumber  (Long.valueOf(rs.getLong("confirm_number")));

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Order {
     private Integer id;
-    private String username;
+    private User user;
     private LocalDate orderDate;
     private LocalDate deliverDate;
     private Long confirmNumber;
@@ -31,7 +31,7 @@ public class Order {
             .append(id == null ? "null" : this.id)
             .append("\n")
             .append("username: ")
-            .append(username == null ? "null" : this.username)
+            .append(user == null ? "null" : this.user.getUsername())
             .append("\n")
             .append("name: ")
             .append(name == null ? "null" : this.name)
@@ -103,11 +103,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getUsername() {
-        return this.username;
+    public User getUser() {
+        return this.user;
     }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getOrderDate() {

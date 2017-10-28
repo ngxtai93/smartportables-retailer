@@ -25,7 +25,7 @@ public class OrderManager {
         User user = (User) req.getSession().getAttribute("currentUser");
 
         // insert to mysql db
-        insertOrder(req, order, user);
+        insertOrder(req, order);
 
         // update amount of product
         Map<Product, Integer> mapProduct = order.getListProduct();
@@ -39,8 +39,8 @@ public class OrderManager {
         return order;
     }
     
-    public void insertOrder(HttpServletRequest req, Order order, User user) {
-        mysqlUtil.insertOrder(req.getServletContext(), order, user);
+    public void insertOrder(HttpServletRequest req, Order order) {
+        mysqlUtil.insertOrder(req.getServletContext(), order);
     }
 
     public List<Order> getListOrder(HttpServletRequest req, User user) {
@@ -121,7 +121,7 @@ public class OrderManager {
         Order order = new Order();        
         LocalDate orderDate = LocalDate.now();
         // populate order
-        order.setUsername(user.getUsername());
+        order.setUser(user);
         order.setListProduct(listProduct);
         order.setOrderDate(orderDate);
         order.setConfirmNumber(Long.valueOf(StringUtilities.INSTANCE.generateRandomNumber(7)));
