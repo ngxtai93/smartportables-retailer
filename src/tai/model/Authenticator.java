@@ -45,6 +45,14 @@ public class Authenticator {
         return user;
     }
 
+    public User getUser(ServletContext sc, int userId) {
+        User user = mysqlUtil.getUser(sc, userId);
+        if(user != null) {
+            user.setShoppingCart(cm.getCart(sc, user));
+        }
+        return user;
+    }
+
     public Status doLogin(HttpServletRequest req, HttpServletResponse res) {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
