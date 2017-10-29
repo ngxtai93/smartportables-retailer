@@ -3,7 +3,7 @@ package tai.servlet;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +106,13 @@ public class ServletReport extends HttpServlet {
                     req.setAttribute("mapProductAmount", mapProductAmount);
                     req.setAttribute("useBarchart", Boolean.TRUE);
                     req.getRequestDispatcher("/WEB-INF/jsp/report/sales_barchart.jsp").forward(req, res);
+                }
+                break;
+                case "daily":
+                {
+                    Map<LocalDate, Double> mapSaleByDay = rm.buildMapSaleByDay(req);
+                    req.setAttribute("mapSaleByDay", mapSaleByDay);
+                    req.getRequestDispatcher("/WEB-INF/jsp/report/sales_daily.jsp").forward(req, res);
                 }
                 break;
             }
