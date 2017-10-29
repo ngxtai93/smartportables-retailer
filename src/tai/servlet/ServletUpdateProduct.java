@@ -179,6 +179,8 @@ public class ServletUpdateProduct extends HttpServlet {
         discountElement.setTextContent(String.valueOf(product.getDiscount()));
         Element rebateElement = doc.createElement("rebate");
         rebateElement.setTextContent(String.valueOf(product.getRebate()));
+        Element amountElement = doc.createElement("amount");
+        rebateElement.setTextContent(String.valueOf(product.getAmount()));
 
         // append to new element
         newProductElement.appendChild(imageElement);
@@ -186,6 +188,7 @@ public class ServletUpdateProduct extends HttpServlet {
         newProductElement.appendChild(priceElement);
         newProductElement.appendChild(discountElement);
         newProductElement.appendChild(rebateElement);
+        newProductElement.appendChild(amountElement);
 
         return newProductElement;
     }

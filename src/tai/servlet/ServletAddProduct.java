@@ -121,7 +121,7 @@ public class ServletAddProduct extends HttpServlet {
             product.setAmount(Integer.valueOf(0));
         }
         else {
-            product.setAmount (Integer.parseInt(productParam.get("rebate")));
+            product.setAmount (Integer.parseInt(productParam.get("amount")));
         }
         product.setName     (productParam.get("name"));
         product.setPrice    (Double.parseDouble(productParam.get("price")));
