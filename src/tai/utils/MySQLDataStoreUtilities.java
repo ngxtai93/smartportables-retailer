@@ -278,9 +278,16 @@ public enum MySQLDataStoreUtilities {
         catch(SQLException e) {
             e.printStackTrace();
         }
+    }
 
-
-
+    public void truncateTable(String tableName) {
+        String sql = "TRUNCATE TABLE " + tableName + ";";
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.execute();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private Order buildOrder(ResultSet rs, User user) {
