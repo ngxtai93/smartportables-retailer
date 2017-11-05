@@ -338,7 +338,6 @@ public enum MySQLDataStoreUtilities {
             }
             productCount++;
         }
-        
     }
 
     public void insertListCategory(List<Category> listCategory) {

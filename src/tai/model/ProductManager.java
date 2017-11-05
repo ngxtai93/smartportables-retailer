@@ -32,7 +32,7 @@ public class ProductManager {
      * Populate mysql table from xml data
      */
     public void processLoadToMySQL(ServletContext sc) {
-        List<Product> listAllProduct = getListProduct(sc);
+        List<Product> listAllProduct = getXmlListProduct(sc);
 
         // truncate old data
         mySqlUtil.truncateTable("product");
@@ -64,6 +64,13 @@ public class ProductManager {
 
         return mapAccessory;
     }
+    public List<Product> getXmlListProduct(ServletContext sc) {
+        String productCatalogFilePath = sc.getRealPath("resources/data/ProductCatalog.xml");
+        File productCatalogFile = new File(productCatalogFilePath);
+
+        return buildListProduct(productCatalogFile);
+    }
+
     public List<Product> getListProduct(ServletContext sc) {
         String productCatalogFilePath = sc.getRealPath("resources/data/ProductCatalog.xml");
         File productCatalogFile = new File(productCatalogFilePath);
