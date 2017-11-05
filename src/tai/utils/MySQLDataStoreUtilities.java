@@ -11,6 +11,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import tai.entity.Category;
 import tai.entity.Order;
 import tai.entity.Role;
 import tai.entity.User;
@@ -278,6 +279,45 @@ public enum MySQLDataStoreUtilities {
         catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void insertListCategory(List<Category> listCategory) {
+        String sql =      "INSERT INTO `smart_portables`.`category` (`id`, `name`, `image-overview`) "
+                        + "VALUES (?, ?, ?);" 
+        ;
+        for(Category cat: listCategory) {
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, cat.getId());
+                ps.setString(2, cat.getName());
+                ps.setString(3, cat.getImageName());
+                ps.execute();
+            }
+            catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<Category> selectAllCategory() {
+        String sql = "SELECT * from smart_portables.category";
+        List<Category> listCategory = new ArrayList<>();
+
+        try(PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Category cat = new Category(
+                      rs.getString(1)   // id
+                    , rs.getString(2)   // name
+                    , rs.getString(3)   // imageName
+                );
+                listCategory.add(cat);
+            }
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listCategory;
     }
 
     public void truncateTable(String tableName) {

@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.ArrayList;
+import java.util.List;
 import org.xml.sax.SAXException;
 
 import tai.entity.Category;
@@ -25,7 +25,7 @@ public class FilterGetListCategory implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
     FilterChain chain)
         throws ServletException, IOException {
-            ArrayList<Category> listCategory = cm.getAvailableCategory(request.getServletContext());
+            List<Category> listCategory = cm.getAvailableCategory();
             request.setAttribute("listCategory", listCategory);
             chain.doFilter(request, response);
     }
