@@ -296,8 +296,6 @@ public enum MySQLDataStoreUtilities {
 
         for(Product p: listProduct) {
             try(PreparedStatement ps = conn.prepareStatement(sqlInsertProduct)) {
-                System.out.println("inserting [" + p.getCategory() + ", " + p.getId() + "]");
-                System.out.println(p);
                 ps.setInt(1, Integer.valueOf(productCount));
                 ps.setString(2, p.getCategory());
                 ps.setInt(3, p.getId());
