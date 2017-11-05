@@ -8,7 +8,7 @@
   metadata-complete="true">
 
     <welcome-file-list>
-        Startup
+        <welcome-file></welcome-file>
     </welcome-file-list>
     
     <servlet>
