@@ -22,8 +22,6 @@ public enum MongoDBDataStoreUtilities {
 	private MongoDatabase mongoDatabase;
 
 	private MongoDBDataStoreUtilities() {
-		mongoClient = new MongoClient("localhost", 27017);
-		mongoDatabase = mongoClient.getDatabase("smart_portables");
 	}
 
 	public void insertReview(Review review) {
@@ -134,5 +132,10 @@ public enum MongoDBDataStoreUtilities {
 			mongoClient.close();
 			System.out.println("MongoDB connection closed.");
 		}
+	}
+
+	public void initMongoDbConnection() {
+		mongoClient = new MongoClient("localhost", 27017);
+		mongoDatabase = mongoClient.getDatabase("smart_portables");
 	}
 }

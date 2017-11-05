@@ -20,6 +20,7 @@ public enum MySQLDataStoreUtilities {
     INSTANCE;
 
     private final String PROPERTIES_FILE_PATH = "resources/database.properties";
+    private Connection conn;
 
     private MySQLDataStoreUtilities() {
         try {
@@ -32,11 +33,6 @@ public enum MySQLDataStoreUtilities {
 
     public User getUser(ServletContext sc, String username) {
         User user = null;
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return null;
-        }
-
         String sql = "select * from smart_portables.login_user WHERE username = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
@@ -59,30 +55,19 @@ public enum MySQLDataStoreUtilities {
                     break;
                 }
             }
-
             rs.close();
         }
         catch(SQLException e) {
             e.printStackTrace();
         }
         
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
+
 
         return user;
     }
 
     public User getUser(ServletContext sc, int userId) {
         User user = null;
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return null;
-        }
-
         String sql = "select * from smart_portables.login_user WHERE seq_no = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
@@ -112,22 +97,12 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
         
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
+
 
         return user;
     }
 
     public User registerCustomer(ServletContext sc, String username, String password) {
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return null;
-        }
-
         String sql = "INSERT INTO `smart_portables`.`login_user` (`username`, `password`, `type`) VALUES (?, ?, ?);";
 
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -153,12 +128,7 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }        
+        
 
         User user = new User(username, password, Role.CUSTOMER);
         user.setId(id);
@@ -166,11 +136,6 @@ public enum MySQLDataStoreUtilities {
     }
 
     public void insertOrder(ServletContext sc, Order order) {
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return;
-        }
-
         String sql =    "INSERT INTO `smart_portables`.`order` "
                         + "(`user`, `order_date`, `deliver_date`"
                         + ", `confirm_number`, `name`, `address`"
@@ -201,21 +166,12 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public List<Order> selectOrder(ServletContext sc, User user) {
         List<Order> listOrder = null;
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return null;
-        }
-        // if user is null, select all order
+       // if user is null, select all order
         String sql = null;
         if(user != null) {
             sql =   "SELECT * from smart_portables.order WHERE user = ?";
@@ -248,23 +204,13 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
+
 
         return listOrder;
     }
 
     public Order selectOrder(ServletContext sc, int orderId) {
         Order order = null;
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return null;
-        }
-
         String sql =    "SELECT * from smart_portables.order WHERE seq_no = ?";
 
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -280,22 +226,12 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
+
 
         return order;
     }
 
     public void updateOrder(ServletContext sc, int id, Order newOrder) {
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return;
-        }
-
         String sql =    "UPDATE `smart_portables`.`order`"
                         + " SET `name`= ?"
                         + ", `address`= ?"
@@ -326,20 +262,11 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
     public void deleteOrder(ServletContext sc, Order order) {
-        Connection conn = initConnection(sc);
-        if(conn == null) {
-            return;
-        }
         int id = order.getId().intValue();
 
         String sql = "DELETE FROM `smart_portables`.`order` WHERE `seq_no`= ?;";
@@ -352,12 +279,7 @@ public enum MySQLDataStoreUtilities {
             e.printStackTrace();
         }
 
-        try {
-            conn.close();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
@@ -453,28 +375,38 @@ public enum MySQLDataStoreUtilities {
         return sb.toString();
     }
 
-    private Connection initConnection(ServletContext sc) {
+    public void initConnection(ServletContext sc) {
         String propertiesFullFilePath = sc.getRealPath(PROPERTIES_FILE_PATH);
-        Connection conn = null;
         try(InputStream input = new FileInputStream(propertiesFullFilePath)) {
             Properties prop = new Properties();
             prop.load(input);
-
-            conn = DriverManager.getConnection((
-                    "jdbc:mysql://"
+            String sqlUrl = "jdbc:mysql://"
                 +   prop.getProperty("database_url")
                 +   ":"
                 +   prop.getProperty("port")
                 +   "/" + prop.getProperty("schema")
                 +   "?useSSL=false"
-                ), prop.getProperty("dbuser"), prop.getProperty("password")
-            );
+            ;
+            String dbUser = prop.getProperty("dbuser");
+            String dbPassword = prop.getProperty("password");
+            conn = DriverManager.getConnection(sqlUrl, dbUser, dbPassword);
+
+            System.out.println("Connected to MySQL server " + sqlUrl);
         }
         catch(SQLException | IOException e) {
             e.printStackTrace();
         }
+    }
 
-        return conn;
+    public void closeConnection() {
+        if(conn != null) {
+            try {
+                conn.close();
+            }
+            catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
     
     private LocalDate processExpDate(String sqlString) {
