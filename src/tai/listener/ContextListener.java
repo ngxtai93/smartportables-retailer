@@ -34,7 +34,6 @@ public class ContextListener implements ServletContextListener {
         mySqlUtil.initConnection(sc);
 
         cm.processLoadToMySQL(sc);
-
-        List<Product> listProduct = pm.getListProduct(sc);
+        pm.processLoadToMySQL(sc);
     }
 }

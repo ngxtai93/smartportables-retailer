@@ -281,6 +281,66 @@ public enum MySQLDataStoreUtilities {
         }
     }
 
+    /**
+     * Insert list product into table 'product'
+     * Also, insert all accessories-product relation into table 'product_accessories'
+     */
+    public void insertListProduct(List<Product> listProduct) {
+        String sqlInsertProduct = "INSERT INTO `smart_portables`.`product` "
+                            + "(`seq_no`, `category`, `product_id`, `name`, `image`, `price`, `discount`, `rebate`, `amount`) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
+        ;
+        String sqlInsertRelation = "INSERT INTO `smart_portables`.`product_accessories` (`seq_no`, `product`, `accessories`) VALUES (?, ?, ?);";
+        int productCount = 1;
+        int relationCount = 1;
+
+        for(Product p: listProduct) {
+            try(PreparedStatement ps = conn.prepareStatement(sqlInsertProduct)) {
+                System.out.println("inserting [" + p.getCategory() + ", " + p.getId() + "]");
+                System.out.println(p);
+                ps.setInt(1, Integer.valueOf(productCount));
+                ps.setString(2, p.getCategory());
+                ps.setInt(3, p.getId());
+                ps.setString(4, p.getName());
+                ps.setString(5, p.getImage());
+                ps.setDouble(6, p.getPrice());
+                if(p.getDiscount() == null) {
+                    ps.setNull(7, Types.DECIMAL);
+                }
+                else {
+                    ps.setDouble(7, p.getDiscount());
+                }
+                if(p.getRebate() == null) {
+                    ps.setNull(8, Types.DECIMAL);
+                }
+                else {
+                    ps.setDouble(8, p.getRebate());
+                }
+                ps.setInt(9, p.getAmount());
+                ps.execute();
+            }
+            catch(SQLException e) {
+                e.printStackTrace();
+            }
+            if(p.getListAccessoryId() != null) {
+                for(Integer i: p.getListAccessoryId()) {
+                    try(PreparedStatement ps = conn.prepareStatement(sqlInsertRelation)) {
+                        ps.setInt(1, Integer.valueOf(relationCount));
+                        ps.setInt(2, p.getId());
+                        ps.setInt(3, i);
+                        ps.execute();
+                    }
+                    catch(SQLException e) {
+                        e.printStackTrace();
+                    }
+                    relationCount++;
+                }
+            }
+            productCount++;
+        }
+        
+    }
+
     public void insertListCategory(List<Category> listCategory) {
         String sql =      "INSERT INTO `smart_portables`.`category` (`id`, `name`, `image-overview`) "
                         + "VALUES (?, ?, ?);" 

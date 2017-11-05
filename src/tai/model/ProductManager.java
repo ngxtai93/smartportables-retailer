@@ -20,11 +20,26 @@ import org.xml.sax.SAXException;
 
 import tai.entity.Product;
 import tai.sax.SaxProductHandler;
+import tai.utils.MySQLDataStoreUtilities;
 import tai.utils.XmlUtilities;
 
 public class ProductManager {
     
     private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
+    private MySQLDataStoreUtilities mySqlUtil = MySQLDataStoreUtilities.INSTANCE;
+
+    /**
+     * Populate mysql table from xml data
+     */
+    public void processLoadToMySQL(ServletContext sc) {
+        List<Product> listAllProduct = getListProduct(sc);
+
+        // truncate old data
+        mySqlUtil.truncateTable("product");
+        mySqlUtil.truncateTable("product_accessories");
+
+        mySqlUtil.insertListProduct(listAllProduct);
+    }
 
     public Map<Integer, Product> getListProduct(HttpServletRequest req, String category) {
 

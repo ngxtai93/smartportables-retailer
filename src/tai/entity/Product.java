@@ -16,14 +16,14 @@ public class Product {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("category: " + (category == null ? "null" : category + "\n"))
-            .append("id: " + (id == null ? "null" : String.valueOf(id + "\n")))
-            .append("name: " + (name == null ? "null" : name + "\n"))
-            .append("image: " + (image == null ? "null" : image + "\n"))
-            .append("price: " + (price == null ? "null" : String.valueOf(price + "\n")))
-            .append("discount: " + (discount == null ? "null" : String.valueOf(discount + "\n")))
-            .append("rebate: " + (rebate == null ? "null" : String.valueOf(rebate + "\n")))
-            .append("amount: " + (amount == null ? "null" : String.valueOf(amount + "\n")))
+        result.append("category: " + (category == null ? "null\n" : category + "\n"))
+            .append("id: " + (id == null ? "null\n" : String.valueOf(id + "\n")))
+            .append("name: " + (name == null ? "null\n" : name + "\n"))
+            .append("image: " + (image == null ? "null\n" : image + "\n"))
+            .append("price: " + (price == null ? "null\n" : String.valueOf(price + "\n")))
+            .append("discount: " + (discount == null ? "null\n" : String.valueOf(discount + "\n")))
+            .append("rebate: " + (rebate == null ? "null\n" : String.valueOf(rebate + "\n")))
+            .append("amount: " + (amount == null ? "null\n" : String.valueOf(amount + "\n")))
         ;
         StringBuilder listAccessoryIdStr = new StringBuilder();
         listAccessoryIdStr.append("accessory-id: ");
