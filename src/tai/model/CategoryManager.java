@@ -55,6 +55,6 @@ public class CategoryManager {
 
         // Truncate old table then insert new data
         mySqlUtil.truncateTable("category");
-        mySqlUtil.insertListCategory(listCategory);
+        mySqlUtil.initListCategory(listCategory);
     }
 }

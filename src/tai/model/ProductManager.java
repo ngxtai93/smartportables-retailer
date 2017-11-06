@@ -37,8 +37,11 @@ public class ProductManager {
         // truncate old data
         mySqlUtil.truncateTable("product");
         mySqlUtil.truncateTable("product_accessories");
+        
+        mySqlUtil.resetAutoIncrement("product");
+        mySqlUtil.resetAutoIncrement("product_accessories");
 
-        mySqlUtil.insertListProduct(listAllProduct);
+        mySqlUtil.initListProduct(listAllProduct);
     }
 
     public Map<Integer, Product> getListProduct(HttpServletRequest req, String category) {

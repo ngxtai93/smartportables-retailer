@@ -281,39 +281,37 @@ public enum MySQLDataStoreUtilities {
     }
 
     /**
-     * Insert list product into table 'product'
+     * Init list product into table 'product' on context initialization
      * Also, insert all accessories-product relation into table 'product_accessories'
      */
-    public void insertListProduct(List<Product> listProduct) {
+    public void initListProduct(List<Product> listProduct) {
         String sqlInsertProduct = "INSERT INTO `smart_portables`.`product` "
-                            + "(`seq_no`, `category`, `product_id`, `name`, `image`, `price`, `discount`, `rebate`, `amount`) "
-                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
+                            + "(`category`, `product_id`, `name`, `image`, `price`, `discount`, `rebate`, `amount`) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
         ;
-        String sqlInsertRelation = "INSERT INTO `smart_portables`.`product_accessories` (`seq_no`, `product`, `accessories`) VALUES (?, ?, ?);";
-        int productCount = 1;
-        int relationCount = 1;
+        String sqlInsertRelation = "INSERT INTO `smart_portables`.`product_accessories` (`product`, `accessories`)"
+        							+ " VALUES (?, ?);";
 
         for(Product p: listProduct) {
             try(PreparedStatement ps = conn.prepareStatement(sqlInsertProduct)) {
-                ps.setInt(1, Integer.valueOf(productCount));
-                ps.setString(2, p.getCategory());
-                ps.setInt(3, p.getId());
-                ps.setString(4, p.getName());
-                ps.setString(5, p.getImage());
-                ps.setDouble(6, p.getPrice());
+                ps.setString(1, p.getCategory());
+                ps.setInt(2, p.getId());
+                ps.setString(3, p.getName());
+                ps.setString(4, p.getImage());
+                ps.setDouble(5, p.getPrice());
                 if(p.getDiscount() == null) {
+                    ps.setNull(6, Types.DECIMAL);
+                }
+                else {
+                    ps.setDouble(6, p.getDiscount());
+                }
+                if(p.getRebate() == null) {
                     ps.setNull(7, Types.DECIMAL);
                 }
                 else {
-                    ps.setDouble(7, p.getDiscount());
+                    ps.setDouble(7, p.getRebate());
                 }
-                if(p.getRebate() == null) {
-                    ps.setNull(8, Types.DECIMAL);
-                }
-                else {
-                    ps.setDouble(8, p.getRebate());
-                }
-                ps.setInt(9, p.getAmount());
+                ps.setInt(8, p.getAmount());
                 ps.execute();
             }
             catch(SQLException e) {
@@ -322,22 +320,22 @@ public enum MySQLDataStoreUtilities {
             if(p.getListAccessoryId() != null) {
                 for(Integer i: p.getListAccessoryId()) {
                     try(PreparedStatement ps = conn.prepareStatement(sqlInsertRelation)) {
-                        ps.setInt(1, Integer.valueOf(relationCount));
-                        ps.setInt(2, p.getId());
-                        ps.setInt(3, i);
+                        ps.setInt(1, p.getId());
+                        ps.setInt(2, i);
                         ps.execute();
                     }
                     catch(SQLException e) {
                         e.printStackTrace();
                     }
-                    relationCount++;
                 }
             }
-            productCount++;
         }
     }
 
-    public void insertListCategory(List<Category> listCategory) {
+    /**
+     * Initialize list category on context initialization
+     */
+    public void initListCategory(List<Category> listCategory) {
         String sql =      "INSERT INTO `smart_portables`.`category` (`id`, `name`, `image-overview`) "
                         + "VALUES (?, ?, ?);" 
         ;
@@ -523,5 +521,19 @@ public enum MySQLDataStoreUtilities {
         LocalDate date = LocalDate.of(year, month, 1);
         return date.plusMonths(1).minusDays(1);
     }
+
+	/**
+	 * Reset auto increment to 1 on given table
+	 */
+    public void resetAutoIncrement(String tableName) {
+    	String sql = "ALTER TABLE " + tableName + " AUTO_INCREMENT = 1";
+    	
+    	try(PreparedStatement ps = conn.prepareStatement(sql)) {
+    		ps.execute();
+    	}
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+	}
 }
 
