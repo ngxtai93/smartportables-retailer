@@ -85,6 +85,12 @@ public class ProductManager {
 		mySqlUtil.updateProduct(seqNo, updatedProduct);
 	}
 
+	public void deleteProduct(String category, int productId) {
+		int seqNo = mySqlUtil.selectProductSeqNo(category, productId);
+		mySqlUtil.deleteProduct(seqNo);
+		
+	}
+
 	/**
 	 * Get list of product by <product ID, product> 
 	 */

@@ -6,11 +6,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import javax.xml.xpath.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -21,14 +16,12 @@ import tai.entity.Role;
 import tai.entity.User;
 import tai.model.ProductManager;
 import tai.utils.StringUtilities;
-import tai.utils.XmlUtilities;
 
 public class ServletUpdateProduct extends HttpServlet {
 
     private final String MIME_PNG = "image/png";
     private final String MIME_JPG = "image/jpeg";
     private StringUtilities stringUtil = StringUtilities.INSTANCE;
-    private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
     private ProductManager pm = new ProductManager();
 
     @Override
@@ -141,95 +134,6 @@ public class ServletUpdateProduct extends HttpServlet {
             product.setAmount    (Integer.valueOf(amount));
         }
         return product;
-    }
-
-    private void updateProductToXmlCatalog(HttpServletRequest req, Product product) {
-        String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
-        Document doc = xmlUtil.getXmlDocument(xmlFilePath);
-        Element elementToBeUpdated = findProductElement(doc, product);
-        updateElement(elementToBeUpdated, product);
-
-        xmlUtil.writeToXml(doc, xmlFilePath);
-        // write back to file
-        
-    }
-
-    private Element findProductElement(Document doc, Product product) {
-        XPath xpath =   XPathFactory.newInstance()
-                        .newXPath();
-        String exprStr =      "/ProductCatalog"
-                            + "/category[@id=\'" + product.getCategory() + "\']"
-                            + "/product[@id=\'" + product.getId() + "\']"
-        ;
-        NodeList nl = null;
-        try {
-            XPathExpression expr = xpath.compile(exprStr);
-            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-        }
-        catch(XPathExpressionException e) {
-            e.printStackTrace();
-        }
-        
-        return (Element) nl.item(0);
-    }
-
-    private Element createNewProductElement(Document doc, Product product, int productCount) {
-        int nextProductId = productCount + 1;
-
-        Element newProductElement = doc.createElement("product");
-        newProductElement.setAttribute("id", String.valueOf(nextProductId));
-
-        // create subelement of product
-        Element imageElement = doc.createElement("image");
-        imageElement.setTextContent(product.getImage());
-        Element nameElement = doc.createElement("name");
-        nameElement.setTextContent(product.getName());
-        Element priceElement = doc.createElement("price");
-        priceElement.setTextContent(String.valueOf(product.getPrice()));
-        Element discountElement = doc.createElement("discount");
-        discountElement.setTextContent(String.valueOf(product.getDiscount()));
-        Element rebateElement = doc.createElement("rebate");
-        rebateElement.setTextContent(String.valueOf(product.getRebate()));
-        Element amountElement = doc.createElement("amount");
-        rebateElement.setTextContent(String.valueOf(product.getAmount()));
-
-        // append to new element
-        newProductElement.appendChild(imageElement);
-        newProductElement.appendChild(nameElement);
-        newProductElement.appendChild(priceElement);
-        newProductElement.appendChild(discountElement);
-        newProductElement.appendChild(rebateElement);
-        newProductElement.appendChild(amountElement);
-
-        return newProductElement;
-    }
-
-    private void updateElement(Element origin, Product product) {
-        // update element
-        if(product.getImage() != null) {
-            Element imageElement = (Element) origin.getElementsByTagName("image").item(0);
-            imageElement.setTextContent(product.getImage());
-        }
-        if(product.getName() != null) {
-            Element nameElement = (Element) origin.getElementsByTagName("name").item(0);
-            nameElement.setTextContent(product.getName());
-        }
-        if(product.getPrice() != null) {
-            Element priceElement = (Element) origin.getElementsByTagName("price").item(0);
-            priceElement.setTextContent(String.valueOf(product.getPrice()));
-        }
-        if(product.getDiscount() != null) {
-            Element discountElement = (Element) origin.getElementsByTagName("discount").item(0);
-            discountElement.setTextContent(String.valueOf(product.getDiscount()));
-        }
-        if(product.getRebate() != null) {
-            Element rebateElement = (Element) origin.getElementsByTagName("rebate").item(0);
-            rebateElement.setTextContent(String.valueOf(product.getRebate()));
-        }
-        if(product.getAmount() != null) {
-            Element amountElement = (Element) origin.getElementsByTagName("amount").item(0);
-            amountElement.setTextContent(String.valueOf(product.getAmount()));
-        }
     }
 
     private File getFilePath(HttpServletRequest req, Map<String, String> productParam, String extension) {

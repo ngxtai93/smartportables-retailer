@@ -414,6 +414,30 @@ public enum MySQLDataStoreUtilities {
 	}
 
 	/**
+	 *	Delete product and all product-accessories relations from DB
+	 */
+	public void deleteProduct(int seqNo) {
+		String sqlDeleteProduct = "DELETE FROM `smart_portables`.`product` WHERE `seq_no`= ?;";
+		String sqlDeleteRelation = "DELETE FROM `smart_portables`.`product_accessories` WHERE product = ?";
+		
+		try(PreparedStatement ps = conn.prepareStatement(sqlDeleteProduct)) {
+			ps.setInt(1, seqNo);
+			ps.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try(PreparedStatement ps = conn.prepareStatement(sqlDeleteRelation)) {
+			ps.setInt(1, seqNo);
+			ps.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
      * Init list product into table 'product' on context initialization
      * Also, insert all accessories-product relation into table 'product_accessories'
      */

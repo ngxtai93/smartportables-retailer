@@ -159,7 +159,7 @@ public class ServletManageAccount extends HttpServlet {
 
                 switch (name) {
                 case "category":
-                    Map<Integer, Product> mapProduct = pm.getListProductFromXml(req, value);
+                    Map<Integer, Product> mapProduct = pm.getListProduct(value);
                     req.setAttribute("mapProduct", mapProduct);
                     break;
                 }
