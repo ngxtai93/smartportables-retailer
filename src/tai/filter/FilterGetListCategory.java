@@ -1,17 +1,12 @@
 package tai.filter;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.List;
-import org.xml.sax.SAXException;
+
+import javax.servlet.*;
 
 import tai.entity.Category;
 import tai.model.CategoryManager;
-import tai.sax.SaxCategoryHandler;
 
 public class FilterGetListCategory implements Filter {
 

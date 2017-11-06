@@ -1,19 +1,20 @@
 package tai.utils;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.*;
-import com.mongodb.client.model.*;
-import com.mongodb.Block;
-
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import org.bson.Document;
-import tai.entity.Review;
-import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.bson.Document;
+
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.*;
+
+import tai.entity.Review;
 
 public enum MongoDBDataStoreUtilities {
 	INSTANCE;

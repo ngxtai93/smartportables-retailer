@@ -1,13 +1,9 @@
 package tai.listener;
 
 import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import java.util.*;
 
 import tai.model.CategoryManager;
 import tai.model.ProductManager;
-import tai.entity.Product;
 import tai.utils.MongoDBDataStoreUtilities;
 import tai.utils.MySQLDataStoreUtilities;
 

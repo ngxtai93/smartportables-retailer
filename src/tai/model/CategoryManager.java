@@ -2,7 +2,6 @@ package tai.model;
 
 import java.io.*;
 import javax.servlet.*;
-import javax.servlet.http.*;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.ParserConfigurationException;

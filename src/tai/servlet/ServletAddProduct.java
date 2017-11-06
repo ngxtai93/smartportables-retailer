@@ -1,26 +1,25 @@
 package tai.servlet;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.*;
-
 import java.io.*;
 import java.util.*;
 
-import org.apache.commons.fileupload.*;
-import org.apache.commons.fileupload.disk.*;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
-import tai.utils.*;
-import tai.entity.User;
+import javax.xml.xpath.*;
+import org.w3c.dom.*;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+
 import tai.entity.Product;
 import tai.entity.Role;
+import tai.entity.User;
+import tai.utils.StringUtilities;
+import tai.utils.XmlUtilities;
 
 public class ServletAddProduct extends HttpServlet {
 

@@ -1,17 +1,10 @@
 package tai.model;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
 import java.time.LocalDate;
+import java.util.*;
 
-import tai.entity.Category;
+import javax.servlet.http.HttpServletRequest;
+
 import tai.entity.Order;
 import tai.entity.Product;
 

@@ -8,7 +8,6 @@ import tai.entity.Review;
 import tai.entity.User;
 import tai.model.ReviewManager;
 
-import java.util.Map;
 import tai.utils.MongoDBDataStoreUtilities;
 
 public class ServletProductReview extends HttpServlet {

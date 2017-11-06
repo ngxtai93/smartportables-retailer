@@ -1,8 +1,6 @@
 package tai.model;
 
 
-import java.io.*;
-import java.math.BigInteger;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
@@ -16,13 +14,11 @@ import tai.utils.*;
 
 public class OrderManager {
 
-    private final String ORDER_INFO_PATH = "resources/data/user/Order.xml";
     private MySQLDataStoreUtilities mysqlUtil = MySQLDataStoreUtilities.INSTANCE;
     public static final String[] LIST_STATUS = {"Placed", "Delivered", "Cancelled"};
 
     public Order processOrderPlaced(HttpServletRequest req, HttpServletResponse res) {
         Order order = buildOrder(req);
-        User user = (User) req.getSession().getAttribute("currentUser");
 
         // insert to mysql db
         insertOrder(req, order);

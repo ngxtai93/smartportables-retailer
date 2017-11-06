@@ -1,14 +1,11 @@
 package tai.model;
 
-import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import tai.entity.User;
-import tai.entity.Role;
-import tai.model.ShoppingCartManager;
-import tai.utils.MySQLDataStoreUtilities;
 import tai.constants.Status;
+import tai.entity.User;
+import tai.utils.MySQLDataStoreUtilities;
 
 
 public class Authenticator {

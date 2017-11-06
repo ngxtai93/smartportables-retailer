@@ -1,22 +1,25 @@
 package tai.model;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
-
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.xpath.*;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import tai.entity.*;
-import tai.utils.*;
+import tai.entity.Product;
+import tai.entity.ShoppingCart;
+import tai.entity.User;
 import tai.sax.SaxCartHandler;
+import tai.utils.XmlUtilities;
 
 
 public class ShoppingCartManager {
@@ -69,7 +72,6 @@ public class ShoppingCartManager {
         , String cartId, String category, Integer id, Integer amount) {
         String filePath = req.getServletContext().getRealPath(CART_INFO_PATH);
         Document document = xmlUtil.getXmlDocument(filePath);
-        Element cartElement = findCartElement(document, cartId);
         Element productElement = findExistingProduct(document, cartId, category, id);
 
         Element amountElement = (Element) productElement.getElementsByTagName("amount").item(0);
