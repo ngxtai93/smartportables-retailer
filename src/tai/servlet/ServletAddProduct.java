@@ -6,8 +6,6 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import javax.xml.xpath.*;
-import org.w3c.dom.*;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -18,15 +16,15 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import tai.entity.Product;
 import tai.entity.Role;
 import tai.entity.User;
+import tai.model.ProductManager;
 import tai.utils.StringUtilities;
-import tai.utils.XmlUtilities;
 
 public class ServletAddProduct extends HttpServlet {
 
     private final String MIME_PNG = "image/png";
     private final String MIME_JPG = "image/jpeg";
     private StringUtilities stringUtil = StringUtilities.INSTANCE;
-    private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
+    private ProductManager pm = new ProductManager();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
@@ -36,47 +34,53 @@ public class ServletAddProduct extends HttpServlet {
             res.sendRedirect(req.getContextPath());
         }
         else {
-            // process request
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            File repository = (File) req.getServletContext().getAttribute("javax.servlet.context.tempdir");
-            factory.setRepository(repository);
-            factory.setSizeThreshold(1024 * 1024 * 5);  // 5MB
-
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setSizeMax(1024 * 1024 * 2);         // 2MB
-
-            Product product = null;
-            try {
-                List<FileItem> listItem = upload.parseRequest(req);
-                Map<String, String> productParam = new HashMap<>();
-                ArrayList<Integer> listAccessoryId = new ArrayList<>();
-                for(FileItem fi: listItem) {
-                    if(fi.isFormField()) {  // param from form input
-                        if(fi.getFieldName().equals("accessory-id")) {
-                            listAccessoryId.add(Integer.valueOf(fi.getString()));
-                        }
-                        else {
-                            productParam.put(fi.getFieldName(), fi.getString());
-                        }
-                    }
-                    else {
-                        uploadFile(req, productParam, fi);
-                    }
-                }
-                
-                product = buildProductObject(productParam, listAccessoryId);
-            }
-            catch(FileUploadException e) {
-                e.printStackTrace();
-            }
-
-            // process uploaded items
-            addProductToCatalog(req, product);
+            processPostRequest(req);
 
             req.getSession().setAttribute("command-executed", "product-add");
             res.sendRedirect(req.getContextPath() + "/success");
         }
     }
+
+    /**
+     * Process request to add product
+     */
+	private void processPostRequest(HttpServletRequest req) {
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		File repository = (File) req.getServletContext().getAttribute("javax.servlet.context.tempdir");
+		factory.setRepository(repository);
+		factory.setSizeThreshold(1024 * 1024 * 5);  // 5MB
+
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		upload.setSizeMax(1024 * 1024 * 2);         // 2MB
+
+		Product product = null;
+		try {
+		    List<FileItem> listItem = upload.parseRequest(req);
+		    Map<String, String> productParam = new HashMap<>();
+		    ArrayList<Integer> listAccessoryId = new ArrayList<>();
+		    for(FileItem fi: listItem) {
+		        if(fi.isFormField()) {  // param from form input
+		            if(fi.getFieldName().equals("accessory-id")) {
+		                listAccessoryId.add(Integer.valueOf(fi.getString()));
+		            }
+		            else {
+		                productParam.put(fi.getFieldName(), fi.getString());
+		            }
+		        }
+		        else {
+		            uploadFile(req, productParam, fi);
+		        }
+		    }
+		    
+		    product = buildProductObject(productParam, listAccessoryId);
+		}
+		catch(FileUploadException e) {
+		    e.printStackTrace();
+		}
+
+		// process uploaded items
+		pm.addProduct(product);
+	}
 
     private void uploadFile(HttpServletRequest req, Map<String, String> productParam, FileItem fi) {
         String extension = null;
@@ -130,85 +134,6 @@ public class ServletAddProduct extends HttpServlet {
         }
 
         return product;
-    }
-
-    private void addProductToCatalog(HttpServletRequest req, Product product) {
-        String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
-        Document doc = xmlUtil.getXmlDocument(xmlFilePath);
-        Element categoryElement = findCategoryElement(doc, product);
-        
-        int productCount = categoryElement.getElementsByTagName("product").getLength();
-
-        // create element
-        Element newProductElement = createNewProductElement(doc, product, productCount);
-        categoryElement.appendChild(newProductElement);
-
-        xmlUtil.writeToXml(doc, xmlFilePath);
-        // write back to file
-        
-    }
-
-    private Element findCategoryElement(Document doc, Product product) {
-        XPath xpath =   XPathFactory.newInstance()
-                        .newXPath();
-        String exprStr = "/ProductCatalog/category[@id=\'" + product.getCategory() + "\']";
-        NodeList nl = null;
-        try {
-            XPathExpression expr = xpath.compile(exprStr);
-            nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-        }
-        catch(XPathExpressionException e) {
-            e.printStackTrace();
-        }
-        
-        return (Element) nl.item(0);
-    }
-
-    private Element createNewProductElement(Document doc, Product product, int productCount) {
-        int nextProductId = productCount + 1;
-
-        Element newProductElement = doc.createElement("product");
-        newProductElement.setAttribute("id", String.valueOf(nextProductId));
-
-        // create subelement of product
-        Element imageElement = doc.createElement("image");
-        imageElement.setTextContent(product.getImage());
-        Element nameElement = doc.createElement("name");
-        // we use CDATA for formatting
-        CDATASection nameCData = doc.createCDATASection(product.getName());
-        nameElement.appendChild(nameCData);
-        Element priceElement = doc.createElement("price");
-        priceElement.setTextContent(String.valueOf(product.getPrice()));
-        Element discountElement = doc.createElement("discount");
-        discountElement.setTextContent(String.valueOf(product.getDiscount()));
-        Element rebateElement = doc.createElement("rebate");
-        rebateElement.setTextContent(String.valueOf(product.getRebate()));
-        Element amountElement = doc.createElement("amount");
-        amountElement.setTextContent(String.valueOf(product.getAmount()));
-
-        ArrayList<Integer> listAccessory = product.getListAccessoryId();
-        Element accessoriesElement = null;
-        if(listAccessory != null) {
-            accessoriesElement = doc.createElement("accessories");
-            for(Integer accessoryId: listAccessory) {
-                Element idElement = doc.createElement("product-id");
-                idElement.setAttribute("id", String.valueOf(accessoryId));
-                accessoriesElement.appendChild(idElement);
-            }
-        }
-
-        // append to new element
-        newProductElement.appendChild(imageElement);
-        newProductElement.appendChild(nameElement);
-        newProductElement.appendChild(priceElement);
-        newProductElement.appendChild(discountElement);
-        newProductElement.appendChild(rebateElement);
-        newProductElement.appendChild(amountElement);
-        if(listAccessory != null) {
-            newProductElement.appendChild(accessoriesElement);
-        }
-
-        return newProductElement;
     }
 
     private File getFilePath(HttpServletRequest req, Map<String, String> productParam, String extension) {

@@ -44,6 +44,16 @@ public class ProductManager {
         mySqlUtil.initListProduct(listAllProduct);
     }
 
+    /**
+     * Add product to MySQL 
+     */
+	public void addProduct(Product product) {
+		Integer productId = Integer.valueOf(mySqlUtil.getProductCountCategory(product.getCategory()) + 1);
+		product.setId(productId);
+		
+		mySqlUtil.insertProduct(product);
+	}
+	
     public Map<Integer, Product> getListProduct(HttpServletRequest req, String category) {
 
         List<Product> listAllProduct = getListProduct(req.getServletContext());
@@ -161,4 +171,6 @@ public class ProductManager {
         }
         return null;
     }
+
+
 }

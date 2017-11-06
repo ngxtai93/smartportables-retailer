@@ -280,6 +280,12 @@ public enum MySQLDataStoreUtilities {
         }
     }
 
+	public void insertProduct(Product product) {
+		List<Product> listProduct = new ArrayList<>();
+		listProduct.add(product);
+		initListProduct(listProduct);
+	}
+	
     /**
      * Init list product into table 'product' on context initialization
      * Also, insert all accessories-product relation into table 'product_accessories'
@@ -331,7 +337,7 @@ public enum MySQLDataStoreUtilities {
             }
         }
     }
-
+    
     /**
      * Initialize list category on context initialization
      */
@@ -534,6 +540,26 @@ public enum MySQLDataStoreUtilities {
     	catch(SQLException e) {
     		e.printStackTrace();
     	}
+	}
+
+    /**
+     * Get number of product in the given category 
+     */
+	public int getProductCountCategory(String category) {
+		int count = -1;
+		String sql = "SELECT count(*) from smart_portables.product WHERE category = ?";
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, category);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			count = rs.getInt(1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }
 
