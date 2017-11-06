@@ -30,7 +30,7 @@ public class OrderManager {
             Product p = entry.getKey();
             Integer amount = entry.getValue();
             p.setAmount(p.getAmount() - amount);
-            pm.updateProduct(req, p);
+            pm.updateProductToXml(req, p);
         }
         return order;
     }

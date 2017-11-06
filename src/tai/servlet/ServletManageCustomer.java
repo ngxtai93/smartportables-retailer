@@ -146,7 +146,7 @@ public class ServletManageCustomer extends HttpServlet {
                             req.setAttribute("addFailed", "category");
                         }
                         else {
-                            Map<Integer, Product> listProduct = pm.getListProduct(req, category);
+                            Map<Integer, Product> listProduct = pm.getListProductFromXml(req, category);
                             req.setAttribute("listProduct", listProduct);
                             req.setAttribute("category", category);
                         }
@@ -167,7 +167,7 @@ public class ServletManageCustomer extends HttpServlet {
                             session.setAttribute("order-product-list", mapOrderProduct);
                         }
 
-                        Map<Integer, Product> mapProduct = pm.getListProduct(req, category);
+                        Map<Integer, Product> mapProduct = pm.getListProductFromXml(req, category);
                         Product p = mapProduct.get(productId);
 
                         mapOrderProduct.put(p, amount);

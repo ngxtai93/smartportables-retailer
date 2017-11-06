@@ -34,7 +34,7 @@ public class ServletDeleteProduct extends HttpServlet {
             // process request
             String[] listIdToDelete = req.getParameterValues("product-id");
             if(listIdToDelete == null || listIdToDelete.length == 0) {
-                Map<Integer, Product> mapProduct = new ProductManager().getListProduct(req, req.getParameter("category"));
+                Map<Integer, Product> mapProduct = new ProductManager().getListProductFromXml(req, req.getParameter("category"));
                 req.setAttribute("no-product-chosen", "true");
                 req.setAttribute("mapProduct", mapProduct);
                 req.getRequestDispatcher("/WEB-INF/jsp/product/product_delete.jsp").forward(req, res);

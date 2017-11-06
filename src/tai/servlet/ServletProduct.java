@@ -24,7 +24,7 @@ public class ServletProduct extends HttpServlet {
         String[] uriSplit = uri.split("/");
         // 0: blank, 1: csj, 2: product, 3: [category]
         
-        Map<Integer, Product> mapProduct = pm.getListProduct(req, uriSplit[3]);
+        Map<Integer, Product> mapProduct = pm.getListProductFromXml(req, uriSplit[3]);
 
         if(uriSplit.length == 4) {
             req.setAttribute("current-category", uriSplit[3]);

@@ -1,6 +1,6 @@
 package tai.entity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Product {
     private Integer id;
@@ -11,7 +11,7 @@ public class Product {
     private Double discount;
     private Double rebate;
     private Integer amount;
-    private ArrayList<Integer> listAccessoryId;
+    private List<Integer> listAccessoryId;
 
     @Override
     public String toString() {
@@ -143,11 +143,11 @@ public class Product {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
-    public ArrayList<Integer> getListAccessoryId() {
+    public List<Integer> getListAccessoryId() {
         return this.listAccessoryId;
     }
 
-    public void setListAccessoryId(ArrayList<Integer> listAccessoryId) {
+    public void setListAccessoryId(List<Integer> listAccessoryId) {
         this.listAccessoryId = listAccessoryId;
     }
 }

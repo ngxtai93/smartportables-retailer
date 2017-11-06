@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.time.LocalDate;
 import java.io.*;
 import javax.servlet.*;
@@ -280,13 +281,139 @@ public enum MySQLDataStoreUtilities {
         }
     }
 
+	/**
+	 * Get number of product in the given category 
+	 */
+	public int getProductCountCategory(String category) {
+		int count = -1;
+		String sql = "SELECT count(*) from smart_portables.product WHERE category = ?";
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, category);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			count = rs.getInt(1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
 	public void insertProduct(Product product) {
 		List<Product> listProduct = new ArrayList<>();
 		listProduct.add(product);
 		initListProduct(listProduct);
 	}
 	
-    /**
+    public int selectProductSeqNo(String category, int productId) {
+		String sql = "SELECT seq_no from smart_portables.product WHERE category = ? AND product_id = ?";
+		int seqNo = -1;
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, category);
+			ps.setInt(2, productId);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			seqNo = rs.getInt("seq_no");
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return seqNo;
+	}
+
+	/**
+	 * Select all product with given category.
+	 * Return a map of <product ID, product>
+	 */
+	public Map<Integer, Product> selectProduct(String category) {
+		Map<Integer, Product> mapProduct = new LinkedHashMap<>();
+		String sql = "SELECT * from smart_portables.product WHERE category = ?"
+					+ " ORDER BY product_id asc"
+		;
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, category);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Product p = buildProductObject(rs);
+				mapProduct.put(p.getId(), p);
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return mapProduct;
+	}
+
+	public Product selectProduct(int seqNo) {
+		String sql = "SELECT * from smart_portables.product WHERE seq_no = ?";
+		Product p = null;
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, seqNo);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				p = buildProductObject(rs);
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return p;
+	}
+
+	/**
+	 * Update product with new info, given seq_no
+	 */
+	public void updateProduct(int seqNo, Product updatedProduct) {
+		String sql	= "UPDATE `smart_portables`.`product` SET"
+					+ " `discount`= ?, "
+					+ " `rebate`= ?, "
+					+ " `name`= ?, "
+					+ " `price`= ?, "
+					+ " `image`= ?, "
+					+ " `amount`= ?"
+					+ " WHERE `seq_no`= ?";
+
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			Double discount = updatedProduct.getDiscount();
+			Double rebate = updatedProduct.getRebate();
+			if(discount == null) {
+				ps.setNull(1, Types.DECIMAL);
+			}
+			else {
+				ps.setDouble(1, discount);
+			}
+			if(rebate == null) {
+				ps.setNull(2, Types.DECIMAL);
+			}
+			else {
+				ps.setDouble(2, rebate);
+			}			
+			ps.setString(3, updatedProduct.getName());
+			ps.setDouble(4, updatedProduct.getPrice());
+			ps.setString(5, updatedProduct.getImage());
+			ps.setInt(6, updatedProduct.getAmount());
+			ps.setInt(7, seqNo);
+			
+			ps.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
      * Init list product into table 'product' on context initialization
      * Also, insert all accessories-product relation into table 'product_accessories'
      */
@@ -338,7 +465,49 @@ public enum MySQLDataStoreUtilities {
         }
     }
     
-    /**
+    private Product buildProductObject(ResultSet rs) throws SQLException {
+		Product p = new Product();
+		p.setCategory(rs.getString("category"));
+		p.setId(rs.getInt("product_id"));
+		p.setName(rs.getString("name"));
+		p.setImage(rs.getString("image"));
+		p.setPrice(rs.getDouble("price"));
+		p.setDiscount(rs.getDouble("discount"));
+		p.setRebate(rs.getDouble("rebate"));
+		p.setAmount(rs.getInt("amount"));
+		p.setListAccessoryId(p.getCategory().equals("accessory") ? null :
+			selectProductAccessories(rs.getInt("seq_no")));
+		return p;
+	}
+
+	
+	/**
+	 * Return list of accessories associated with given product seq_no 
+	 */
+	private List<Integer> selectProductAccessories(int seqNo) {
+		List<Integer> listAccessories = null;
+		String sql = "SELECT * from product_accessories WHERE product = ?";
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, seqNo);
+			ResultSet rs = ps.executeQuery();
+			if(!rs.first()) {
+				listAccessories = new ArrayList<>();
+				
+				while(rs.next()) {
+					Integer accessoryId = Integer.valueOf(rs.getInt("accessories"));
+					listAccessories.add(accessoryId);
+				}
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listAccessories;
+	}
+
+	/**
      * Initialize list category on context initialization
      */
     public void initListCategory(List<Category> listCategory) {
@@ -378,16 +547,6 @@ public enum MySQLDataStoreUtilities {
         }
 
         return listCategory;
-    }
-
-    public void truncateTable(String tableName) {
-        String sql = "TRUNCATE TABLE " + tableName + ";";
-        try(PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.execute();
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     private Order buildOrder(ResultSet rs, User user) {
@@ -528,6 +687,16 @@ public enum MySQLDataStoreUtilities {
         return date.plusMonths(1).minusDays(1);
     }
 
+	public void truncateTable(String tableName) {
+	    String sql = "TRUNCATE TABLE " + tableName + ";";
+	    try(PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.execute();
+	    }
+	    catch(SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	/**
 	 * Reset auto increment to 1 on given table
 	 */
@@ -540,26 +709,6 @@ public enum MySQLDataStoreUtilities {
     	catch(SQLException e) {
     		e.printStackTrace();
     	}
-	}
-
-    /**
-     * Get number of product in the given category 
-     */
-	public int getProductCountCategory(String category) {
-		int count = -1;
-		String sql = "SELECT count(*) from smart_portables.product WHERE category = ?";
-		
-		try(PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setString(1, category);
-			ResultSet rs = ps.executeQuery();
-			
-			rs.next();
-			count = rs.getInt(1);
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return count;
 	}
 }
 

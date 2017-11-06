@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import tai.entity.Product;
 import tai.entity.Role;
 import tai.entity.User;
+import tai.model.ProductManager;
 import tai.utils.StringUtilities;
 import tai.utils.XmlUtilities;
 
@@ -28,6 +29,7 @@ public class ServletUpdateProduct extends HttpServlet {
     private final String MIME_JPG = "image/jpeg";
     private StringUtilities stringUtil = StringUtilities.INSTANCE;
     private XmlUtilities xmlUtil = XmlUtilities.INSTANCE;
+    private ProductManager pm = new ProductManager();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
@@ -37,42 +39,55 @@ public class ServletUpdateProduct extends HttpServlet {
             res.sendRedirect(req.getContextPath());
         }
         else {
-            // process request
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            File repository = (File) req.getServletContext().getAttribute("javax.servlet.context.tempdir");
-            factory.setRepository(repository);
-            factory.setSizeThreshold(1024 * 1024 * 5);  // 5MB
-
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setSizeMax(1024 * 1024 * 2);         // 2MB
-
-            Product updatedProduct = null;
-            try {
-                List<FileItem> listItem = upload.parseRequest(req);
-                Map<String, String> productParam = new HashMap<>();
-                for(FileItem fi: listItem) {
-                    if(fi.isFormField()) {  // param from form input
-                        productParam.put(fi.getFieldName(), fi.getString());
-                    }
-                    else {
-                        uploadFile(req, productParam, fi);
-                    }
-                }
-                updatedProduct = buildProductObject(productParam);
-            }
-            catch(FileUploadException e) {
-                e.printStackTrace();
-            }
-
-            // process uploaded items
-            updateProductToCatalog(req, updatedProduct);
+            processPostRequest(req);
 
             req.getSession().setAttribute("command-executed", "product-update");
             res.sendRedirect(req.getContextPath() + "/success");
         }
     }
 
-    private void uploadFile(HttpServletRequest req, Map<String, String> productParam, FileItem fi) {
+	private void processPostRequest(HttpServletRequest req) {
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		File repository = (File) req.getServletContext().getAttribute("javax.servlet.context.tempdir");
+		factory.setRepository(repository);
+		factory.setSizeThreshold(1024 * 1024 * 5);  // 5MB
+
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		upload.setSizeMax(1024 * 1024 * 2);         // 2MB
+
+		Product updatedProduct = null;
+		try {
+		    List<FileItem> listItem = upload.parseRequest(req);
+		    Map<String, String> productParam = new HashMap<>();
+		    for(FileItem fi: listItem) {
+		        if(fi.isFormField()) {  // param from form input
+		            productParam.put(fi.getFieldName(), fi.getString());
+		        }
+		        else {
+		            uploadFile(req, productParam, fi);
+		        }
+		    }
+		    updatedProduct = buildProductObject(productParam);
+		}
+		catch(FileUploadException e) {
+		    e.printStackTrace();
+		}
+
+		if(
+				   updatedProduct.getDiscount() == null
+				&& updatedProduct.getRebate() == null
+				&& updatedProduct.getName() == null
+				&& updatedProduct.getPrice() == null
+				&& updatedProduct.getImage() == null
+				&& updatedProduct.getAmount() == null
+		) {
+			return;
+		}
+		// process uploaded items
+		pm.updateProduct(updatedProduct);
+	}
+
+	private void uploadFile(HttpServletRequest req, Map<String, String> productParam, FileItem fi) {
         String extension = null;
         switch(fi.getContentType()) {
             case MIME_JPG:
@@ -128,7 +143,7 @@ public class ServletUpdateProduct extends HttpServlet {
         return product;
     }
 
-    private void updateProductToCatalog(HttpServletRequest req, Product product) {
+    private void updateProductToXmlCatalog(HttpServletRequest req, Product product) {
         String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
         Document doc = xmlUtil.getXmlDocument(xmlFilePath);
         Element elementToBeUpdated = findProductElement(doc, product);

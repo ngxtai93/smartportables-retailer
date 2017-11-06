@@ -54,7 +54,46 @@ public class ProductManager {
 		mySqlUtil.insertProduct(product);
 	}
 	
-    public Map<Integer, Product> getListProduct(HttpServletRequest req, String category) {
+	/*
+	 * Reflect update change to MySQL
+	 */
+	public void updateProduct(Product updatedProduct) {
+		// TODO Auto-generated method stub
+		int seqNo = mySqlUtil.selectProductSeqNo(updatedProduct.getCategory(), updatedProduct.getId().intValue());
+		Product dbProduct = mySqlUtil.selectProduct(seqNo);
+		
+		// copy data to updatedProduct
+		if(updatedProduct.getDiscount() == null) {
+			updatedProduct.setDiscount(dbProduct.getDiscount());
+		}
+		if(updatedProduct.getRebate() == null) {
+			updatedProduct.setRebate(dbProduct.getRebate());
+		}
+		if(updatedProduct.getName() == null) {
+			updatedProduct.setName(dbProduct.getName());
+		}
+		if(updatedProduct.getPrice() == null) {
+			updatedProduct.setPrice(dbProduct.getPrice());
+		}
+		if(updatedProduct.getImage() == null) {
+			updatedProduct.setImage(dbProduct.getImage());
+		}
+		if(updatedProduct.getAmount() == null) {
+			updatedProduct.setAmount(dbProduct.getAmount());
+		}
+		
+		mySqlUtil.updateProduct(seqNo, updatedProduct);
+	}
+
+	/**
+	 * Get list of product by <product ID, product> 
+	 */
+	public Map<Integer, Product> getListProduct(String category) {
+		Map<Integer, Product> listProduct = mySqlUtil.selectProduct(category);
+		return listProduct;
+	}
+	
+    public Map<Integer, Product> getListProductFromXml(HttpServletRequest req, String category) {
 
         List<Product> listAllProduct = getListProduct(req.getServletContext());
         Map<Integer, Product> productByCategory = getProductByCategory(listAllProduct, category);
@@ -62,7 +101,7 @@ public class ProductManager {
     }
 
     public Map<Integer, Product> getProductAccessories(HttpServletRequest req, Product product) {
-        ArrayList<Integer> listAccessoryId = product.getListAccessoryId();
+        List<Integer> listAccessoryId = product.getListAccessoryId();
         if(listAccessoryId == null) {
             return null;
         }
@@ -91,7 +130,7 @@ public class ProductManager {
         return buildListProduct(productCatalogFile);
     }
 
-    public void updateProduct(HttpServletRequest req, Product product) {
+    public void updateProductToXml(HttpServletRequest req, Product product) {
         String xmlFilePath = req.getServletContext().getRealPath("resources/data/ProductCatalog.xml");
         Document doc = xmlUtil.getXmlDocument(xmlFilePath);
         Element elementToBeUpdated = findProductElement(doc, product);

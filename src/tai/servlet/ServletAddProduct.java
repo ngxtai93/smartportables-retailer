@@ -57,7 +57,7 @@ public class ServletAddProduct extends HttpServlet {
 		try {
 		    List<FileItem> listItem = upload.parseRequest(req);
 		    Map<String, String> productParam = new HashMap<>();
-		    ArrayList<Integer> listAccessoryId = new ArrayList<>();
+		    List<Integer> listAccessoryId = new ArrayList<>();
 		    for(FileItem fi: listItem) {
 		        if(fi.isFormField()) {  // param from form input
 		            if(fi.getFieldName().equals("accessory-id")) {
@@ -105,7 +105,7 @@ public class ServletAddProduct extends HttpServlet {
         }
     }
 
-    private Product buildProductObject(Map<String, String> productParam, ArrayList<Integer> listAccessoryId) {
+    private Product buildProductObject(Map<String, String> productParam, List<Integer> listAccessoryId) {
         Product product = new Product();
         product.setCategory (productParam.get("category"));
         if(productParam.get("discount").equals("")) {

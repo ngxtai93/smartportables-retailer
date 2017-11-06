@@ -110,7 +110,7 @@ public class ServletManageAccount extends HttpServlet {
         String category = req.getParameter("category");
         if (category != null) {
             if (!category.equals("accessory")) {
-                Map<Integer, Product> mapAccessory = pm.getListProduct(req, "accessory");
+                Map<Integer, Product> mapAccessory = pm.getListProductFromXml(req, "accessory");
                 req.setAttribute("list-accessory", mapAccessory);
             }
         }
@@ -131,11 +131,11 @@ public class ServletManageAccount extends HttpServlet {
 
                 switch (name) {
                 case "category":
-                    Map<Integer, Product> mapProduct = pm.getListProduct(req, value);
+                    Map<Integer, Product> mapProduct = pm.getListProduct(value);
                     req.setAttribute("mapProduct", mapProduct);
 
                     if (!name.equals("accessory")) {
-                        Map<Integer, Product> mapAccessory = pm.getListProduct(req, "accessory");
+                        Map<Integer, Product> mapAccessory = pm.getListProduct("accessory");
                         req.setAttribute("list-accessory", mapAccessory);
                     }
                     break;
@@ -159,7 +159,7 @@ public class ServletManageAccount extends HttpServlet {
 
                 switch (name) {
                 case "category":
-                    Map<Integer, Product> mapProduct = pm.getListProduct(req, value);
+                    Map<Integer, Product> mapProduct = pm.getListProductFromXml(req, value);
                     req.setAttribute("mapProduct", mapProduct);
                     break;
                 }
