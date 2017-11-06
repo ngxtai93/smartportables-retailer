@@ -25,7 +25,7 @@
             if(loginFailed != null) {
                 if(loginFailed.equals("username") || loginFailed.equals("password")) {
         %>
-                    <p><span class="required">Username or password is not correct</span</p>
+                    <p><span class="required">Username or password is not correct</span></p>
         <%        }    
             }
         %>

@@ -25,7 +25,7 @@
                 </table>
                 <% String addFailed = (String)request.getAttribute("addFailed"); %>
                 <% if(addFailed != null && addFailed.equals("username")) { %>
-                        <p><span class="required">User ID not exists.</span</p>   
+                        <p><span class="required">User ID not exists.</span></p>   
                 <% } %>
             </div>
         </form>

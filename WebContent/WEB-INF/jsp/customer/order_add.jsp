@@ -25,7 +25,7 @@
                 </table>
                 <% String addFailed = (String)request.getAttribute("addFailed"); %>
                 <% if(addFailed != null && addFailed.equals("username")) { %>
-                        <p><span class="required">User ID not exists.</span</p>   
+                        <p><span class="required">User ID not exists.</span></p>   
                 <% } %>
             </div>
         </form>
@@ -59,9 +59,11 @@
                         </td>
                     </tr>
                     <% if(request.getAttribute("recently-added") != null) { %>
+                    <tr>
                         <td>
-                            <p><span class="required">Product added.</span</p>
+                            <p><span class="required">Product added.</span></p>
                         </td>
+                    </tr>
                     <% } %>
                 </table>    
             </form>
@@ -70,7 +72,7 @@
                 (Map<Integer, Product>) request.getAttribute("listProduct");%>
             <% if(listProduct != null) {
                 if(listProduct.size() == 0) { %>
-                    <p><span class="required">No product in this category.</span</p>   
+                    <p><span class="required">No product in this category.</span></p>   
                 <% }
                 else { %>
                     <form method="get">
