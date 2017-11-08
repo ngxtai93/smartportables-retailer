@@ -46,6 +46,14 @@
                     <li><a href="<%=rootPath%>/cart">Cart(<%=countItem%>)</a></li>
                     <li><a href="<%=rootPath%>/review">Review a Product</a></li>
             <%  } %>
+            <li>
+            	<div id="searchWrapper">
+            		<form class="search-form" role="search" style="margin-top:17px">
+            			<input type="search" aria-label="Search" size="30" style="height:30px">
+            			<input type="submit" value="Search">
+            		</form>
+            	</div>
+           	</li>
                             
             <%-- <li class="end"><a href="#">Contact</a></li> --%>
         </ul>
