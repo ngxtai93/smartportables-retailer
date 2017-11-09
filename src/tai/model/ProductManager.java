@@ -58,7 +58,6 @@ public class ProductManager {
 	 * Reflect update change to MySQL
 	 */
 	public void updateProduct(Product updatedProduct) {
-		// TODO Auto-generated method stub
 		int seqNo = mySqlUtil.selectProductSeqNo(updatedProduct.getCategory(), updatedProduct.getId().intValue());
 		Product dbProduct = mySqlUtil.selectProduct(seqNo);
 		

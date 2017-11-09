@@ -370,6 +370,37 @@ public enum MySQLDataStoreUtilities {
 	}
 
 	/**
+	 * Select product with given contains value and limit 
+	 */
+	public List<Product> selectProductContains(String value, int limit) {
+		String sql = "SELECT * from smart_portables.product"
+					+ " WHERE name LIKE ?"
+					+ " ORDER BY smart_portables.product.seq_no ASC"
+					+ " LIMIT ?";
+		List<Product> listProduct = null;
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, "%" + value + "%");
+			ps.setInt(2, limit);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.first()) {
+				listProduct = new ArrayList<>();
+				Product p = buildProductObject(rs);
+				listProduct.add(p);
+				while(rs.next()) {
+					p = buildProductObject(rs);
+					listProduct.add(p);
+				}
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return listProduct;
+	}
+
+	/**
 	 * Update product with new info, given seq_no
 	 */
 	public void updateProduct(int seqNo, Product updatedProduct) {

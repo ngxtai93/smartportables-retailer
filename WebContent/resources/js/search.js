@@ -1,7 +1,7 @@
-function init() {
-	var searchInput = document.querySelector("#searchInput");
-	searchInput.addEventListener("input", doAutoCompletion);
-}
+//function init() {
+//	var searchInput = document.querySelector("#searchInput");
+//	searchInput.addEventListener("input", doAutoCompletion);
+//}
 
 function getRequestObject() {
 	if(window.XMLHttpRequest) {
@@ -18,15 +18,22 @@ function getRequestObject() {
 function doAutoCompletion() {
 	var request = getRequestObject();
 	var searchInput = document.getElementById("searchInput").value;
+	var liveSearchObject = document.getElementById("live-search");
 	var url = "search?type=autocomplete&input=" + escape(searchInput);
 	
-	request.open("GET", url, true);
-	request.onreadystatechange = function() {
-		if(request.readyState == 4) {
-			var liveSearchObject = document.getElementsByClassName("live-search")[0];
-			liveSearchObject.innerHtml = request.responseText;
-		}
+	if((searchInput.length == 0)) {
+		liveSearchObject.innerHTML = "";
 	}
-	request.send();
+	else {
+		request.open("GET", url, true);
+		request.onreadystatechange = function() {
+			if(request.readyState == 4) {
+				liveSearchObject.innerHTML = "";
+				console.log(request.responseText);
+				liveSearchObject.innerHTML = request.responseText;
+			}
+		}
+		request.send();
+	}
 }
 

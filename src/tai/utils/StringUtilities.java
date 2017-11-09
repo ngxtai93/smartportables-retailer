@@ -1,5 +1,7 @@
 package tai.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -46,5 +48,9 @@ public enum StringUtilities {
 
     public String filter(String input) {
         return StringEscapeUtils.escapeHtml4(input);
-      }
+    }
+    
+    public String unfilter(String input) throws UnsupportedEncodingException {
+        return URLDecoder.decode(input, "UTF-8");
+    }
 }
