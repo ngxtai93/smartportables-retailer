@@ -1,6 +1,6 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.Map" %>
-<%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.entity.Product, tai.utils.StringUtilities" %>
 <div id="body">
     <section class="content">
         <br>
@@ -37,7 +37,10 @@
             }
         %>
 
-        <% Map<Integer, Product> mapProductByCategory = (Map<Integer, Product>) request.getAttribute("mapProduct"); %>
+        <%
+        	Map<Integer, Product> mapProductByCategory = (Map<Integer, Product>) request.getAttribute("mapProduct");
+        	StringUtilities stringUtil = StringUtilities.INSTANCE;
+        %>
         <% if(category != null) { 
                 if(mapProductByCategory.size() > 0) { %>
                     <form method="post" action="<%=rootPath%>/updateProduct" enctype="multipart/form-data">
@@ -45,7 +48,7 @@
                     <div class="container">
                         <% for(Map.Entry<Integer, Product> entry: mapProductByCategory.entrySet()) { %>
                             <input required type="radio" name="product-id" value="<%=entry.getKey()%>">
-                            <%=entry.getValue().getName()%><br>
+                            <%=stringUtil.filter(entry.getValue().getName())%><br>
                         <% } %>
                     </div>
                     <div class="container">

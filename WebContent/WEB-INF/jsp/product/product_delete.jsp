@@ -1,6 +1,6 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.Map" %>
-<%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.entity.Product, tai.utils.StringUtilities" %>
 <div id="body">
     <section class="content">
         <br>
@@ -45,7 +45,7 @@
                     <div class="container">
                         <% for(Map.Entry<Integer, Product> entry: mapProductByCategory.entrySet()) { %>
                             <input type="checkbox" name="product-id" value="<%=entry.getKey()%>">
-                            <%=entry.getValue().getName()%><br>
+                            <%=StringUtilities.INSTANCE.filter(entry.getValue().getName())%><br>
                         <% } %>
                         <button id="login-button" type="submit">Submit</button>
                     </div>

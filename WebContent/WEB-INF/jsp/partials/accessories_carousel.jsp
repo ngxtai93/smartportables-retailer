@@ -1,4 +1,4 @@
-<%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.entity.Product, tai.utils.StringUtilities" %>
 <%@ page import = "java.text.NumberFormat, java.util.*" %>
 
 <%
@@ -7,6 +7,7 @@
     Product product = (Product) request.getAttribute("current-product");
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
     Map<Integer, Product> mapProductAccessories = (Map<Integer, Product>) request.getAttribute("product-accessory");
+    StringUtilities stringUtil = StringUtilities.INSTANCE;
 %>
 
 <!-- Latest compiled and minified CSS -->
@@ -34,7 +35,7 @@
                      src="<%=rootPath%>/resources/images/product/accessory/<%=accessory.getImage()%>">
                     <div class="container">
                         <div class="carousel-caption">
-                            <span class="accessory-caption"><%=accessory.getName()%></span>
+                            <span class="accessory-caption"><%=stringUtil.filter(accessory.getName())%></span>
                             <br>
                             <span class="price"><%=currencyFormatter.format(accessory.getPrice() - accessory.getDiscount())%></span>
                             <br>

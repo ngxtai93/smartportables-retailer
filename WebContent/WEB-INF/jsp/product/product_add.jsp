@@ -1,6 +1,6 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.Map" %>
-<%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.entity.Product, tai.utils.StringUtilities" %>
 
 <% Map<Integer, Product> mapAccessory = (Map<Integer, Product>) request.getAttribute("list-accessory"); %>
 <div id="body">
@@ -61,12 +61,13 @@
                     </table>
                     
                     <div class="container">
+                    	<% StringUtilities stringUtil = StringUtilities.INSTANCE; %>
                         <% if(mapAccessory != null && mapAccessory.size() != 0) { %>
                             <b>Include accessories: </b>
                             <br>
                             <% for(Map.Entry<Integer, Product> entry: mapAccessory.entrySet()) { %>
                                 <input type="checkbox" name="accessory-id" value="<%=entry.getKey()%>">
-                                <%=entry.getValue().getName()%><br>
+                                <%=stringUtil.filter(entry.getValue().getName())%><br>
                             <% }
                         } %>
                     </div>

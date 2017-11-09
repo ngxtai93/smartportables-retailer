@@ -6,14 +6,12 @@ import org.xml.sax.helpers.*;
 import java.util.ArrayList;
 
 import tai.entity.Product;
-import tai.utils.StringUtilities;
 
 public class SaxProductHandler extends DefaultHandler {
     public ArrayList<Product> listProduct;
     private Product product;
     private String elementValueRead;
     private String category;
-    private StringUtilities stringUtil = StringUtilities.INSTANCE;
 
     public SaxProductHandler() {
         listProduct = new ArrayList<>();
@@ -47,27 +45,27 @@ public class SaxProductHandler extends DefaultHandler {
             return;
         }
         if (element.equalsIgnoreCase("image")) {
-            product.setImage(stringUtil.filter(elementValueRead));
+            product.setImage(elementValueRead);
             return;
         }
         if (element.equalsIgnoreCase("name")) {
-            product.setName(stringUtil.filter(elementValueRead));
+            product.setName(elementValueRead);
             return;
         }
         if (element.equalsIgnoreCase("price")) {
-            product.setPrice(Double.valueOf(stringUtil.filter(elementValueRead)));
+            product.setPrice(Double.valueOf(elementValueRead));
             return;
         }
         if (element.equalsIgnoreCase("discount")) {
-            product.setDiscount(Double.valueOf(stringUtil.filter(elementValueRead)));
+            product.setDiscount(Double.valueOf(elementValueRead));
             return;
         }
         if (element.equalsIgnoreCase("rebate")) {
-            product.setRebate(Double.valueOf(stringUtil.filter(elementValueRead)));
+            product.setRebate(Double.valueOf(elementValueRead));
             return;
         }
         if (element.equalsIgnoreCase("amount")) {
-            product.setAmount(Integer.valueOf(stringUtil.filter(elementValueRead)));
+            product.setAmount(Integer.valueOf(elementValueRead));
             return;
         }
         if(element.equalsIgnoreCase("category")) {

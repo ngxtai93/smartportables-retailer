@@ -1,11 +1,13 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.*, java.text.NumberFormat" %>
 <%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.utils.StringUtilities" %>
 
 <%
     List<Product> listAllProduct = (List<Product>) request.getAttribute("listAllProduct");
     int productCount = 1;
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+    StringUtilities stringUtil = StringUtilities.INSTANCE;
 %>
 
 <div id="body">
@@ -22,7 +24,7 @@
             <% for(Product p: listAllProduct) { %>
                 <tr>
                     <th><%=productCount%></th>
-                    <th><%=p.getName()%></th>
+                    <th><%=stringUtil.filter(p.getName())%></th>
                     <th><%=currencyFormatter.format(p.getPrice())%></th>
                     <th><%=p.getAmount()%></th>
                 </tr>

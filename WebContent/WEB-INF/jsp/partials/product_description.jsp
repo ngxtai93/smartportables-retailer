@@ -1,6 +1,6 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.text.NumberFormat" %>
-<%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.entity.Product, tai.utils.StringUtilities" %>
 
 <% 
     String rootPath = request.getContextPath();
@@ -11,6 +11,7 @@
     );
     // format
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+    StringUtilities stringUtil = StringUtilities.INSTANCE;
 
 %>
 
@@ -19,7 +20,7 @@
     <img class="product-image" src="<%=request.getContextPath()%>/resources/images/product/<%=currentCategory%>/<%=product.getImage()%>">
   </div>
   <div class="col-2">
-    <span><a href="<%=rootPath%>/product/<%=currentCategory%>/<%=product.getId()%>"><%=product.getName()%></a></span>
+    <span><a href="<%=rootPath%>/product/<%=currentCategory%>/<%=product.getId()%>"><%=stringUtil.filter(product.getName())%></a></span>
   </div>
   <div class="col-3">
     <span class="price"><%=currencyFormatter.format(product.getPrice() - product.getDiscount())%></span>

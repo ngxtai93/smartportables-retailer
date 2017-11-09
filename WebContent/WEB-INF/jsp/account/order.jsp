@@ -1,5 +1,5 @@
 <%@include file = "../partials/header.jsp" %>
-<%@ page import = "tai.entity.Order, tai.entity.Product" %>
+<%@ page import = "tai.entity.Order, tai.entity.Product, tai.utils.StringUtilities" %>
 <%@ page import = "java.util.*, java.time.format.DateTimeFormatter, java.time.LocalDate, java.text.NumberFormat" %>
 <%
     List<Order> listOrder = (List<Order>) request.getAttribute("list-order");
@@ -9,6 +9,7 @@
     }
     DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("MMMM dd, uuuu");
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+    StringUtilities stringUtil = StringUtilities.INSTANCE;
  %>
 
 <div id="body">
@@ -65,7 +66,7 @@
                             <div class="col-2">
                                 <%=amount > 1 ? amount + "x " : ""%>
                                 <a href="<%=rootPath%>/product/<%=product.getCategory()%>/<%=product.getId()%>">
-                                    <%=product.getName()%>
+                                    <%=stringUtil.filter(product.getName())%>
                                 </a>
                                 <br>
                                 <p><%=currencyFormatter.format((product.getPrice() - product.getDiscount()) * amount)%></p>

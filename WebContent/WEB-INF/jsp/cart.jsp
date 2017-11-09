@@ -1,6 +1,7 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "java.text.NumberFormat" %>
 <%@ page import = "tai.model.ProductManager, tai.entity.ShoppingCart, tai.entity.User, tai.entity.Product" %>
+<%@ page import = "tai.utils.StringUtilities" %>
 
 <%@include file = "./partials/header.jsp" %>
 <%
@@ -13,6 +14,7 @@
     ProductManager pm = new ProductManager();
     Double totalSaving = Double.valueOf(0);
     Double totalPrice = Double.valueOf(0);
+    StringUtilities stringUtil = StringUtilities.INSTANCE;
 
 %>
 <div id="body">
@@ -45,7 +47,11 @@
                      height="100" width="100">
                 </div>
                 <div class="col-2">
-                    <span><a href="<%=rootPath%>/product/<%=product.getCategory()%>/<%=product.getId()%>"><%=product.getName()%></a></span>
+                    <span>
+                    	<a href="<%=rootPath%>/product/<%=product.getCategory()%>/<%=product.getId()%>">
+                    		<%=stringUtil.filter(product.getName())%>
+                   		</a>
+                	</span>
                 </div>
                 <div class="col-3">
                     <form method="post" action="<%=rootPath%>/cart/update" id="update">

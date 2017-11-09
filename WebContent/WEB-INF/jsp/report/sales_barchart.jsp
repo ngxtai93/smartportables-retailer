@@ -1,10 +1,12 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.*, java.text.NumberFormat" %>
 <%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.utils.StringUtilities" %>
 
 <%
     Map<Product, Integer> mapProductAmount = (Map<Product, Integer>) request.getAttribute("mapProductAmount");
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+    StringUtilities stringUtil = StringUtilities.INSTANCE;
 %>
 
 <script type="text/javascript">
@@ -21,7 +23,7 @@
             <%  for(Map.Entry<Product, Integer> entry: mapProductAmount.entrySet()) {
                 Product p = entry.getKey();
                 Integer amount = entry.getValue(); %>
-                ['<%=p.getName()%>', <%=(p.getPrice() * amount)%>],
+                ['<%=stringUtil.filter(p.getName())%>', <%=(p.getPrice() * amount)%>],
             <% } %>
         ]);
         

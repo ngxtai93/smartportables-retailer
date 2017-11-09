@@ -1,8 +1,12 @@
 <%@include file = "../partials/header.jsp" %>
 <%@ page import = "java.util.*" %>
 <%@ page import = "tai.entity.Product" %>
+<%@ page import = "tai.utils.StringUtilities" %>
 
-<% List<Product> listAllProduct = (List<Product>) request.getAttribute("listAllProduct"); %>
+<%
+	List<Product> listAllProduct = (List<Product>) request.getAttribute("listAllProduct");
+	StringUtilities stringUtil = StringUtilities.INSTANCE;
+%>
 
 <script type="text/javascript">
     // Load the Visualization API and the corechart package.
@@ -16,7 +20,7 @@
         var data = google.visualization.arrayToDataTable([
             ['Product', 'Amount',],
             <% for(Product p: listAllProduct) { %>
-                ['<%=p.getName()%>', <%=p.getAmount()%>],
+                ['<%=stringUtil.filter(p.getName())%>', <%=p.getAmount()%>],
             <% } %>
         ]);
         
