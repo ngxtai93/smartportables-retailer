@@ -50,9 +50,8 @@
             	<script src="<%=rootPath%>/resources/js/search.js" type="text/javascript"></script>
             	<div id="searchWrapper">
             		<form class="search-form" role="search" style="margin-top:17px">
-            			<input 	id="searchInput" type="search" aria-label="Search" size="30" style="height:30px"
+            			<input 	name="value" id="searchInput" type="search" aria-label="Search" size="30" style="height:30px"
             					autocomplete="off" onkeyup="doAutoCompletion()">
-            			<input type="submit" value="Search">
             		</form>
            			<div id="live-search" style="margin-top: 23px;"></div>
             	</div>

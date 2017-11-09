@@ -1,7 +1,3 @@
-//function init() {
-//	var searchInput = document.querySelector("#searchInput");
-//	searchInput.addEventListener("input", doAutoCompletion);
-//}
 
 function getRequestObject() {
 	if(window.XMLHttpRequest) {
@@ -19,7 +15,12 @@ function doAutoCompletion() {
 	var request = getRequestObject();
 	var searchInput = document.getElementById("searchInput").value;
 	var liveSearchObject = document.getElementById("live-search");
-	var url = "search?type=autocomplete&input=" + escape(searchInput);
+	var currentHost = window.location.host;
+	if(currentHost == "localhost") {
+		currentHost = currentHost + "/csp";
+		
+	}
+	var url = "http://" + currentHost + "/search?type=autocomplete&input=" + escape(searchInput);
 	
 	if((searchInput.length == 0)) {
 		liveSearchObject.innerHTML = "";
