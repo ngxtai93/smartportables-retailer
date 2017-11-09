@@ -136,6 +136,16 @@
         <servlet-name>ServletTrending</servlet-name>
         <url-pattern>/trending</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletSearch</servlet-name>
+        <servlet-class>tai.servlet.ServletSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSearch</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>PageError</servlet-name>
         <jsp-file>/WEB-INF/jsp/error.jsp</jsp-file>
