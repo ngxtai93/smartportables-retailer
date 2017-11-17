@@ -1,8 +1,48 @@
+<%@ page import = "tai.entity.Deal, tai.entity.Product" %>
+<%@ page import = "java.util.List, java.util.Map" %>
 <%@include file = "./partials/header.jsp" %>
+
+<%
+	Map<Deal, Product> mapDealProduct = (Map<Deal, Product>) application.getAttribute("map-deal");
+	Boolean isFormatted = (Boolean) application.getAttribute("is-formatted");
+	if(mapDealProduct != null && mapDealProduct.size() > 0 && isFormatted == null) {
+		for(Map.Entry<Deal, Product> entry: mapDealProduct.entrySet()) {
+			Deal d = entry.getKey();
+			String formattedHtml = "<a href=\"" + d.getLink() + "\">" + d.getLink() + "</a>";
+			d.setTweet(d.getTweet().replaceAll(d.getLink(), formattedHtml));
+		}
+		application.setAttribute("is-formatted", Boolean.TRUE);
+	}
+%>
 <div id="body">
     <section class="content">
 
     <article>
+    	<h2>Best Buy Deals of the Day</h2>
+    	<% if(mapDealProduct == null || mapDealProduct.size() == 0) { %>
+    		<span>No offer found.</span>
+    	<% }
+    	else {
+    		for(Map.Entry<Deal, Product> entry: mapDealProduct.entrySet()) { %>
+    			<span><%=entry.getKey().getTweet()%></span>
+    			<br>
+    		<% }
+    	} %>
+    	<br>
+    	<h2>Deal Match</h2>
+    	<% if(mapDealProduct == null || mapDealProduct.size() == 0) { %>
+    		<span>No offer found.</span>
+    	<% }
+    	else { 
+    		for(Map.Entry<Deal, Product> entry: mapDealProduct.entrySet()) { %>
+    			<span>
+    				<a href="<%=rootPath%>/product/<%=entry.getValue().getCategory()%>/<%=entry.getValue().getId()%>"><%=entry.getValue().getName() %>
+    				</a>
+   				</span>
+   			<% }
+   		} %>
+    			
+    	<br>
         <h2>Available Products</h2>
         <hr>
         

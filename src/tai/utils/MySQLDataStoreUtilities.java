@@ -325,6 +325,26 @@ public enum MySQLDataStoreUtilities {
 	}
 
 	/**
+	 * Select all product with given product name 
+	 */
+	public Product selectProductByName(String productName) {
+		String sql = "SELECT * from smart_portables.product WHERE name = ?";
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, productName);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Product p = buildProductObject(rs);
+				return p;
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	/**
 	 * Select all product with given category.
 	 * Return a map of <product ID, product>
 	 */
@@ -398,6 +418,57 @@ public enum MySQLDataStoreUtilities {
 			e.printStackTrace();
 		}
 		return listProduct;
+	}
+
+	public void updateProduct(Product updatedProduct) {
+		String sql = "SELECT seq_no from smart_portables.product WHERE category = ? AND product_id = ?";
+		int seq_no = -1;
+		
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, updatedProduct.getCategory());
+			ps.setInt(2, updatedProduct.getId().intValue());
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			seq_no = rs.getInt(1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		sql	= "UPDATE `smart_portables`.`product` SET"
+				+ " `discount`= ?, "
+				+ " `rebate`= ?, "
+				+ " `name`= ?, "
+				+ " `price`= ?, "
+				+ " `image`= ?, "
+				+ " `amount`= ?"
+				+ " WHERE `seq_no`= ?"
+		;
+		try(PreparedStatement ps = conn.prepareStatement(sql)) {
+			Double discount = updatedProduct.getDiscount();
+			Double rebate = updatedProduct.getRebate();
+			if(discount == null) {
+				ps.setNull(1, Types.DECIMAL);
+			}
+			else {
+				ps.setDouble(1, discount);
+			}
+			if(rebate == null) {
+				ps.setNull(2, Types.DECIMAL);
+			}
+			else {
+				ps.setDouble(2, rebate);
+			}			
+			ps.setString(3, updatedProduct.getName());
+			ps.setDouble(4, updatedProduct.getPrice());
+			ps.setString(5, updatedProduct.getImage());
+			ps.setInt(6, updatedProduct.getAmount());
+			ps.setInt(7, seq_no);
+			ps.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

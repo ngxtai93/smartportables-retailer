@@ -89,6 +89,13 @@
             <discount>0.0</discount>
             <amount>5</amount>
         </product>
+    <product id="11">
+            <image>APIN28LK5BXB6RKS01.jpg</image>
+            <name><![CDATA[Apple - MacBook® Pro - 15.4" Display - Intel Core i7 - 16GB Memory - 256GB Flash Storage - Silver]]></name>
+            <price>1999.99</price>
+            <discount>100.00</discount>
+            <amount>5</amount>
+        </product>
     </category>
     <category id="phone" image-overview="overview.jpg" name="Cellphones">
     <product id="1">
@@ -463,6 +470,13 @@
             <price>79.99</price>
             <discount>20.0</discount>
             <amount>5</amount>
+        </product>
+    <product id="12">
+            <image>KS5WEWO8OCA9GSSHBC.jpg</image>
+            <name><![CDATA[SanDisk Ultra Fit 128GB USB 3.0 Type A Flash Drive - Black/Silver]]></name>
+            <price>119.99</price>
+            <discount>87.00</discount>
+            <amount>3</amount>
         </product>
     </category>
     <category id="accessory" name="Accessories">

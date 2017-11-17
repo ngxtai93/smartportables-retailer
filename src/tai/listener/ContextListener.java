@@ -3,6 +3,7 @@ package tai.listener;
 import javax.servlet.*;
 
 import tai.model.CategoryManager;
+import tai.model.DealMacthes;
 import tai.model.ProductManager;
 import tai.utils.MongoDBDataStoreUtilities;
 import tai.utils.MySQLDataStoreUtilities;
@@ -31,5 +32,8 @@ public class ContextListener implements ServletContextListener {
 
         cm.processLoadToMySQL(sc);
         pm.processLoadToMySQL(sc);
+        
+        DealMacthes dm = new DealMacthes();
+        dm.processDealMatch(sc);
     }
 }
